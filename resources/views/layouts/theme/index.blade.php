@@ -138,7 +138,6 @@ License: You must have a valid license purchased only from themeforest(the above
 		<script src="assets/plugins/global/plugins.bundle.js"></script>
 		<script src="assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
 		<script src="assets/js/scripts.bundle.js"></script>
-		<script src="https://keenthemes.com/metronic/assets/js/engage_code.js"></script>
 
 		<!--end::Global Theme Bundle-->
 
