@@ -1,4 +1,12 @@
 <x-guest-layout>
+
+    <x-slot name="type">
+        <div class="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10">
+            <span class="font-weight-bold text-dark-50">Sudah punya akun?</span>
+            <a href="{{ route('login') }}" class="font-weight-bold ml-2">Login</a>
+        </div>
+    </x-slot>
+    
     <!--begin::Signup-->
     <div class="login-form">
         <div class="text-center mb-10">

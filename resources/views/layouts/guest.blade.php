@@ -74,10 +74,7 @@
 				<!--begin::Content-->
 				<div class="d-flex flex-column flex-row-fluid position-relative p-7 overflow-hidden">
 					<!--begin::Content header-->
-					<div class="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10">
-						<span class="font-weight-bold text-dark-50">Belum punya akun?</span>
-						<a href="{{ route('register') }}" class="font-weight-bold ml-2" id="kt_login_signup">Daftar</a>
-					</div>
+					{{ $type }}
 					<!--end::Content header-->
 					<!--begin::Content body-->
 					<div class="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
