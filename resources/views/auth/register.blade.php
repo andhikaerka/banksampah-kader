@@ -3,6 +3,7 @@
     <div class="login-form">
         <div class="text-center mb-10">
             <h3 class="font-size-h1">Daftar</h3>
+            <p class="text-muted font-weight-bold">Masukkan data diri anda</p>
         </div>
         <!--begin::Form-->
         <form class="form" action="{{ route('register') }}" method="POST" id="register">
@@ -21,8 +22,9 @@
             <div class="form-group">
                 <label class="checkbox mb-0">
                 <input type="checkbox" name="agree" />
-                <span></span> Saya setuju dengan
-                <a href="#"> syarat dan ketentuan yang berlaku</a></label>
+                <span></span>&nbsp; Saya setuju dengan
+                <a href="#">&nbsp; syarat dan ketentuan yang berlaku.</a>
+                </label>
             </div>
             <div class="form-group d-flex flex-wrap flex-center">
                 <a href="{{ route('login') }}" class="btn btn-light-primary font-weight-bold px-9 py-4 my-3 mx-4">Batal</a>
