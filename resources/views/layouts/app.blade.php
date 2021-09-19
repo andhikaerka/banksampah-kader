@@ -1,36 +1,91 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="en">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+	<!--begin::Head-->
+	<head>
+		<meta charset="utf-8" />
+		
+		<title>
+			{{ config('app.name', 'Kader Bank Sampah Online') }} 
+            | 
+			{{ ucwords(Request::segment(1)) }}
+		</title>
+		
+		<meta name="description" content="KADER BANK SAMPAH ONLINE" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<link rel="canonical" href="{{ config('app.url', url()) }}" />
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+		<!-- CSRF Token -->
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+		@include('layouts.styles')
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+		<!--end::Layout Themes-->
+		<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.png') }}" />
+	</head>
 
-            <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
+	<!--end::Head-->
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-    </body>
+	<!--begin::Body-->
+	<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed page-loading">
+
+		<!--[html-partial:include:{"file":"layout.html"}]/-->
+        
+    <!--begin::Main-->
+
+		<!--[html-partial:include:{"file":"partials/_header-mobile.html"}]/-->
+		@include('layouts.partials._header-mobile')
+		<div class="d-flex flex-column flex-root">
+
+			<!--begin::Page-->
+			<div class="d-flex flex-row flex-column-fluid page">
+
+				<!--[html-partial:include:{"file":"partials/_aside.html"}]/-->
+				@include('layouts.partials._aside')
+				<!--begin::Wrapper-->
+				<div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
+
+					<!--[html-partial:include:{"file":"partials/_header.html"}]/-->
+					@include('layouts.partials._header')
+					<!--begin::Content-->
+					<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
+						<!--[html-partial:include:{"file":"partials/_subheader/subheader-v1.html"}]/-->
+						@include('layouts.partials._subheader.subheader-v1')
+						<!--Content area here-->
+
+                        @include('layouts.partials._content')
+					</div>
+
+					<!--end::Content-->
+
+					<!--[html-partial:include:{"file":"partials/_footer.html"}]/-->
+					@include('layouts.partials._footer')
+				</div>
+
+				<!--end::Wrapper-->
+			</div>
+
+			<!--end::Page-->
+		</div>
+
+		<!--end::Main-->
+		<!--[html-partial:include:{"file":"partials/_extras/offcanvas/quick-user.html"}]/-->
+        @include('layouts.partials._extras.offcanvas.quick-user')
+		<!--[html-partial:include:{"file":"partials/_extras/offcanvas/quick-panel.html"}]/-->
+        @include('layouts.partials._extras.offcanvas.quick-panel')
+		<!--[html-partial:include:{"file":"partials/_extras/scrolltop.html"}]/-->
+        @include('layouts.partials._extras.scrolltop')
+		<!--[html-partial:include:{"file":"partials/_extras/toolbar.html"}]/-->
+        {{-- @include('layouts.partials._extras.toolbar') --}}
+		<!--[html-partial:include:{"file":"partials/_extras/offcanvas/demo-panel.html"}]/-->
+        {{-- @include('layouts.partials._extras.offcanvas.demo-panel') --}}
+
+		<!--begin::Global Config(global config for global JS scripts)-->
+		@include('layouts.scripts')
+
+        {{-- @include('sweetalert::alert') --}}
+	</body>
+
+	<!--end::Body-->
 </html>
