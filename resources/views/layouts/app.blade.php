@@ -54,6 +54,7 @@
 						@include('layouts.partials._subheader.subheader-v1')
 						<!--Content area here-->
 
+						{{-- {{ $slot }} --}}
                         @include('layouts.partials._content')
 					</div>
 
