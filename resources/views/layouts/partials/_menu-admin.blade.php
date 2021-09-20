@@ -3,7 +3,7 @@
     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
 </li>
 
-<li class="menu-item menu-item-active" aria-haspopup="true">
+<li class="menu-item {{ Route::is('admin.dashboard.*') ? 'menu-item-active' : '' }}" aria-haspopup="true">
     <a href="{{ route('admin.dashboard') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 
@@ -22,7 +22,7 @@
     </a>
 </li>
 
-<li class="menu-item" aria-haspopup="true">
+<li class="menu-item {{ Route::is('admin.bank-sampah.*') ? 'menu-item-active' : '' }}" aria-haspopup="true">
     <a href="{{ route('admin.bank-sampah.index') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 
@@ -41,7 +41,7 @@
     </a>
 </li>
 
-<li class="menu-item" aria-haspopup="true">
+<li class="menu-item {{ Route::is('admin.barang.*') ? 'menu-item-active' : '' }}" aria-haspopup="true">
     <a href="{{ route('admin.barang.index') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 
@@ -60,7 +60,7 @@
     </a>
 </li>
 
-<li class="menu-item" aria-haspopup="true">
+<li class="menu-item {{ Route::is('admin.barang-kategori.*') ? 'menu-item-active' : '' }}" aria-haspopup="true">
     <a href="{{ route('admin.barang-kategori.index') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 
@@ -79,7 +79,7 @@
     </a>
 </li>
 
-<li class="menu-item" aria-haspopup="true">
+<li class="menu-item {{ Route::is('admin.barang-berat.*') ? 'menu-item-active' : '' }}" aria-haspopup="true">
     <a href="{{ route('admin.barang-berat.index') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 
