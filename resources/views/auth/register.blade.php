@@ -32,7 +32,7 @@
                 <input class="form-control form-control-solid h-auto py-5 px-6" type="password" placeholder="Password" name="password" autocomplete="off" />
             </div>
             <div class="form-group">
-                <input class="form-control form-control-solid h-auto py-5 px-6" type="password" placeholder="Confirm password" name="cpassword" autocomplete="off" />
+                <input class="form-control form-control-solid h-auto py-5 px-6" type="password" placeholder="Password Confirmation" name="password_confirmation" autocomplete="off" />
             </div>
             <div class="form-group">
                 <label class="checkbox mb-0">
