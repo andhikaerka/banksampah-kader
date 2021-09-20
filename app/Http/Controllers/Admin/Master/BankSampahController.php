@@ -14,7 +14,7 @@ class BankSampahController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.master-bank-sampah.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class BankSampahController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.master-bank-sampah.create');
     }
 
     /**
@@ -57,7 +57,7 @@ class BankSampahController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.master-bank-sampah.edit');
     }
 
     /**
