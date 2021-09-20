@@ -31,50 +31,60 @@
 
 		<!--[html-partial:include:{"file":"layout.html"}]/-->
         
-    <!--begin::Main-->
+    	<!--begin::Main-->
 
-		<!--[html-partial:include:{"file":"partials/_header-mobile.html"}]/-->
-		@include('layouts.partials._header-mobile')
-		<div class="d-flex flex-column flex-root">
+			<!--[html-partial:include:{"file":"partials/_header-mobile.html"}]/-->
+			@include('layouts.partials._header-mobile')
+			<div class="d-flex flex-column flex-root">
 
-			<!--begin::Page-->
-			<div class="d-flex flex-row flex-column-fluid page">
+				<!--begin::Page-->
+				<div class="d-flex flex-row flex-column-fluid page">
 
-				<!--[html-partial:include:{"file":"partials/_aside.html"}]/-->
-				@include('layouts.partials._aside')
-				<!--begin::Wrapper-->
-				<div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
+					<!--[html-partial:include:{"file":"partials/_aside.html"}]/-->
+					@include('layouts.partials._aside')
+					<!--begin::Wrapper-->
+					<div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
 
-					<!--[html-partial:include:{"file":"partials/_header.html"}]/-->
-					@include('layouts.partials._header')
-					<!--begin::Content-->
-					<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+						<!--[html-partial:include:{"file":"partials/_header.html"}]/-->
+						@include('layouts.partials._header')
+						<!--begin::Content-->
+						<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
-						<!--[html-partial:include:{"file":"partials/_subheader/subheader-v1.html"}]/-->
-						@include('layouts.partials._subheader.subheader-v1')
-						<!--Content area here-->
+							<!--[html-partial:include:{"file":"partials/_subheader/subheader-v1.html"}]/-->
+							@include('layouts.partials._subheader.subheader-v1')
+							<!--Content area here-->
 
-						{{-- {{ $slot }} --}}
-                        @include('layouts.partials._content')
+							<!--begin::Entry-->
+							<div class="d-flex flex-column-fluid">
+
+								<!--begin::Container-->
+								<div class="container">
+									{{ $slot }}
+								</div>
+
+								<!--end::Container-->
+							</div>
+
+							<!--end::Entry-->
+						</div>
+
+						<!--end::Content-->
+
+						<!--[html-partial:include:{"file":"partials/_footer.html"}]/-->
+						@include('layouts.partials._footer')
 					</div>
 
-					<!--end::Content-->
-
-					<!--[html-partial:include:{"file":"partials/_footer.html"}]/-->
-					@include('layouts.partials._footer')
+					<!--end::Wrapper-->
 				</div>
 
-				<!--end::Wrapper-->
+				<!--end::Page-->
 			</div>
-
-			<!--end::Page-->
-		</div>
 
 		<!--end::Main-->
 		<!--[html-partial:include:{"file":"partials/_extras/offcanvas/quick-user.html"}]/-->
         @include('layouts.partials._extras.offcanvas.quick-user')
 		<!--[html-partial:include:{"file":"partials/_extras/offcanvas/quick-panel.html"}]/-->
-        @include('layouts.partials._extras.offcanvas.quick-panel')
+        {{-- @include('layouts.partials._extras.offcanvas.quick-panel') --}}
 		<!--[html-partial:include:{"file":"partials/_extras/scrolltop.html"}]/-->
         @include('layouts.partials._extras.scrolltop')
 		<!--[html-partial:include:{"file":"partials/_extras/toolbar.html"}]/-->

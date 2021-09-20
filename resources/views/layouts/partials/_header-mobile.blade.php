@@ -4,7 +4,9 @@
 
 			<!--begin::Logo-->
 			<a href="index.html">
-				<img alt="Logo" src="assets/media/logos/logo-light.png" />
+				<h1 class="text-white">
+					BSOT
+				</h1>
 			</a>
 
 			<!--end::Logo-->
@@ -20,9 +22,9 @@
 				<!--end::Aside Mobile Toggle-->
 
 				<!--begin::Header Menu Mobile Toggle-->
-				<button class="btn p-0 burger-icon ml-4" id="kt_header_mobile_toggle">
+				{{-- <button class="btn p-0 burger-icon ml-4" id="kt_header_mobile_toggle">
 					<span></span>
-				</button>
+				</button> --}}
 
 				<!--end::Header Menu Mobile Toggle-->
 
