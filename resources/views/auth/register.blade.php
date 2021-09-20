@@ -1,5 +1,4 @@
 <x-guest-layout>
-
     <x-slot name="type">
         <div class="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10">
             <span class="font-weight-bold text-dark-50">Sudah punya akun?</span>
@@ -13,8 +12,16 @@
             <h3 class="font-size-h1">Daftar</h3>
             <p class="text-muted font-weight-bold">Masukkan data diri anda</p>
         </div>
+
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
+
+        <!-- Validation Errors -->
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        
         <!--begin::Form-->
         <form class="form" action="{{ route('register') }}" method="POST" id="register">
+            @csrf
             <div class="form-group">
                 <input class="form-control form-control-solid h-auto py-5 px-6" type="text" placeholder="Nama lengkap" name="name" autocomplete="off" />
             </div>
@@ -42,4 +49,9 @@
         <!--end::Form-->
     </div>
     <!--end::Signup-->
+
+    @push('page-scripts')
+        {!! JsValidator::formRequest('App\Http\Requests\GuestRegisterStore',  '#register') !!}
+    @endpush
 </x-guest-layout>
+

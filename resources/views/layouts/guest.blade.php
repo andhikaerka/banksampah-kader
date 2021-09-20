@@ -31,6 +31,12 @@
 		<link href="{{ asset('assets/css/themes/layout/aside/dark.css') }}" rel="stylesheet" type="text/css" />
 		<!--end::Layout Themes-->
 		<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.png') }}" />
+
+		<style>
+			.error-help-block {
+				color: crimson;
+			}
+		</style>
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -109,6 +115,10 @@
 		<!--end::Global Theme Bundle-->
 		<!--begin::Page Scripts(used by this page)-->
 		<!--end::Page Scripts-->
+		<!-- Laravel Javascript Validation -->
+		<script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+		<!--end::Page Vendors -->
+		@stack('page-scripts')
 	</body>
 	<!--end::Body-->
 </html>

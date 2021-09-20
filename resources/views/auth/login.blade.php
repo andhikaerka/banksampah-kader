@@ -33,4 +33,8 @@
         <!--end::Form-->
     </div>
     <!--end::Signin-->
+
+    @push('page-scripts')
+        {!! JsValidator::formRequest('App\Http\Requests\GuestLoginStore',  '#login') !!}
+    @endpush
 </x-guest-layout>
