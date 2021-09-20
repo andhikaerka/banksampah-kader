@@ -74,7 +74,9 @@
 				<!--begin::Content-->
 				<div class="d-flex flex-column flex-row-fluid position-relative p-7 overflow-hidden">
 					<!--begin::Content header-->
-					{{ $type }}
+					@if(isset($type))
+						{{ $type }}
+					@endif
 					<!--end::Content header-->
 					<!--begin::Content body-->
 					<div class="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">

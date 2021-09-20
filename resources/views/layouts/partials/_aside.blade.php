@@ -16,7 +16,7 @@
 						<!--end::Logo-->
 
 						<!--begin::Toggle-->
-						<button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle">
+						{{-- <button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle">
 							<span class="svg-icon svg-icon svg-icon-xl">
 
 								<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-left.svg-->
@@ -30,7 +30,7 @@
 
 								<!--end::Svg Icon-->
 							</span>
-						</button>
+						</button> --}}
 
 						<!--end::Toolbar-->
 					</div>

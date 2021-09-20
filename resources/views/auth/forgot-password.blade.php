@@ -1,36 +1,33 @@
 <x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+    <x-slot name="type">
+        <div class="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10">
+            <span class="font-weight-bold text-dark-50">Belum punya akun?</span>
+            <a href="{{ route('register') }}" class="font-weight-bold ml-2">Daftar</a>
         </div>
+    </x-slot>
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
-
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('password.email') }}">
+    <!--begin::Signin-->
+    <div class="login-form">
+        <div class="text-center mb-10">
+            {{-- <img src="{{ asset('assets/media/logos/logo-letter-1.png') }}" class="max-h-80px max-w-90px mb-5" alt="" /> --}}
+            <h3 class="font-size-h1">Lupa Password?</h3>
+            <p class="text-muted font-weight-bold">Masukkan email</p>
+        </div>
+        <!--begin::Form-->
+        <form class="form" action="{{ route('password.email') }}" method="POST" id="forgot-password">
             @csrf
-
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+            <div class="form-group">
+                <input class="form-control form-control-solid h-auto py-5 px-6" type="email" placeholder="Email" name="email" autocomplete="off" value="{{ old('email') }}" />
             </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Email Password Reset Link') }}
-                </x-button>
+            <!--begin::Action-->
+            <div class="form-group d-flex flex-wrap justify-content-between align-items-center">
+                <a href="{{ route('login') }}" class="btn btn-light-primary font-weight-bold px-9 py-4">Batal</a>
+                <button type="submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3">Submit</button>
             </div>
+            <!--end::Action-->
         </form>
-    </x-auth-card>
+        <!--end::Form-->
+    </div>
+    <!--end::Signin-->
 </x-guest-layout>
