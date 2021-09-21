@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Master;
 
+use Alert;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BarangKategoriStore;
+use App\Http\Requests\BarangKategoriUpdate;
+use App\Models\BarangKategori;
 use Illuminate\Http\Request;
 
 class BarangKategoriController extends Controller
@@ -14,7 +18,9 @@ class BarangKategoriController extends Controller
      */
     public function index()
     {
-        //
+        $kategoriList = BarangKategori::all();
+
+        return view('admin.master-barang-kategori.index', compact('kategoriList'));
     }
 
     /**
@@ -24,7 +30,7 @@ class BarangKategoriController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.master-barang-kategori.create');
     }
 
     /**
@@ -33,9 +39,15 @@ class BarangKategoriController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BarangKategoriStore $request, BarangKategori $barang_kategori)
     {
-        //
+        $barang_kategori->nama = $request->nama;
+        $barang_kategori->created_by = auth()->user()->id;
+
+        $barang_kategori->save();
+
+        Alert::success('Tambah Kategori', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.barang-kategori.index');
     }
 
     /**
@@ -55,9 +67,9 @@ class BarangKategoriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(BarangKategori $barang_kategori)
     {
-        //
+        return view('admin.master-barang-kategori.edit', compact('barang_kategori'));
     }
 
     /**
@@ -67,9 +79,15 @@ class BarangKategoriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BarangKategoriUpdate $request, BarangKategori $barang_kategori)
     {
-        //
+        $barang_kategori->nama = $request->nama;
+        $barang_kategori->created_by = auth()->user()->id;
+
+        $barang_kategori->save();
+
+        Alert::success('Ubah Kategori', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.barang-kategori.index');
     }
 
     /**
@@ -78,8 +96,11 @@ class BarangKategoriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(BarangKategori $barang_kategori)
     {
-        //
+        $barang_kategori->delete();
+
+        Alert::success('Hapus Kategori', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.barang-kategori.index');
     }
 }

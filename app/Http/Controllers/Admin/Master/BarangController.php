@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Master;
 
 use App\Http\Controllers\Controller;
+use App\Models\Barang;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
@@ -14,7 +15,9 @@ class BarangController extends Controller
      */
     public function index()
     {
-        //
+        $barangList = Barang::all();
+
+        return view('admin.master-bank-sampah.index', compact('barangList'));
     }
 
     /**
