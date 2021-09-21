@@ -13,7 +13,7 @@
 
         {{-- slot start --}}
         <table class="table table-bordered" id="table">
-            <thead>
+            <thead class="thead-light">
                 <th>No</th>
                 <th>Bank Sampah</th>
                 <th>Tgl Dibuat</th>
@@ -22,14 +22,17 @@
                 <th>Aksi</th>
             </thead>
             <tbody>
-                @foreach ($collection as $item)
+                @foreach ($bankSampahList as $bankSampah)
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $bankSampah->nama }}</td>
+                        <td>{{ $bankSampah->created_at }}</td>
+                        <td>{{ $bankSampah->updated_at }}</td>
+                        <td>{{ $bankSampah->created_user->name }}</td>
+                        <td>
+                            <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="#" class="btn btn-danger btn-sm">Hapus</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -38,6 +41,10 @@
     </x-card>
 
     @push('page-scripts')
-        <script></script>
+        <script>
+            $(document).ready(function () {
+                $('#table').DataTable();
+            });
+        </script>
     @endpush
 </x-app-layout>

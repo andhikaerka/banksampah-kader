@@ -93,9 +93,10 @@
         {{-- @include('layouts.partials._extras.offcanvas.demo-panel') --}}
 
 		<!--begin::Global Config(global config for global JS scripts)-->
+
 		@include('layouts.scripts')
 
-        {{-- @include('sweetalert::alert') --}}
+        @include('sweetalert::alert')
 	</body>
 
 	<!--end::Body-->

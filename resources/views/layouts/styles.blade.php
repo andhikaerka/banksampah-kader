@@ -4,6 +4,7 @@
 <!--end::Fonts-->
 
 <!--begin::Page Vendors Styles(used by this page)-->
+<link rel="stylesheet" href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}">
 <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css" />
 
 <!--end::Page Vendors Styles-->
@@ -20,3 +21,9 @@
 <link href="{{ asset('assets/css/themes/layout/header/menu/light.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/css/themes/layout/brand/dark.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/css/themes/layout/aside/dark.css') }}" rel="stylesheet" type="text/css" />
+
+<style>
+    .error-help-block {
+        color: crimson;
+    }
+</style>

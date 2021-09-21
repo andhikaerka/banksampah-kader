@@ -23,7 +23,7 @@
         {{-- slot end --}}
 
         @push('page-scripts')
-            {!! JsValidator::formRequest('App\Http\Requests\BankSampahStore',  '#login') !!}
+            {!! JsValidator::formRequest('App\Http\Requests\BankSampahStore',  '#bank-sampah-store') !!}
         @endpush
     </x-card>
 </x-app-layout>

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Master;
 
+use Alert;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BankSampahStore;
+use App\Models\BankSampah;
 use Illuminate\Http\Request;
 
 class BankSampahController extends Controller
@@ -14,7 +17,9 @@ class BankSampahController extends Controller
      */
     public function index()
     {
-        return view('admin.master-bank-sampah.index');
+        $bankSampahList = BankSampah::all();
+
+        return view('admin.master-bank-sampah.index', compact('bankSampahList'));
     }
 
     /**
@@ -33,9 +38,15 @@ class BankSampahController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BankSampahStore $request, BankSampah $bankSampah)
     {
-        //
+        $bankSampah->nama = $request->nama;
+        $bankSampah->created_by = auth()->user()->id;
+
+        $bankSampah->save();
+
+        Alert::success('Tambah Bank Sampah', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.bank-sampah.index');
     }
 
     /**
