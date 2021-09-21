@@ -3,8 +3,8 @@
     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
 </li>
 
-<li class="menu-item menu-item-active" aria-haspopup="true">
-    <a href="index.html" class="menu-link">
+<li class="menu-item {{ Route::is('pengguna.dashboard') ? 'menu-item-active' : '' }}" aria-haspopup="true">
+    <a href="{{ route('pengguna.dashboard') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 
             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
@@ -23,7 +23,7 @@
 </li>
 
 <li class="menu-item" aria-haspopup="true">
-    <a href="index.html" class="menu-link">
+    <a href="{{ route('pengguna.kader.index') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 
             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
@@ -42,7 +42,7 @@
 </li>
 
 <li class="menu-item" aria-haspopup="true">
-    <a href="index.html" class="menu-link">
+    <a href="{{ route('pengguna.kader-setoran.index') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 
             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
@@ -60,8 +60,8 @@
     </a>
 </li>
 
-<li class="menu-item" aria-haspopup="true">
-    <a href="index.html" class="menu-link">
+<li class="menu-item {{ Route::is('pengguna.profile') ? 'menu-item-active' : '' }}" aria-haspopup="true">
+    <a href="{{ route('pengguna.profile') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 
             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
