@@ -45,13 +45,17 @@
 
 							<!--begin::Menu Nav-->
 							<ul class="menu-nav">
-								@if (auth()->user()->hasRole('admin'))
+								@role('admin')
 									@include('layouts.partials._menu-admin')
-								@elseif (auth()->user()->hasRole('pengguna'))
-									@include('layouts.partials._menu-admin')
-								@elseif(auth()->user()->hasRole('kader'))
+								@endrole
+
+								@role('pengguna')
+									@include('layouts.partials._menu-pengguna')
+								@endrole
+
+								@role('kader')
 									@include('layouts.partials._menu-kader')
-								@endif
+								@endrole
 							</ul>
 
 							<!--end::Menu Nav-->
