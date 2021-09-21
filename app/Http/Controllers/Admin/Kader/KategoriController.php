@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Kader;
 
+use Alert;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\KaderKategoriStore;
+use App\Http\Requests\KaderKategoriUpdate;
+use App\Models\KaderKategori;
 use Illuminate\Http\Request;
 
 class KategoriController extends Controller
@@ -14,7 +18,9 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        //
+        $kaderKategoriList = KaderKategori::all();
+
+        return view('admin.kader.kategori.index', compact('kaderKategoriList'));
     }
 
     /**
@@ -24,7 +30,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.kader.kategori.create');
     }
 
     /**
@@ -33,9 +39,15 @@ class KategoriController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(KaderKategoriStore $request, KaderKategori $kader_kategori)
     {
-        //
+        $kader_kategori->nama = $request->nama;
+        $kader_kategori->created_by = auth()->user()->id;
+
+        $kader_kategori->save();
+
+        Alert::success('Tambah Kader Kategori', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.kader-kategori.index');
     }
 
     /**
@@ -55,9 +67,9 @@ class KategoriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(KaderKategori $kader_kategori)
     {
-        //
+        return view('admin.kader.kategori.edit', compact('kader_kategori'));
     }
 
     /**
@@ -67,9 +79,15 @@ class KategoriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(KaderKategoriUpdate $request, KaderKategori $kader_kategori)
     {
-        //
+        $kader_kategori->nama = $request->nama;
+        $kader_kategori->created_by = auth()->user()->id;
+
+        $kader_kategori->save();
+
+        Alert::success('Ubah Kader Kategori', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.kader-kategori.index');
     }
 
     /**
@@ -78,8 +96,11 @@ class KategoriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(KaderKategori $kader_kategori)
     {
-        //
+        $kader_kategori->delete();
+
+        Alert::success('Hapus Kader Kategori', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.kader-kategori.index');
     }
 }

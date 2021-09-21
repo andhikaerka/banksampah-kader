@@ -5,19 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Barang extends Model
+class KaderKategori extends Model
 {
     use HasFactory;
 
-    protected $table = "barang";
+    protected $table = "kader_kategori";
 
     public function created_user()
     {
         return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function kategori()
-    {
-        return $this->belongsTo('App\Models\BarangKategori', 'kategori_id');
     }
 }

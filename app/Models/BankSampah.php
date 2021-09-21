@@ -13,6 +13,6 @@ class BankSampah extends Model
 
     public function created_user()
     {
-        return $this->belongsTo('App\Models\User', 'created_by');
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

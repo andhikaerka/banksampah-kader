@@ -112,7 +112,10 @@
     </div>
 </li>
 
-<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+<li class="menu-item menu-item-submenu {{
+    Route::is('admin.kader-status.*') ||
+    Route::is('admin.kader-kategori.*')
+    ? 'menu-open menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
     <a href="javascript:;" class="menu-link menu-toggle">
         <span class="menu-icon">
             <i class="fa fa-boxes"></i>
@@ -123,16 +126,16 @@
     <div class="menu-submenu">
         <i class="menu-arrow"></i>
         <ul class="menu-subnav">
-            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                <a href="{{ '' }}" class="menu-link menu-toggle">
+            <li class="menu-item menu-item-submenu {{ Route::is('admin.kader-status.*') ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                <a href="{{ route('admin.kader-status.index') }}" class="menu-link menu-toggle">
                     <i class="menu-bullet menu-bullet-line">
                         <span></span>
                     </i>
                     <span class="menu-text">Status Kader</span>
                 </a>
             </li>
-            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                <a href="{{ '' }}" class="menu-link menu-toggle">
+            <li class="menu-item menu-item-submenu {{ Route::is('admin.kader-kategori.*') ? 'menu-item-active' : '' }} " aria-haspopup="true" data-menu-toggle="hover">
+                <a href="{{ route('admin.kader-kategori.index') }}" class="menu-link menu-toggle">
                     <i class="menu-bullet menu-bullet-line">
                         <span></span>
                     </i>
@@ -163,7 +166,7 @@
 </li>
 
 <li class="menu-item" aria-haspopup="true">
-    <a href="{{ route('admin.barang-kategori.index') }}" class="menu-link">
+    <a href="{{ route('admin.barang.index') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 
             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
