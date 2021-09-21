@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-card>
         <x-slot name="title">
-            Tambah Bank Sampah
+            Ubah Bank Sampah
         </x-slot>
 
         {{-- slot start --}}

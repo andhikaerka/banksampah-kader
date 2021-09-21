@@ -13,7 +13,7 @@ class BarangStore extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class BarangStore extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nama' => ['required', 'string'],
+            'kategori' => ['required'],
         ];
     }
 }

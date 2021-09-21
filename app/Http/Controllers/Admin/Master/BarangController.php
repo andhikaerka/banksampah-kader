@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Master;
 
+use Alert;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BarangStore;
+use App\Http\Requests\BarangUpdate;
 use App\Models\Barang;
+use App\Models\BarangKategori;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
@@ -17,7 +21,7 @@ class BarangController extends Controller
     {
         $barangList = Barang::all();
 
-        return view('admin.master-bank-sampah.index', compact('barangList'));
+        return view('admin.master-barang.index', compact('barangList'));
     }
 
     /**
@@ -27,7 +31,9 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
+        $kategoriList = BarangKategori::all();
+
+        return view('admin.master-barang.create', compact('kategoriList'));
     }
 
     /**
@@ -36,9 +42,16 @@ class BarangController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BarangStore $request, Barang $barang)
     {
-        //
+        $barang->nama = $request->nama;
+        $barang->kategori_id = $request->kategori;
+        $barang->created_by = auth()->user()->id;
+
+        $barang->save();
+
+        Alert::success('Tambah Barang '.$request->nama, 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.barang.index');
     }
 
     /**
@@ -58,9 +71,11 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Barang $barang)
     {
-        //
+        $kategoriList = BarangKategori::all();
+
+        return view('admin.master-barang.edit', compact('kategoriList', 'barang'));
     }
 
     /**
@@ -70,9 +85,16 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BarangUpdate $request, Barang $barang)
     {
-        //
+        $barang->nama = $request->nama;
+        $barang->kategori_id = $request->kategori;
+        $barang->created_by = auth()->user()->id;
+
+        $barang->save();
+
+        Alert::success('Ubah Barang', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.barang.index');
     }
 
     /**
@@ -81,8 +103,11 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Barang $barang)
     {
-        //
+        $barang->delete();
+
+        Alert::success('Hapus Barang', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.barang.index');
     }
 }

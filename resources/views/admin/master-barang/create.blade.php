@@ -11,8 +11,8 @@
                 @csrf
                 
                 <div class="form-group">
-                    <label for="">Nama Bank Sampah <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Bank Sampah"/>
+                    <label for="">Nama Barang <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Barang"/>
                 </div>
 
                 <div class="form-group">
