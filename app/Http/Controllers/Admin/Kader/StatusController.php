@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Kader;
 
+use Alert;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\KaderStatusStore;
+use App\Http\Requests\KaderStatusUpdate;
+use App\Models\KaderStatus;
 use Illuminate\Http\Request;
 
 class StatusController extends Controller
@@ -14,7 +18,9 @@ class StatusController extends Controller
      */
     public function index()
     {
-        //
+        $kaderStatusList = KaderStatus::all();
+
+        return view('admin.kader.status.index', compact('kaderStatusList'));
     }
 
     /**
@@ -24,7 +30,7 @@ class StatusController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.kader.status.create');
     }
 
     /**
@@ -33,9 +39,15 @@ class StatusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(KaderStatusStore $request, KaderStatus $kader_status)
     {
-        //
+        $kader_status->nama = $request->nama;
+        $kader_status->created_by = auth()->user()->id;
+
+        $kader_status->save();
+
+        Alert::success('Tambah Kader Status', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.kader-status.index');
     }
 
     /**
@@ -55,9 +67,9 @@ class StatusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(KaderStatus $kader_status)
     {
-        //
+        return view('admin.kader.status.edit', compact('kader_status'));
     }
 
     /**
@@ -67,9 +79,15 @@ class StatusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(KaderStatusUpdate $request, KaderStatus $kader_status)
     {
-        //
+        $kader_status->nama = $request->nama;
+        $kader_status->created_by = auth()->user()->id;
+
+        $kader_status->save();
+
+        Alert::success('Ubah Kader Status', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.kader-status.index');
     }
 
     /**
@@ -78,8 +96,11 @@ class StatusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(KaderStatus $kader_status)
     {
-        //
+        $kader_status->delete();
+
+        Alert::success('Hapus Kader Status', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.kader-status.index');
     }
 }
