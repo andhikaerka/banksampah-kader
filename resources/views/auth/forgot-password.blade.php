@@ -14,6 +14,13 @@
             <h3 class="font-size-h1">Lupa Password?</h3>
             <p class="text-muted font-weight-bold">Masukkan email</p>
         </div>
+
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
+
+        <!-- Validation Errors -->
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        
         <!--begin::Form-->
         <form class="form" action="{{ route('password.email') }}" method="POST" id="forgot-password">
             @csrf

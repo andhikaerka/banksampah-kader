@@ -1,48 +1,52 @@
 <x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+
+    <x-slot name="type">
+        <div class="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10">
+            <span class="font-weight-bold text-dark-50">Belum punya akun?</span>
+            <a href="{{ route('register') }}" class="font-weight-bold ml-2">Daftar</a>
+        </div>
+    </x-slot>
+
+    <!--begin::Signin-->
+    <div class="login-form login-signin">
+        <div class="text-center mb-10">
+            {{-- <img src="{{ asset('assets/media/logos/logo-letter-1.png') }}" class="max-h-80px max-w-90px mb-5" alt="" /> --}}
+            <h3 class="font-size-h1">Reset Password</h3>
+            <p class="text-muted font-weight-bold">Masukkan password baru anda</p>
+        </div>
+
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('password.update') }}">
+        
+        <!--begin::Form-->
+        <form class="form" action="{{ route('password.update') }}" method="POST" id="reset-password">
             @csrf
-
             <!-- Password Reset Token -->
             <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
+            <div class="form-group">
+                <input class="form-control form-control-solid h-auto py-5 px-6" type="email" placeholder="Email" name="email" autocomplete="off" value="{{ old('email', $request->email) }}" />
             </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
+            <div class="form-group">
+                <input class="form-control form-control-solid h-auto py-5 px-6" type="password" placeholder="Password" name="password" autocomplete="off" />
             </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                    type="password"
-                                    name="password_confirmation" required />
+            <div class="form-group">
+                <input class="form-control form-control-solid h-auto py-5 px-6" type="password" placeholder="Password Confirmation" name="password_confirmation" autocomplete="off" />
             </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Reset Password') }}
-                </x-button>
+            <!--begin::Action-->
+            <div class="form-group d-flex flex-wrap justify-content-between align-items-center">
+                <button type="submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3">Reset Password</button>
             </div>
+            <!--end::Action-->
         </form>
-    </x-auth-card>
+        <!--end::Form-->
+    </div>
+    <!--end::Signin-->
+
+    @push('page-scripts')
+        {!! JsValidator::formRequest('App\Http\Requests\GuestResetPasswordStore',  '#reset-password') !!}
+    @endpush
 </x-guest-layout>
