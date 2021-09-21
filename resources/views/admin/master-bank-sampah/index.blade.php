@@ -11,7 +11,8 @@
             </div>
         </x-slot>
 
-        <table class="table table-bordered">
+        {{-- slot start --}}
+        <table class="table table-bordered" id="table">
             <thead>
                 <th>No</th>
                 <th>Bank Sampah</th>
@@ -21,15 +22,22 @@
                 <th>Aksi</th>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                @foreach ($collection as $item)
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
+        {{-- slot end --}}
     </x-card>
+
+    @push('page-scripts')
+        <script></script>
+    @endpush
 </x-app-layout>

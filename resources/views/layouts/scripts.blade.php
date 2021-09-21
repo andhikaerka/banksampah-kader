@@ -77,3 +77,5 @@
 <script src="{{ asset('assets/js/pages/widgets.js') }}"></script>
 
 <!--end::Page Scripts-->
+
+@stack('page-scripts')

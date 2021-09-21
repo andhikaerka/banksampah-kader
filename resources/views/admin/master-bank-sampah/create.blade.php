@@ -21,5 +21,9 @@
             <!--end::Form-->
             </div>
         {{-- slot end --}}
+
+        @push('page-scripts')
+            {!! JsValidator::formRequest('App\Http\Requests\BankSampahStore',  '#login') !!}
+        @endpush
     </x-card>
 </x-app-layout>
