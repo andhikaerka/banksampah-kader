@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Master;
 
+use Alert;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BarangBeratStore;
+use App\Http\Requests\BarangBeratUpdate;
+use App\Models\BarangBerat;
 use Illuminate\Http\Request;
 
 class BarangBeratController extends Controller
@@ -14,7 +18,9 @@ class BarangBeratController extends Controller
      */
     public function index()
     {
-        //
+        $barangBeratList = BarangBerat::all();
+
+        return view('admin.master-barang-berat.index', compact('barangBeratList'));
     }
 
     /**
@@ -24,7 +30,7 @@ class BarangBeratController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.master-barang-berat.create');
     }
 
     /**
@@ -33,9 +39,16 @@ class BarangBeratController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BarangBeratStore $request, BarangBerat $barang_berat)
     {
-        //
+        $barang_berat->nama = $request->nama;
+        $barang_berat->pengali = $request->pengali;
+        $barang_berat->created_by = auth()->user()->id;
+
+        $barang_berat->save();
+
+        Alert::success('Tambah Barang Berat', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.barang-berat.index');
     }
 
     /**
@@ -55,9 +68,9 @@ class BarangBeratController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(BarangBerat $barang_berat)
     {
-        //
+        return view('admin.master-barang-berat.edit', compact('barang_berat'));
     }
 
     /**
@@ -67,9 +80,16 @@ class BarangBeratController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BarangBeratUpdate $request, BarangBerat $barang_berat)
     {
-        //
+        $barang_berat->nama = $request->nama;
+        $barang_berat->pengali = $request->pengali;
+        $barang_berat->created_by = auth()->user()->id;
+
+        $barang_berat->save();
+
+        Alert::success('Ubah Barang Berat', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.barang-berat.index');
     }
 
     /**
@@ -78,8 +98,11 @@ class BarangBeratController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(BarangBerat $barang_berat)
     {
-        //
+        $barang_berat->delete();
+
+        Alert::success('Hapus Barang Berat', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.barang-berat.index');
     }
 }
