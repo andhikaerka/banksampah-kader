@@ -30,8 +30,12 @@
                         <td>{{ $bankSampah->updated_at }}</td>
                         <td>{{ $bankSampah->created_user->name }}</td>
                         <td>
-                            <a href="#" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="#" class="btn btn-danger btn-sm">Hapus</a>
+                            <form method="POST" action="{{ route('admin.bank-sampah.destroy', ['bank_sampah' => $bankSampah->id]) }}">
+                                @csrf
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <a href="{{ route('admin.bank-sampah.edit', ['bank_sampah' => $bankSampah->id]) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <button onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-danger btn-sm">Hapus</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

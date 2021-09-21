@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Master;
 use Alert;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BankSampahStore;
+use App\Http\Requests\BankSampahUpdate;
 use App\Models\BankSampah;
 use Illuminate\Http\Request;
 
@@ -66,9 +67,9 @@ class BankSampahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(BankSampah $bankSampah)
     {
-        return view('admin.master-bank-sampah.edit');
+        return view('admin.master-bank-sampah.edit', compact('bankSampah'));
     }
 
     /**
@@ -78,9 +79,15 @@ class BankSampahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BankSampahUpdate $request, BankSampah $bankSampah)
     {
-        //
+        $bankSampah->nama = $request->nama;
+        $bankSampah->created_by = auth()->user()->id;
+
+        $bankSampah->save();
+
+        Alert::success('Ubah Bank Sampah', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.bank-sampah.index');
     }
 
     /**
@@ -89,8 +96,11 @@ class BankSampahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(BankSampah $bankSampah)
     {
-        //
+        $bankSampah->delete();
+
+        Alert::success('Hapus Bank Sampah', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('admin.bank-sampah.index');
     }
 }
