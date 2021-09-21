@@ -14,6 +14,13 @@
             <h3 class="font-size-h1">Login</h3>
             <p class="text-muted font-weight-bold">Masukkan email dan pasword</p>
         </div>
+
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
+
+        <!-- Validation Errors -->
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        
         <!--begin::Form-->
         <form class="form" action="{{ route('login') }}" method="POST" id="login">
             @csrf
