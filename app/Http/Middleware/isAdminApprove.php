@@ -17,11 +17,16 @@ class isAdminApprove
     public function handle(Request $request, Closure $next)
     {
         // cek jika profile user sudah lengkap atau belum
-        $user_sex = auth()->user()->remember_token;
+        $pengguna_approval = auth()->user()->approval_status;
 
-        if ($user_sex) {
+        if ($pengguna_approval == null) {
             // Lolos ke next route
             return $next($request);
+        }
+
+        if ($pengguna_approval == 'tidak disetujui') {
+            // JIKA TIDAK DISETUJUI OLEH ADMIN
+            return redirect()->route('pengguna.profile')->with(['status' => 'Data Anda Tidak Disetujui oleh Admin']);
         }
         
         // JIKA BELUM MAKA LENGKAPI PROFILE DULU

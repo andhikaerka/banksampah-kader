@@ -46,18 +46,24 @@ class User extends Authenticatable
     // created by
     public function created_user()
     {
-        return $this->belongsTo('App\Models\User', 'created_by');
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     // bank sampah
     public function bank_sampah()
     {
-        return $this->belongsTo('App\Models\BankSampah', 'bank_sampah_id');
+        return $this->belongsTo(BankSampah::class, 'bank_sampah_id');
     }
 
     // pengguna kategori
     public function pengguna_kategori()
     {
-        return $this->belongsTo('App\Models\PenggunaKategori', 'pengguna_kategori_id');
+        return $this->belongsTo(PenggunaKategori::class, 'pengguna_kategori_id');
+    }
+
+    // admin approval
+    public function approved_user()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
     }
 }

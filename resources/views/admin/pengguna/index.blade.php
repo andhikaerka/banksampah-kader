@@ -11,7 +11,7 @@
                 <th>Nama</th>
                 <th>Bank Sampah</th>
                 <th>Kategori</th>
-                <th>Approval Admin</th>
+                <th>Admin Approval</th>
                 <th>Tgl Dibuat</th>
                 <th>Tgl Diubah</th>
                 <th>Aksi</th>
@@ -21,9 +21,15 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $pengguna->name }}</td>
-                        <td>{{ $pengguna->name }}</td>
-                        <td>{{ $pengguna->name }}</td>
-                        <td>{{ $pengguna->name }}</td>
+                        <td>{{ $pengguna->bank_sampah->nama }}</td>
+                        <td>{{ $pengguna->pengguna_kategori->nama }}</td>
+                        <td>
+                            @if (optional($pengguna->approved_user)->name == null)
+                                <span class="label label-light-danger label-inline font-weight-bold">pending</span>
+                            @else
+                                {{ $pengguna->approval_status }} oleh {{ $pengguna->approved_user->name }}
+                            @endif
+                        </td>
                         <td>{{ $pengguna->created_at }}</td>
                         <td>{{ $pengguna->updated_at }}</td>
                         <td>

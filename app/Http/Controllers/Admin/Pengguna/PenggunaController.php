@@ -17,7 +17,13 @@ class PenggunaController extends Controller
     {
         $penggunaList = User::whereHas('roles', function($q){ 
             $q->where('name', 'pengguna'); 
-        })->get();
+        })
+        ->with('bank_sampah')
+        ->with('pengguna_kategori')
+        ->with('created_user')
+        ->with('approved_user')
+        ->whereNotNull('pengguna_profile_status')
+        ->get();
 
         return view('admin.pengguna.index', compact('penggunaList'));
     }
