@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\VillageController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +25,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+// Location
+Route::post('city/{province}', CityController::class);
+Route::post('district/{city}', DistrictController::class);
+Route::post('village/{district}', VillageController::class);
 
 Route::get('/clear', function() {
     Artisan::call('cache:clear');

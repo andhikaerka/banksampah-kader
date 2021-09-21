@@ -81,10 +81,64 @@
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 <!--end::Page Vendors -->
 
-@stack('page-scripts')
-
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
+        (function ($, DataTable) {
+            // Datatable global configuration
+            $.extend(true, DataTable.defaults, {
+                ordering: false,
+                language: {
+                    // url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Indonesian.json",
+                    "sEmptyTable":	 "Tidak ada data yang tersedia pada tabel ini",
+                    "sProcessing":   '<i class="fa fa-spinner fa-spin fa-2x fa-fw"></i> <br> Sedang memproses...',
+                    "sLengthMenu":   "Tampilkan _MENU_ entri",
+                    "sZeroRecords":  "Tidak ditemukan data yang sesuai",
+                    "sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    "sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
+                    "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+                    "sInfoPostFix":  "",
+                    "sSearch":       "Cari:",
+                    "sUrl":          "",
+                    "oPaginate": {
+                        "sFirst":    "Pertama",
+                        "sPrevious": "Sebelumnya",
+                        "sNext":     "Selanjutnya",
+                        "sLast":     "Terakhir"
+                    }
+                },
+            });
+
+        })(jQuery, jQuery.fn.dataTable);
+
+        $.fn.datepicker.dates['id'] = {
+            days: ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"],
+            daysShort: ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+            daysMin: ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+            months: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+            monthsShort: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
+            today: "Hari Ini",
+            clear: "Clear",
+            format: "mm/dd/yyyy",
+            titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+            weekStart: 0
+        };
+
         $('#table').DataTable();
+
+        $('.select2').select2({
+            width: '100%'
+        }).on('change', function() {
+            $(this).valid();
+        });
+
+        $('.datepicker').datepicker({
+            todayHighlight: true,
+            orientation: "bottom left",
+            autoclose: true,
+            language : 'id',
+            format   : 'yyyy-mm-dd'
+        });
     });
 </script>
+
+@stack('page-scripts')

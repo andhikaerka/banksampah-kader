@@ -17,9 +17,9 @@ class isProfileComplete
     public function handle(Request $request, Closure $next)
     {
         // cek jika profile user sudah lengkap atau belum
-        $user_sex = auth()->user()->remember_token;
+        $user_profile_status = auth()->user()->pengguna_profile_status;
 
-        if ($user_sex) {
+        if ($user_profile_status) {
             // Lolos ke next route
             return $next($request);
         }

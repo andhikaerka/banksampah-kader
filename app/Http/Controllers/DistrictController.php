@@ -12,8 +12,12 @@ class DistrictController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke($city)
     {
-        //
+        $city = \Indonesia::findCity($city, ['districts']);
+
+        return response()->json([
+            'data' => $city->districts
+        ]);
     }
 }

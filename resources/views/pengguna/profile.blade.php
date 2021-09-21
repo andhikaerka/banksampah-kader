@@ -19,62 +19,103 @@
 
             <div class="form-group">
                 <label for="">Email <span class="text-danger">*</span></label>
-                <input type="email" class="form-control" name="nama" id="nama" placeholder="Nama Pengguna" value="{{ $pengguna->email }}"/>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{ $pengguna->email }}"/>
             </div>
 
             <div class="form-group">
                 <label for="">WA/Telepon <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Pengguna" value="{{ $pengguna->name }}"/>
+                <input type="text" class="form-control" name="telepon" id="telepon" placeholder="Nomor Telepon/WA" value="{{ $pengguna->telepon }}"/>
             </div>
 
             <div class="form-group">
                 <label for="">Tanggal Lahir <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Pengguna" value="{{ $pengguna->name }}"/>
+                <input type="text" class="form-control datepicker" name="tanggal_lahir" id="tanggal_lahir" placeholder="Pilih Tanggal Lahir" value="{{ $pengguna->tanggal_lahir }}" readonly style="width: 100%" />
             </div>
 
             <div class="form-group">
                 <label for="">Jenis Kelamin <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Pengguna" value="{{ $pengguna->name }}"/>
+                <div class="radio-inline">
+                    <label class="radio">
+                        <input type="radio" name="jenis_kelamin" value="Laki-laki" @if($pengguna->jenis_kelamin == 'Laki-laki') checked @endif />
+                        <span></span>
+                        Laki-laki
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="jenis_kelamin" value="Perempuan" @if($pengguna->jenis_kelamin == 'Perempuan') checked @endif />
+                        <span></span>
+                        Perempuan
+                    </label>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="">Alamat <span class="text-danger">*</span></label>
-                <textarea class="form-control" name="alamat" id="alamat"></textarea>
+                <textarea class="form-control" name="alamat" id="alamat">{{ $pengguna->alamat }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="">Provinsi <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Pengguna" value="{{ $pengguna->name }}"/>
+                <select class="form-control select2" id="province" name="provinsi" onchange="ajaxChained('#province','#city','city')">
+                    <option value="">Pilih Provinsi</option>
+                    @foreach ($provinces as $province)
+                        <option value="{{ $province->id }}" @if($province->id == $pengguna->province_id) selected @endif>{{ $province->name }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="">Kabupaten/Kota <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Pengguna" value="{{ $pengguna->name }}"/>
+                <select class="form-control select2" id="city" name="kabupaten_kota" @if($pengguna->city_id == null) disabled @endif onchange="ajaxChained('#city','#district','district')">
+                    <option value="">Pilih Kabupaten/Kota</option>
+                    @foreach ($cities as $city)
+                        <option value="{{ $city->id }}" @if($city->id == $pengguna->city_id) selected @endif>{{ $city->name }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="">Kecamatan <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Pengguna" value="{{ $pengguna->name }}"/>
+                <select class="form-control select2" id="district" name="kecamatan" @if($pengguna->district_id == null) disabled @endif onchange="ajaxChained('#district','#village','village')">
+                    <option value="">Pilih Kecamatan</option>
+                    @foreach ($districts as $district)
+                        <option value="{{ $district->id }}" @if($district->id == $pengguna->district_id) selected @endif>{{ $district->name }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="">Desa/Kelurahan <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Pengguna" value="{{ $pengguna->name }}"/>
+                <select class="form-control select2" id="village" name="desa_kelurahan" @if($pengguna->village_id == null) disabled @endif>
+                    <option value="">Pilih Desa/Kelurahan</option>
+                    @foreach ($villages as $village)
+                        <option value="{{ $village->id }}" @if($village->id == $pengguna->village_id) selected @endif>{{ $village->name }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="">Kode Pos <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Pengguna" value="{{ $pengguna->name }}"/>
+                <input type="text" class="form-control" name="kode_pos" id="kode_pos" placeholder="Kode Pos" value="{{ $pengguna->kode_pos }}"/>
             </div>
 
             <div class="form-group">
                 <label for="">Kategori Pengguna <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Pengguna" value="{{ $pengguna->name }}"/>
+                <select class="form-control select2" name="pengguna_kategori" id="pengguna_kategori">
+                    <option value="">Pilih Kategori Pengguna</option>
+                    @foreach ($penggunaKategoriList as $kategori)
+                        <option value="{{ $kategori->id }}" @if($kategori->id == $pengguna->pengguna_kategori_id) selected @endif>{{ $kategori->nama }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="">Bank Sampah <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Pengguna" value="{{ $pengguna->name }}"/>
+                <select class="form-control select2" name="bank_sampah" id="bank_sampah">
+                    <option value="">Pilih Bank Sampah</option>
+                    @foreach ($bankSampahList as $bankSampah)
+                        <option value="{{ $bankSampah->id }}" @if($bankSampah->id == $pengguna->bank_sampah_id) selected @endif>{{ $bankSampah->nama }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <a href="{{ route('pengguna.profile') }}" class="btn btn-secondary">Batal</a>
@@ -84,7 +125,41 @@
         {{-- slot end --}}
 
         @push('page-scripts')
-            {!! JsValidator::formRequest('App\Http\Requests\BankSampahUpdate',  '#pengguna-profile-update') !!}
+            {!! JsValidator::formRequest('App\Http\Requests\PenggunaProfileUpdate',  '#pengguna-profile-update') !!}
+
+            <script>                
+                function ajaxChained(source, target, slug){
+                    var pid = $(source + ' option:selected').val(); //$(this).val();
+                
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ url('/') }}/'+ slug +'/'+ pid,
+                        dataType: 'json',
+                        data: { 
+                            id : pid,
+                            _token: "{{ csrf_token() }}",
+                        }
+                    }).done(function(response){
+                        //get JSON
+                
+                        $(target).prop("disabled", true);
+                
+                        //generate <options from JSON
+                        var list_html = '';
+                        list_html += '<option value=""></option>';
+                        $.each(response.data, function(i, item) {
+                            list_html += '<option value='+response.data[i].id+'>'+response.data[i].name+'</option>';
+                        });
+                        
+                        //replace <select2 with new options
+                        $(target).html(list_html);
+                        $(target).prop("disabled", false);
+                        //change placeholder text
+                        // $(target).select2({placeholder: response.data.length +' results'});
+                        $(target).select2({placeholder: 'Select ' + slug});
+                    });
+                }
+            </script>
         @endpush
     </x-card>
 </x-app-layout>
