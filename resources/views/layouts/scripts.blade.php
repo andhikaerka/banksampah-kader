@@ -82,3 +82,9 @@
 <!--end::Page Vendors -->
 
 @stack('page-scripts')
+
+<script>
+    $(document).ready(function () {
+        $('#table').DataTable();
+    });
+</script>

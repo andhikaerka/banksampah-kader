@@ -45,12 +45,4 @@
         </table>
         {{-- slot end --}}
     </x-card>
-
-    @push('page-scripts')
-        <script>
-            $(document).ready(function () {
-                $('#table').DataTable();
-            });
-        </script>
-    @endpush
 </x-app-layout>

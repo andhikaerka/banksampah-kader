@@ -42,4 +42,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // created by
+    public function created_user()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by');
+    }
+
+    // bank sampah
+    public function bank_sampah()
+    {
+        return $this->belongsTo('App\Models\BankSampah', 'bank_sampah_id');
+    }
+
+    // pengguna kategori
+    public function pengguna_kategori()
+    {
+        return $this->belongsTo('App\Models\PenggunaKategori', 'pengguna_kategori_id');
+    }
 }

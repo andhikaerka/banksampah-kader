@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-card>
         <x-slot name="title">
-            Barang Kategori
+            Pengguna Kategori
         </x-slot>
 
         <x-slot name="toolbar">
             <div class="card-toolbar">
-                <a href="{{ route('admin.barang-kategori.create') }}" class="btn btn-sm btn-primary font-weight-bold">
+                <a href="{{ route('admin.pengguna-kategori.create') }}" class="btn btn-sm btn-primary font-weight-bold">
                 <i class="flaticon2-plus-1"></i>Tambah Kategori</a>
             </div>
         </x-slot>
@@ -15,7 +15,7 @@
         <table class="table table-bordered" id="table">
             <thead class="thead-light">
                 <th>No</th>
-                <th>Kategori</th>
+                <th>Nama Kategori</th>
                 <th>Tgl Dibuat</th>
                 <th>Tgl Diubah</th>
                 <th>Dibuat Oleh</th>
@@ -30,10 +30,10 @@
                         <td>{{ $kategori->updated_at }}</td>
                         <td>{{ $kategori->created_user->name }}</td>
                         <td>
-                            <form method="POST" action="{{ route('admin.barang-kategori.destroy', ['barang_kategori' => $kategori->id]) }}">
+                            <form method="POST" action="{{ route('admin.pengguna-kategori.destroy', ['pengguna_kategori' => $kategori->id]) }}">
                                 @csrf
                                 <input type="hidden" name="_method" value="DELETE" />
-                                <a href="{{ route('admin.barang-kategori.edit', ['barang_kategori' => $kategori->id]) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="{{ route('admin.pengguna-kategori.edit', ['pengguna_kategori' => $kategori->id]) }}" class="btn btn-warning btn-sm">Edit</a>
                                 <button onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-danger btn-sm">Hapus</button>
                             </form>
                         </td>
