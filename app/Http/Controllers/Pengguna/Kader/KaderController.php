@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pengguna\Kader;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class KaderController extends Controller
@@ -14,7 +15,12 @@ class KaderController extends Controller
      */
     public function index()
     {
-        //
+        $kaderList = User::whereHas('roles', function($q){ 
+            $q->where('name', 'kader'); 
+        })
+        ->get();
+
+        return view('pengguna.kader.index', compact('kaderList'));
     }
 
     /**
@@ -24,7 +30,11 @@ class KaderController extends Controller
      */
     public function create()
     {
-        //
+        $provinces = \Indonesia::allProvinces();
+
+        return view('pengguna.kader.create', compact(
+            'provinces',
+        ));
     }
 
     /**
@@ -33,9 +43,9 @@ class KaderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $kader)
     {
-        //
+        
     }
 
     /**

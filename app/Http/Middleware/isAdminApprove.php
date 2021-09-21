@@ -19,7 +19,7 @@ class isAdminApprove
         // cek jika profile user sudah lengkap atau belum
         $pengguna_approval = auth()->user()->approval_status;
 
-        if ($pengguna_approval == null) {
+        if ($pengguna_approval == 'setuju') {
             // Lolos ke next route
             return $next($request);
         }
