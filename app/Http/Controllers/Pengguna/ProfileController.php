@@ -32,9 +32,9 @@ class ProfileController extends Controller
             $villages = \Indonesia::findDistrict(auth()->user()->district_id, ['villages'])->villages;
         } else {
             $provinces = \Indonesia::allProvinces();
-            $cities = null;
-            $districts = null;
-            $villages = null;
+            $cities = [];
+            $districts = [];
+            $villages = [];
         }
 
         $bankSampahList = BankSampah::all();
