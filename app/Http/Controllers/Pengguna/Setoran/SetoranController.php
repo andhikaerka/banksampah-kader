@@ -18,6 +18,7 @@ class SetoranController extends Controller
         $kaderSetoranList = User::whereHas('roles', function($q){ 
             $q->where('name', 'kader'); 
         })
+        ->where('bank_sampah_id', auth()->user()->bank_sampah_id)
         ->whereHas('setoran')
         ->get();
 

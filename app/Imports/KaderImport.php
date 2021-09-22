@@ -10,9 +10,11 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class KaderImport implements ToModel, WithHeadingRow
 {
-    public function  __construct($created_user_id)
+    public function  __construct($created_user_id, $bank_sampah_id, $kader_kategori_id)
     {
         $this->created_user_id = $created_user_id;
+        $this->bank_sampah_id = $bank_sampah_id;
+        $this->kader_kategori_id = $kader_kategori_id;
     }
 
     /**
@@ -28,6 +30,8 @@ class KaderImport implements ToModel, WithHeadingRow
         $user->telepon = $row['telepon'];
         $user->alamat = $row['alamat'];
         $user->created_by = $this->created_user_id;
+        $user->bank_sampah_id = $this->bank_sampah_id;
+        $user->kader_kategori_id = $this->kader_kategori_id;
         $user->password = Hash::make($row['telepon']);
 
         $user->save();

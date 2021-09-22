@@ -41,9 +41,8 @@ Route::get('/clear', function() {
 require __DIR__.'/auth.php';
 
 Route::group(['middleware'=> ['auth']], function () {
-
     // ROUTE EXTENDED
-    Route::group([], __DIR__.'/admin.php');
-    Route::group([], __DIR__.'/pengguna.php');
-    Route::group([], __DIR__.'/kader.php');
+    Route::group(['middleware' => ['role:admin']], __DIR__.'/admin.php');
+    Route::group(['middleware' => ['role:pengguna']], __DIR__.'/pengguna.php');
+    Route::group(['middleware' => ['role:kader']], __DIR__.'/kader.php');
 });

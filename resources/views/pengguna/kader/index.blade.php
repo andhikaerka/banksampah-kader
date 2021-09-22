@@ -38,12 +38,14 @@
                         <td>{{ $kader->updated_at }}</td>
                         <td>{{ optional($kader->created_user)->name }}</td>
                         <td>
-                            <form method="POST" action="{{ route('pengguna.kader.destroy', ['kader' => $kader->id]) }}">
-                                @csrf
-                                <input type="hidden" name="_method" value="DELETE" />
-                                <a href="{{ route('pengguna.kader.edit', ['kader' => $kader->id]) }}" class="btn btn-warning btn-sm">Edit</a>
-                                <button onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-danger btn-sm">Hapus</button>
-                            </form>
+                            @if ($kader->created_by == auth()->user()->id)
+                                <form method="POST" action="{{ route('pengguna.kader.destroy', ['kader' => $kader->id]) }}">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                    <a href="{{ route('pengguna.kader.edit', ['kader' => $kader->id]) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <button onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

@@ -30,7 +30,11 @@ class KaderImportController extends Controller
     public function store(PenggunaKaderImportStore $request)
     { 
 		// import data
-		Excel::import(new KaderImport(auth()->user()->id), $request->file('file'));
+		Excel::import(new KaderImport(
+            auth()->user()->id,
+            auth()->user()->bank_sampah_id,
+            auth()->user()->kader_kategoti_id
+        ), $request->file('file'));
  
 		// notifikasi dengan session
 		Alert::success('Import Kader', 'Berhasil')

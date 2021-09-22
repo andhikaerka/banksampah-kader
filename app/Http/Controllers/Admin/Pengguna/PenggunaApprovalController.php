@@ -22,6 +22,7 @@ class PenggunaApprovalController extends Controller
         $pengguna->approved_at = Carbon::now();
         $pengguna->approved_by = auth()->user()->id;
         $pengguna->approval_status = $request->approval;
+        $pengguna->kader_kategori_id = $request->kategori_kader;
 
         $pengguna->save();
 

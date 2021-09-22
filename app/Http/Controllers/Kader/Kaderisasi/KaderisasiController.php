@@ -52,6 +52,8 @@ class KaderisasiController extends Controller
         $kaderisasi->telepon = $request->telepon;
         $kaderisasi->alamat = $request->alamat;
         $kaderisasi->kader_status_id = $request->status_hubungan;
+        $kaderisasi->kader_kategori_id = auth()->user()->kader_kategori_id;
+        $kaderisasi->bank_sampah_id = auth()->user()->bank_sampah_id;
         $kaderisasi->created_by = auth()->user()->id;
         $kaderisasi->password = Hash::make($request['telepon']);
 

@@ -100,12 +100,12 @@
 
             <div class="form-group">
                 <label for="">Kategori Kader <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" placeholder="Kategori Kader" value="{{ $kader->kode_pos }}"/>
+                <input type="text" class="form-control" placeholder="Kategori Kader" value="{{ $kader->kader_kategori->nama }}"/>
             </div>
 
             <div class="form-group">
                 <label for="">Bank Sampah <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" placeholder="Bank Sampah" value="{{ $kader->kode_pos }}"/>
+                <input type="text" class="form-control" placeholder="Bank Sampah" value="{{ $kader->bank_sampah->nama }}"/>
             </div>
 
             <a href="{{ route('kader.profile') }}" class="btn btn-secondary">Batal</a>

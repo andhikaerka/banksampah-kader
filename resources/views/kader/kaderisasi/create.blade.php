@@ -28,7 +28,6 @@
                 <input type="text" class="form-control" name="telepon" id="telepon" placeholder="Nomor Telepon/WA"/>
             </div>
 
-
             <div class="form-group">
                 <label for="">Alamat <span class="text-danger">*</span></label>
                 <textarea class="form-control" name="alamat" id="alamat" placeholder="Alamat"></textarea>
@@ -42,6 +41,16 @@
                         <option value="{{ $status->id }}">{{ $status->nama }}</option>
                     @endforeach
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label for="">Bank SAmpah <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" value="{{ auth()->user()->bank_sampah->nama }}"/>
+            </div>
+
+            <div class="form-group">
+                <label for="">Kader Kategori <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" value="{{ auth()->user()->kader_kategori->nama }}"/>
             </div>
 
             <a href="{{ route('kader.kaderisasi.index') }}" class="btn btn-secondary">Batal</a>

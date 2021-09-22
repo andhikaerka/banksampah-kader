@@ -88,11 +88,25 @@
                 <input type="text" class="form-control" value="{{ $pengguna->bank_sampah->nama }}"/>
             </div>
 
+            <div class="form-group">
+                <label for="">Kategori Kader Pengguna<span class="text-danger">*</span></label>
+                <select class="form-control" name="kategori_kader" id="kategori_kader">
+                    <option value="">- Pilih Kategori-</option>
+                    @foreach ($kaderKategoriList as $kategori)
+                        <option value="{{ $kategori->id }}">{{ $kategori->nama }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <a href="{{ route('admin.pengguna.index') }}" class="btn btn-secondary mr-2">Batal</a>
             <button type="submit" class="btn btn-primary mr-2" name="approval" value="setuju">Setujui</button>
             <button type="submit" class="btn btn-danger mr-2" name="approval" value="tidak disetujui">Tidak Setujui</button>
         </form>
         <!--end::Form-->
         {{-- slot end --}}
+
+        @push('page-scripts')
+            {!! JsValidator::formRequest('App\Http\Requests\AdminPenggunaApprovalStore',  '#admin-approval') !!}
+        @endpush
     </x-card>
 </x-app-layout>
