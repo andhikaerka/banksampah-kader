@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Pengguna\DashboardController;
 use App\Http\Controllers\Pengguna\Kader\KaderController;
+use App\Http\Controllers\Pengguna\Kader\KaderImportController;
 use App\Http\Controllers\Pengguna\ProfileController;
 use App\Http\Controllers\Pengguna\ProfileUpdateController;
 use App\Http\Controllers\Pengguna\Setoran\SetoranController;
@@ -14,6 +15,11 @@ Route::prefix('pengguna')->name('pengguna.')->group(function () {
 
         // kader
         Route::resource('kader', KaderController::class);
+        
+        // kader import
+        Route::resource('kader-import', KaderImportController::class)->only([
+            'create', 'store'
+        ]);
 
         // setoran kader
         Route::resource('kader-setoran', SetoranController::class);
