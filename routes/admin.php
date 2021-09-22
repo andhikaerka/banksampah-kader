@@ -14,7 +14,7 @@ use App\Http\Controllers\Admin\Pengguna\PenggunaController;
 Route::prefix('admin')->name('admin.')->group(function () {
 
     // Admin Dashboard
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
 
     // master bank sampah
     Route::resource('bank-sampah', BankSampahController::class);

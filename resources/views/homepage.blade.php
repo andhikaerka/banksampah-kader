@@ -19,7 +19,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
             <div class="container px-5">
-				<a class="navbar-brand fw-bold" href="#page-top">Kader Bank Sampah Online</a>
+				<a class="navbar-brand fw-bold" href="{{ url('/') }}">Kader Bank Sampah Online</a>
                 <img class="max-h-70px navbar-brand fw-bold" height="50px" src="assets/media/logos/logo-letter-1.png" alt="Bank Sampah Online">
 				<img class="max-h-70px navbar-brand fw-bold" height="50px" src="assets/media/logos/logo-gogreenschool.png" alt="Bank Sampah Online">
 				
@@ -51,7 +51,7 @@
                                     <!-- Feature item-->
                                     <div class="text-center">
                                         <i class="bi bi-shop icon-feature text-gradient d-block mb-1"></i>
-                                        <h3 class="font-alt" id="bank-sampah">3500</h3>
+                                        <h3 class="font-alt" id="bank-sampah">{{ $bankSampahTotal }}</h3>
                                         <p class="text-muted mb-0">Bank Sampah</p>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
                                     <!-- Feature item-->
                                     <div class="text-center">
                                         <i class="bi bi-person-plus icon-feature text-gradient d-block mb-1"></i>
-                                        <h3 class="font-alt" id="nasabah">2030</h3>
+                                        <h3 class="font-alt" id="nasabah">{{ $nasabahTotal }}</h3>
                                         <p class="text-muted mb-0">Nasabah</p>
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
                                     <!-- Feature item-->
                                     <div class="text-center">
                                         <i class="bi bi-people icon-feature text-gradient d-block mb-1"></i>
-                                        <h3 class="font-alt" id="kaderisasi">1500</h3>
+                                        <h3 class="font-alt" id="kaderisasi">{{ $kaderisasiTotal }}</h3>
                                         <p class="text-muted mb-0">Kaderisasi</p>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                     <!-- Feature item-->
                                     <div class="text-center">
                                         <i class="bi bi-archive-fill icon-feature text-gradient d-block mb-1"></i>
-                                        <h3 class="font-alt d-inline" id="plastik">1240</h3> <span class="d-inline">KG<span>
+                                        <h3 class="font-alt d-inline" id="plastik">{{ $plastikTotal }}</h3> <span class="d-inline">KG<span>
                                         <p class="text-muted mb-0">Plastik</p>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                     <!-- Feature item-->
                                     <div class="text-center">
                                         <i class="bi bi-archive icon-feature text-gradient d-block mb-1"></i>
-                                        <h3 class="font-alt d-inline" id="non-plastik">1240</h3> <span class="d-inline">KG<span>
+                                        <h3 class="font-alt d-inline" id="non-plastik">{{ $nonPlastikTotal }}</h3> <span class="d-inline">KG<span>
                                         <p class="text-muted mb-0">Non Plastik</p>
                                     </div>
                                 </div>
@@ -158,11 +158,11 @@
 				}
 
 				const load = () => {
-					animate(document.getElementById('bank-sampah'), 0, 3500, 5000);
-					animate(document.getElementById('nasabah'), 0, 2030, 5000);
-					animate(document.getElementById('kaderisasi'), 0, 1500, 5000);
-					animate(document.getElementById('plastik'), 0, 1500, 5000);
-					animate(document.getElementById('non-plastik'), 0, 1240, 5000);
+					animate(document.getElementById('bank-sampah'), 0, {{ $bankSampahTotal }}, 5000);
+					animate(document.getElementById('nasabah'), 0, {{ $nasabahTotal }}, 5000);
+					animate(document.getElementById('kaderisasi'), 0, {{ $kaderisasiTotal }}, 5000);
+					animate(document.getElementById('plastik'), 0, {{ $plastikTotal }}, 5000);
+					animate(document.getElementById('non-plastik'), 0, {{ $nonPlastikTotal }}, 5000);
 				}
 		</script>
     </body>

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\HomeDashboardController;
+use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\VillageController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -17,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', HomepageController::class);
 
 Route::get('/clear', function() {
     Artisan::call('cache:clear');
@@ -33,9 +33,7 @@ require __DIR__.'/auth.php';
 Route::group(['middleware'=> ['auth']], function () {
 
     // Dashboard Default
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', HomeDashboardController::class)->name('dashboard');
     
     // Location
     Route::post('city/{province}', CityController::class);

@@ -3,7 +3,7 @@
     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
 </li>
 
-<li class="menu-item {{ Route::is('admin.dashboard.*') ? 'menu-item-active' : '' }}" aria-haspopup="true">
+<li class="menu-item {{ Route::is('admin.dashboard') ? 'menu-item-active' : '' }}" aria-haspopup="true">
     <a href="{{ route('admin.dashboard') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 
