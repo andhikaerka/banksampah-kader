@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Kader\Setoran;
 
+use Alert;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\KaderSetoranStore;
+use App\Models\Barang;
+use App\Models\BarangBerat;
 use App\Models\KaderSetoran;
 use Illuminate\Http\Request;
 
@@ -20,7 +24,14 @@ class SetoranController extends Controller
         ->where('created_by', auth()->user()->id)
         ->get();
 
-        return view('kader.setoran.index', compact('setoranList'));
+        $barangList = Barang::all();
+        $barangBeratList = BarangBerat::all();
+
+        return view('kader.setoran.index', compact(
+            'setoranList',
+            'barangList',
+            'barangBeratList',
+        ));
     }
 
     /**
@@ -30,7 +41,7 @@ class SetoranController extends Controller
      */
     public function create()
     {
-        //
+        return view('kader.setoran.create');
     }
 
     /**
@@ -39,9 +50,19 @@ class SetoranController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(KaderSetoranStore $request, KaderSetoran $setoran)
     {
-        //
+        $berat_satuan = BarangBerat::find($request->berat_satuan);
+        
+        $setoran->barang_id = $request->barang;
+        $setoran->jumlah = $request->jumlah * (float) $berat_satuan->pengali;
+        $setoran->berat_satuan_id = $request->berat_satuan;
+        $setoran->created_by = auth()->user()->id;
+
+        $setoran->save();
+
+        Alert::success('Tambah Setoran', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('kader.setoran.index');
     }
 
     /**
@@ -84,8 +105,11 @@ class SetoranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(KaderSetoran $setoran)
     {
-        //
+        $setoran->delete();
+
+        Alert::success('Hapus Setoran', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('kader.setoran.index');
     }
 }

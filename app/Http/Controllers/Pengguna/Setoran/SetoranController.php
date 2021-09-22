@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pengguna\Setoran;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SetoranController extends Controller
@@ -14,7 +15,13 @@ class SetoranController extends Controller
      */
     public function index()
     {
-        //
+        $kaderSetoranList = User::whereHas('roles', function($q){ 
+            $q->where('name', 'kader'); 
+        })
+        ->whereHas('setoran')
+        ->get();
+
+        return view('pengguna.setoran.index', compact('kaderSetoranList'));
     }
 
     /**

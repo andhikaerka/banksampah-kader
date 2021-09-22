@@ -71,4 +71,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(KaderStatus::class, 'kader_status_id');
     }
+
+    public function setoran()
+    {
+        return $this->hasMany(KaderSetoran::class, 'created_by');
+    }
 }
