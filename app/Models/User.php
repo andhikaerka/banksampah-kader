@@ -66,4 +66,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(User::class, 'approved_by');
     }
+
+    public function status_hubungan()
+    {
+        return $this->belongsTo(KaderStatus::class, 'kader_status_id');
+    }
 }

@@ -13,7 +13,7 @@ class KaderProfileUpdate extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,17 @@ class KaderProfileUpdate extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nama' => ['required', 'string'],
+            'email' => ['required', 'string', 'email'],
+            'telepon' => ['required', 'string'],
+            'alamat' => ['required'],
+            'kode_pos' => ['required', 'string'],
+            'tanggal_lahir' => ['required'],
+            'jenis_kelamin' => ['required'],
+            'provinsi' => ['required'],
+            'kabupaten_kota' => ['required'],
+            'kecamatan' => ['required'],
+            'desa_kelurahan' => ['required'],
         ];
     }
 }

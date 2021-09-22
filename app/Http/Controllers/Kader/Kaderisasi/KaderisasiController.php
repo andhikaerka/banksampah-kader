@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Kader\Kaderisasi;
 
+use Alert;
 use App\Http\Controllers\Controller;
+use App\Models\KaderStatus;
+use App\Models\User;
+use Hash;
 use Illuminate\Http\Request;
 
 class KaderisasiController extends Controller
@@ -14,7 +18,13 @@ class KaderisasiController extends Controller
      */
     public function index()
     {
-        //
+        $kaderList = User::whereHas('roles', function($q){ 
+            $q->where('name', 'kader'); 
+        })
+        ->where('created_by', auth()->user()->id)
+        ->get();
+
+        return view('kader.kaderisasi.index', compact('kaderList'));
     }
 
     /**
@@ -24,7 +34,9 @@ class KaderisasiController extends Controller
      */
     public function create()
     {
-        //
+        $statusHubunganList = KaderStatus::all();
+
+        return view('kader.kaderisasi.create', compact('statusHubunganList'));
     }
 
     /**
@@ -33,9 +45,22 @@ class KaderisasiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $kaderisasi)
     {
-        //
+        $kaderisasi->name = $request->nama;
+        $kaderisasi->email = $request->email;
+        $kaderisasi->telepon = $request->telepon;
+        $kaderisasi->alamat = $request->alamat;
+        $kaderisasi->kader_status_id = $request->status_hubungan;
+        $kaderisasi->created_by = auth()->user()->id;
+        $kaderisasi->password = Hash::make($request['telepon']);
+
+        $kaderisasi->save();
+
+        $kaderisasi->assignRole('kader');
+
+        Alert::success('Tambah Kader', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('kader.kaderisasi.index');
     }
 
     /**
@@ -55,9 +80,14 @@ class KaderisasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $kaderisasi)
     {
-        //
+        $statusHubunganList = KaderStatus::all();
+
+        return view('kader.kaderisasi.create', compact(
+            'statusHubunganList',
+            'kaderisasi'
+        ));
     }
 
     /**
@@ -67,9 +97,19 @@ class KaderisasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $kaderisasi)
     {
-        //
+        $kaderisasi->nama = $request->nama;
+        $kaderisasi->email = $request->nama;
+        $kaderisasi->telepon = $request->nama;
+        $kaderisasi->alamat = $request->nama;
+        $kaderisasi->status = $request->nama;
+        $kaderisasi->created_by = auth()->user()->id;
+
+        $kaderisasi->save();
+
+        Alert::success('Ubah Kader', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('kader.kaderisasi.index');
     }
 
     /**
@@ -78,8 +118,11 @@ class KaderisasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $kaderisasi)
     {
-        //
+        $kaderisasi->delete();
+
+        Alert::success('Hapus Kader', 'Berhasil')->persistent(true)->autoClose(2000);
+        return redirect()->route('kader.kaderisasi.index');
     }
 }

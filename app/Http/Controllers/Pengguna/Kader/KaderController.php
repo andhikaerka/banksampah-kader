@@ -30,11 +30,7 @@ class KaderController extends Controller
      */
     public function create()
     {
-        $provinces = \Indonesia::allProvinces();
-
-        return view('pengguna.kader.create', compact(
-            'provinces',
-        ));
+        return view('pengguna.kader.create');
     }
 
     /**
