@@ -10,7 +10,13 @@
 									<div class="d-flex align-items-baseline flex-wrap mr-5">
 
 										<!--begin::Page Title-->
-										<h5 class="text-dark font-weight-bold my-1 mr-5">Dashboard</h5>
+										<h5 class="text-dark font-weight-bold my-1 mr-5">
+											@if (auth()->user()->bank_sampah_id != null)
+												Bank Sampah {{ auth()->user()->bank_sampah->nama }}
+											@else
+											Dashboard
+											@endif
+										</h5>
 
 										<!--end::Page Title-->
 									</div>
