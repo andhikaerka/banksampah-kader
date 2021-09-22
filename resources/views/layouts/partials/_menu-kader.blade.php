@@ -3,8 +3,8 @@
     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
 </li>
 
-<li class="menu-item menu-item-active" aria-haspopup="true">
-    <a href="index.html" class="menu-link">
+<li class="menu-item {{ Route::is('kader.dashboard') ? 'menu-item-active' : '' }}" aria-haspopup="true">
+    <a href="{{ route('kader.dashboard') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 
             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
@@ -22,8 +22,8 @@
     </a>
 </li>
 
-<li class="menu-item" aria-haspopup="true">
-    <a href="index.html" class="menu-link">
+<li class="menu-item {{ Route::is('kader.kaderisasi.*') ? 'menu-item-active' : '' }}" aria-haspopup="true">
+    <a href="{{ route('kader.kaderisasi.index') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 
             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
@@ -41,8 +41,8 @@
     </a>
 </li>
 
-<li class="menu-item" aria-haspopup="true">
-    <a href="index.html" class="menu-link">
+<li class="menu-item {{ Route::is('kader.setoran.*') ? 'menu-item-active' : '' }}" aria-haspopup="true">
+    <a href="{{ route('kader.setoran.index') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 
             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
@@ -60,8 +60,8 @@
     </a>
 </li>
 
-<li class="menu-item" aria-haspopup="true">
-    <a href="index.html" class="menu-link">
+<li class="menu-item {{ Route::is('kader.profile') ? 'menu-item-active' : '' }}" aria-haspopup="true">
+    <a href="{{ route('kader.profile') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 
             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->

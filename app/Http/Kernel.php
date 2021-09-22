@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         // custom middleware
         'isProfileComplete' => \App\Http\Middleware\isProfileComplete::class,
+        'isKaderProfileComplete' => \App\Http\Middleware\isKaderProfileComplete::class,
         'isAdminApprove' => \App\Http\Middleware\isAdminApprove::class,
     ];
 }
