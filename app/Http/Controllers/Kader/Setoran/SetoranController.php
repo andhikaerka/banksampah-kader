@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Kader\Setoran;
 
 use App\Http\Controllers\Controller;
+use App\Models\KaderSetoran;
 use Illuminate\Http\Request;
 
 class SetoranController extends Controller
@@ -14,7 +15,12 @@ class SetoranController extends Controller
      */
     public function index()
     {
-        //
+        $setoranList = KaderSetoran::with('barang')
+        ->with('barang_berat')
+        ->where('created_by', auth()->user()->id)
+        ->get();
+
+        return view('kader.setoran.index', compact('setoranList'));
     }
 
     /**

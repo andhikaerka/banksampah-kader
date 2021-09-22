@@ -4,6 +4,7 @@ use App\Http\Controllers\Kader\DashboardController;
 use App\Http\Controllers\Kader\Kaderisasi\KaderisasiController;
 use App\Http\Controllers\Kader\ProfileController;
 use App\Http\Controllers\Kader\ProfileUpdateController;
+use App\Http\Controllers\Kader\Setoran\SetoranController;
 
 Route::prefix('kader')->name('kader.')->group(function () {
 
