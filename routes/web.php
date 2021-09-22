@@ -18,18 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
-    return redirect()->route('login');
+    return view('welcome');
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-// Location
-Route::post('city/{province}', CityController::class);
-Route::post('district/{city}', DistrictController::class);
-Route::post('village/{district}', VillageController::class);
 
 Route::get('/clear', function() {
     Artisan::call('cache:clear');
@@ -41,8 +31,20 @@ Route::get('/clear', function() {
 require __DIR__.'/auth.php';
 
 Route::group(['middleware'=> ['auth']], function () {
+
+    // Dashboard Default
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    
+    // Location
+    Route::post('city/{province}', CityController::class);
+    Route::post('district/{city}', DistrictController::class);
+    Route::post('village/{district}', VillageController::class);
+
     // ROUTE EXTENDED
     Route::group(['middleware' => ['role:admin']], __DIR__.'/admin.php');
     Route::group(['middleware' => ['role:pengguna']], __DIR__.'/pengguna.php');
     Route::group(['middleware' => ['role:kader']], __DIR__.'/kader.php');
+    
 });
