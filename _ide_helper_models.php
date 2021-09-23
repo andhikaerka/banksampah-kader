@@ -127,6 +127,34 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\KaderSetoran
+ *
+ * @property int $id
+ * @property int $barang_id
+ * @property string $jumlah
+ * @property int $berat_satuan_id
+ * @property int $created_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Barang $barang
+ * @property-read \App\Models\BarangBerat $barang_berat
+ * @property-read \App\Models\User $created_user
+ * @method static \Illuminate\Database\Eloquent\Builder|KaderSetoran newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|KaderSetoran newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|KaderSetoran query()
+ * @method static \Illuminate\Database\Eloquent\Builder|KaderSetoran whereBarangId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|KaderSetoran whereBeratSatuanId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|KaderSetoran whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|KaderSetoran whereCreatedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|KaderSetoran whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|KaderSetoran whereJumlah($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|KaderSetoran whereUpdatedAt($value)
+ */
+	class KaderSetoran extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\KaderStatus
  *
  * @property int $id
@@ -198,9 +226,12 @@ namespace App\Models{
  * @property string|null $approved_at
  * @property int|null $approved_by
  * @property string|null $approval_status
+ * @property int|null $kader_status_id
+ * @property int|null $kader_kategori_id
  * @property-read User|null $approved_user
  * @property-read \App\Models\BankSampah|null $bank_sampah
  * @property-read User|null $created_user
+ * @property-read \App\Models\KaderKategori|null $kader_kategori
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \App\Models\PenggunaKategori|null $pengguna_kategori
@@ -208,6 +239,9 @@ namespace App\Models{
  * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Role[] $roles
  * @property-read int|null $roles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\KaderSetoran[] $setoran
+ * @property-read int|null $setoran_count
+ * @property-read \App\Models\KaderStatus|null $status_hubungan
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)
@@ -229,6 +263,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereJenisKelamin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereKaderKategoriId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereKaderStatusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereKodePos($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)

@@ -4,17 +4,22 @@ namespace App\Http\Controllers\Pengguna\Setoran;
 
 use App\Http\Controllers\Controller;
 use App\Models\KaderSetoran;
+use DomPDF;
 use Illuminate\Http\Request;
 
-class SetoranController extends Controller
+class SetoranExportPDFController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Handle the incoming request.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function __invoke(Request $request)
     {
+        $tahun = $request->tahun;
+        $bulan = $request->bulan;
+        
         $kaderSetoranList = KaderSetoran::select('barang_id', 'created_by')
         ->selectRaw("SUM(jumlah) as jumlah")
         ->whereHas('created_user', function($q) {
@@ -53,82 +58,27 @@ class SetoranController extends Controller
         })
         ->sum('jumlah');
 
-        $tahunList = KaderSetoran::selectRaw('DISTINCT YEAR(created_at) AS tahun')
-        ->get()
-        ->pluck('tahun');
+        $bank_sampah_nama = auth()->user()->bank_sampah->nama;
 
-        return view('pengguna.setoran.index', compact(
+        // GENERATE PDF START
+        $pdf = DomPDF::loadView('pengguna.setoran.export-pdf', compact(
             'kaderSetoranList',
             'sampahTotal',
             'sampahPlastikTotal',
             'sampahNonPlastikTotal',
-            'tahunList'
+            'tahun',
+            'bulan',
+            'bank_sampah_nama'
         ));
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        $pdf->setOptions([
+            'isPhpEnabled' => true,
+            'isHtml5ParserEnabled' => true, 
+            'isRemoteEnabled' => true,
+            'tempDir' => public_path(),
+            'chroot'  => public_path(),
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return $pdf->download('setoran_kader'.date('Y-m-d H:i:s').'.pdf');
     }
 }
