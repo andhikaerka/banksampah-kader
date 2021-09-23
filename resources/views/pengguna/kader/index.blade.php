@@ -20,14 +20,22 @@
         </x-slot>
 
         {{-- slot start --}}
+
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
+
+        <x-auth-session-import-result class="mb-4" :result="session('result')" />
+
         <table class="table table-bordered" id="table">
             <thead class="thead-light">
-                <th>No</th>
-                <th>Nama</th>
-                <th>Tgl Dibuat</th>
-                <th>Tgl Diubah</th>
-                <th>Dibuat Oleh</th>
-                <th>Aksi</th>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Tgl Dibuat</th>
+                    <th>Tgl Diubah</th>
+                    <th>Dibuat Oleh</th>
+                    <th>Aksi</th>
+                </tr>
             </thead>
             <tbody>
                 @foreach ($kaderList as $kader)
@@ -52,5 +60,16 @@
             </tbody>
         </table>
         {{-- slot end --}}
+
+        @push('page-scripts')
+        {{-- <script>
+            $( document ).ready(function() {
+                var elements = document.getElementsByClassName("alert-text");
+                for (var i = 0; i < elements.length; ++i) {
+                elements[i].innerHTML = elements[i].innerHTML.replace(/[{}]/g,'');
+                }
+            });
+        </script> --}}
+        @endpush
     </x-card>
 </x-app-layout>

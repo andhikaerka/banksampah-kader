@@ -8,6 +8,7 @@ use App\Http\Requests\PenggunaKaderImportStore;
 use App\Imports\KaderImport;
 use Excel;
 use Illuminate\Http\Request;
+use Session;
 
 class KaderImportController extends Controller
 {
@@ -28,20 +29,26 @@ class KaderImportController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(PenggunaKaderImportStore $request)
-    { 
-		// import data
-		Excel::import(new KaderImport(
+    {
+        $import = new KaderImport(
             auth()->user()->id,
             auth()->user()->bank_sampah_id,
             auth()->user()->kader_kategoti_id
-        ), $request->file('file'));
+        );
+        Excel::import($import, $request->file('file'));
+
+        $failures = $import->failures();
  
-		// notifikasi dengan session
-		Alert::success('Import Kader', 'Berhasil')
+        // notifikasi dengan session
+        Alert::success('Import Kader', 'Berhasil')
         ->persistent(true)
         ->autoClose(2000);
+
+        if($failures){
+            Session::flash('result', $failures);
+        }
  
-		// alihkan halaman kembali
-		return redirect()->route('pengguna.kader.index');
+        // alihkan halaman kembali
+        return redirect()->route('pengguna.kader.index');
     }
 }

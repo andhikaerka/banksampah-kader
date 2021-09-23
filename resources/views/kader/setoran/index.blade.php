@@ -53,12 +53,14 @@
 
         <table class="table table-bordered" id="table">
             <thead class="thead-light">
-                <th>No</th>
-                <th>Barang</th>
-                <th>Barang Kategori</th>
-                <th>Jumlah (KG)</th>
-                <th>Tgl Dibuat</th>
-                <th>Aksi</th>
+                <tr>
+                    <th>No</th>
+                    <th>Barang</th>
+                    <th>Barang Kategori</th>
+                    <th>Jumlah (KG)</th>
+                    <th>Tgl Dibuat</th>
+                    <th>Aksi</th>
+                </tr>
             </thead>
             <tbody>
                 @foreach ($setoranList as $setoran)

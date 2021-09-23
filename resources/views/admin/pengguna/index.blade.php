@@ -7,14 +7,16 @@
         {{-- slot start --}}
         <table class="table table-bordered" id="table">
             <thead class="thead-light">
-                <th>No</th>
-                <th>Nama</th>
-                <th>Bank Sampah</th>
-                <th>Kategori</th>
-                <th>Admin Approval</th>
-                <th>Tgl Dibuat</th>
-                <th>Tgl Diubah</th>
-                <th>Aksi</th>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Bank Sampah</th>
+                    <th>Kategori</th>
+                    <th>Admin Approval</th>
+                    <th>Tgl Dibuat</th>
+                    <th>Tgl Diubah</th>
+                    <th>Aksi</th>
+                </tr>
             </thead>
             <tbody>
                 @foreach ($penggunaList as $pengguna)

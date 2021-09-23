@@ -65,12 +65,14 @@
 
         <table class="table table-bordered" id="table">
             <thead class="thead-light">
-                <th>No</th>
-                <th>Nama</th>
-                <th>Barang</th>
-                <th class="text-right">Plastik (KG)</th>
-                <th class="text-right">Non Plastik (KG)</th>
-                <th class="text-right">Total Sampah (KG)</th>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Barang</th>
+                    <th class="text-right">Plastik (KG)</th>
+                    <th class="text-right">Non Plastik (KG)</th>
+                    <th class="text-right">Total Sampah (KG)</th>
+                </tr>
             </thead>
             <tbody>
                 @foreach ($kaderSetoranList as $kaderSetoran)
