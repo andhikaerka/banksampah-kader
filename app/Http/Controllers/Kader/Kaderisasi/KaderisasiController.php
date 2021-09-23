@@ -8,6 +8,7 @@ use App\Models\KaderStatus;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
+use Password;
 
 class KaderisasiController extends Controller
 {
@@ -60,6 +61,9 @@ class KaderisasiController extends Controller
         $kaderisasi->save();
 
         $kaderisasi->assignRole('kader');
+
+        $token = Password::getRepository()->create($kaderisasi);
+        $kaderisasi->sendPasswordResetNotification($token);
 
         Alert::success('Tambah Kader', 'Berhasil')->persistent(true)->autoClose(2000);
         return redirect()->route('kader.kaderisasi.index');

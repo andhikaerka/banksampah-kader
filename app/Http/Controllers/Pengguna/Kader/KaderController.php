@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
+use Password;
 
 class KaderController extends Controller
 {
@@ -56,6 +57,9 @@ class KaderController extends Controller
         $kader->save();
 
         $kader->assignRole('kader');
+
+        $token = Password::getRepository()->create($kader);
+        $kader->sendPasswordResetNotification($token);
         
         Alert::success('Tambah Kader', 'Berhasil')->persistent(true)->autoClose(2000);
         return redirect()->route('pengguna.kader.index');
