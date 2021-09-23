@@ -146,6 +146,10 @@
                             },
                             error: function () {
                                 alert("Terjadi kesalahan, coba lagi nanti");
+
+                                setTimeout(function() {
+                                    KTUtil.btnRelease(btn);
+                                }, 1000);
                             }
                         });
 
@@ -153,6 +157,48 @@
 
                     $('#cetak-xls').on('click', function(e) {
                         e.preventDefault();
+
+                        //get bulan
+                        var bulan = $('#bulan').val();
+                        // get tahun
+                        var tahun = $('#tahun').val();
+                        // akses url to generate pdf
+                        var url = $("#cetak-xls").data('url');
+                        // button effect
+                        var btn = KTUtil.getById("cetak-xls");
+
+                        KTUtil.btnWait(btn, "spinner spinner-white spinner-right pr-15", "Loading");
+
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            xhrFields: {
+                                responseType: 'blob'
+                            },
+                            data: {
+                                "tahun": tahun,
+                                "bulan": bulan,
+                                "_token": "{{ csrf_token() }}",
+                            },
+                            success: function (response) {
+                                var blob = new Blob([response], { type: 'application/xls' });
+                                var link = document.createElement('a');
+                                link.href = window.URL.createObjectURL(blob);
+                                link.download = "setoran_kader_" + tahun + "_" + bulan +".xls";
+                                link.click();
+
+                                setTimeout(function() {
+                                    KTUtil.btnRelease(btn);
+                                }, 1000);
+                            },
+                            error: function () {
+                                alert("Terjadi kesalahan, coba lagi nanti");
+
+                                setTimeout(function() {
+                                    KTUtil.btnRelease(btn);
+                                }, 1000);
+                            }
+                        });
                     });
                 });
             </script>
