@@ -35,16 +35,19 @@ class KaderImportController extends Controller
             auth()->user()->bank_sampah_id,
             auth()->user()->kader_kategoti_id
         );
+
         Excel::import($import, $request->file('file'));
+
+        // dd($import->userList);
 
         $failures = $import->failures();
  
-        // notifikasi dengan session
         Alert::success('Import Kader', 'Berhasil')
         ->persistent(true)
         ->autoClose(2000);
 
-        if($failures){
+        if(!$failures->isEmpty()){
+            // notifikasi dengan session
             Session::flash('result', $failures);
         }
  
