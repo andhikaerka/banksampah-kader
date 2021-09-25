@@ -33,7 +33,7 @@ class KaderImportController extends Controller
         $import = new KaderImport(
             auth()->user()->id,
             auth()->user()->bank_sampah_id,
-            auth()->user()->kader_kategoti_id
+            auth()->user()->kader_kategori_id
         );
 
         Excel::import($import, $request->file('file'));
