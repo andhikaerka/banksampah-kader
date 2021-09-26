@@ -2,17 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasCreatedUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BarangBerat extends Model
 {
-    use HasFactory;
+    use HasFactory, HasCreatedUser;
 
     protected $table = "barang_berat";
-
-    public function created_user()
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
 }

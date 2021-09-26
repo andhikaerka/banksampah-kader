@@ -29,7 +29,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $barangBerat->nama }}</td>
-                        <td>{{ $barangBerat->pengali }}</td>
+                        <td class="text-right">{{ (float) $barangBerat->pengali }}</td>
                         <td>{{ $barangBerat->created_at }}</td>
                         <td>{{ $barangBerat->updated_at }}</td>
                         <td>{{ $barangBerat->created_user->name }}</td>
