@@ -35,8 +35,10 @@ class AlterUserKaderTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('kader_status_hubungan');
-            $table->dropColumn('kader_kategori');
+            $table->dropForeign('users_kader_status_id_foreign');
+            $table->dropForeign('users_kader_kategori_id_foreign');
+            $table->dropColumn('kader_status_id');
+            $table->dropColumn('kader_kategori_id');
         });
     }
 }

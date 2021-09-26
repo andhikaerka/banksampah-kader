@@ -18,7 +18,7 @@ class AlterUsersTable extends Migration
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan'])->nullable();
             $table->date('tanggal_lahir')->nullable();
             $table->text('alamat')->nullable();
-            $table->string('telepon')->nullable();
+            $table->string('telepon')->nullable()->unique();
             $table->text('photo')->nullable();
             $table->unsignedBigInteger('province_id')->nullable();
             $table->unsignedBigInteger('city_id')->nullable();
@@ -44,6 +44,10 @@ class AlterUsersTable extends Migration
                 ->references('id')
                 ->on('indonesia_provinces');
 
+            $table->foreign('bank_sampah_id')
+                ->references('id')
+                ->on('bank_sampah');
+
             $table->foreign('pengguna_kategori_id')
                 ->references('id')
                 ->on('pengguna_kategori');
@@ -62,19 +66,28 @@ class AlterUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+
+            $table->dropForeign('users_created_by_foreign');
+            $table->dropForeign('users_province_id_foreign');
+            $table->dropForeign('users_city_id_foreign');
+            $table->dropForeign('users_district_id_foreign');
+            $table->dropForeign('users_village_id_foreign');
+            $table->dropForeign('users_bank_sampah_id_foreign');
+            $table->dropForeign('users_pengguna_kategori_id_foreign');
+
             $table->dropColumn('created_by');
+            $table->dropColumn('province_id');
+            $table->dropColumn('city_id');
+            $table->dropColumn('district_id');
+            $table->dropColumn('village_id');
+            $table->dropColumn('bank_sampah_id');
+            $table->dropColumn('pengguna_kategori_id');
             $table->dropColumn('jenis_kelamin');
             $table->dropColumn('tanggal_lahir');
             $table->dropColumn('alamat');
             $table->dropColumn('telepon');
             $table->dropColumn('photo');
-            $table->dropColumn('province_id');
-            $table->dropColumn('city_id');
-            $table->dropColumn('district_id');
-            $table->dropColumn('village_id');
             $table->dropColumn('kode_pos');
-            $table->dropColumn('bank_sampah_id');
-            $table->dropColumn('pengguna_kategori_id');
         });
     }
 }

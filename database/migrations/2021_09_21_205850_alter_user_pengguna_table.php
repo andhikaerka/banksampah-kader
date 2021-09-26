@@ -32,6 +32,7 @@ class AlterUserPenggunaTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign('users_approved_by_foreign');
             $table->dropColumn('pengguna_profile_status');
             $table->dropColumn('approved_at');
             $table->dropColumn('approved_by');

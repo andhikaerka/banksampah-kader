@@ -26,8 +26,12 @@ class AlterBarangBeratTable extends Migration
      */
     public function down()
     {
-        Schema::table('barang_berat', function (Blueprint $table) {
-            $table->dropColumn('pengali');
-        });
+        if (Schema::hasColumn('barang_berat', 'pengali')) //check the column
+        {
+            Schema::table('barang_berat', function (Blueprint $table)
+            {
+                $table->dropColumn('pengali'); //drop it
+            });
+        }
     }
 }
