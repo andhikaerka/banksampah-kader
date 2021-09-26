@@ -8,6 +8,7 @@ use App\Http\Requests\KaderSetoranStore;
 use App\Models\Barang;
 use App\Models\BarangBerat;
 use App\Models\KaderSetoran;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SetoranController extends Controller
@@ -52,6 +53,66 @@ class SetoranController extends Controller
      */
     public function store(KaderSetoranStore $request, KaderSetoran $setoran)
     {
+        // hitung jumlah kaderisasi
+        $kaderisasiTotal = User::whereHas('roles', function($q){ 
+            $q->where('name', 'kader'); 
+        })
+        ->where('created_by', auth()->user()->id)
+        ->count();
+
+        $setoranAttempt = KaderSetoran::where('created_by', auth()->user()->id)
+        ->count();
+
+        // JIKA KADER BELUM 3, MAKA TIDAK BISA BUAT SETORAN KE-1
+        if ($kaderisasiTotal < 3) {
+            Alert::error('Jumlah Kaderisasi Kurang', 'Minimal punya 3 kader')
+            ->persistent(true)
+            ->autoClose(4000);
+
+            return redirect()->route('kader.setoran.index');
+        } else {
+            if ($setoranAttempt < 1) {
+                // JIKA SUDAH MAKA BISA BUAT SETORAN KE-1
+                $this->save($request, $setoran);
+            }
+        }
+
+        // JIKA KADER BELUM 5, MAKA TIDAK BISA BUAT SETORAN KE-2
+        if (($kaderisasiTotal >= 3 && $setoranAttempt == 1) && $kaderisasiTotal < 5) {
+            Alert::error('Jumlah Kaderisasi Kurang', 'Minimal punya 5 kader')
+            ->persistent(true)
+            ->autoClose(4000);
+
+            return redirect()->route('kader.setoran.index');
+        } else {
+            if ($setoranAttempt < 2) {
+                // JIKA SUDAH MAKA BISA BUAT SETORAN KE-2
+                $this->save($request, $setoran);
+            }
+        }
+
+        if (($kaderisasiTotal >= 5 && $setoranAttempt == 2) && $kaderisasiTotal < 7) {
+            Alert::error('Jumlah Kaderisasi Kurang', 'Minimal punya 7 kader')
+            ->persistent(true)
+            ->autoClose(4000);
+
+            return redirect()->route('kader.setoran.index');
+        } else {
+            if ($setoranAttempt < 3) {
+                // JIKA SUDAH MAKA BISA BUAT SETORAN KE-3
+                $this->save($request, $setoran);
+            }
+        }
+
+        // JIKA SUDAH PUNYA KADER MINIMAL 7, MAKA BISA BUAT SETORAN SELAMANYA
+        if ($kaderisasiTotal >= 7) {
+            $this->save($request, $setoran);
+        }
+    }
+
+    // SIMPAN SETORAN KE DB
+    public function save(Request $request, KaderSetoran $setoran)
+    {
         $berat_satuan = BarangBerat::find($request->berat_satuan);
         
         $setoran->barang_id = $request->barang;
@@ -61,7 +122,10 @@ class SetoranController extends Controller
 
         $setoran->save();
 
-        Alert::success('Tambah Setoran', 'Berhasil')->persistent(true)->autoClose(2000);
+        Alert::success('Tambah Setoran', 'Berhasil')
+        ->persistent(true)
+        ->autoClose(2000);
+
         return redirect()->route('kader.setoran.index');
     }
 
@@ -109,7 +173,10 @@ class SetoranController extends Controller
     {
         $setoran->delete();
 
-        Alert::success('Hapus Setoran', 'Berhasil')->persistent(true)->autoClose(2000);
+        Alert::success('Hapus Setoran', 'Berhasil')
+        ->persistent(true)
+        ->autoClose(2000);
+        
         return redirect()->route('kader.setoran.index');
     }
 }
