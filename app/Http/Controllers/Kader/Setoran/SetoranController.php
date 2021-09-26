@@ -79,7 +79,7 @@ class SetoranController extends Controller
 
         // JIKA KADER BELUM 5, MAKA TIDAK BISA BUAT SETORAN KE-2
         if (($kaderisasiTotal >= 3 && $setoranAttempt == 1) && $kaderisasiTotal < 5) {
-            Alert::error('Jumlah Kaderisasi Kurang', 'Minimal punya 5 kader')
+            Alert::error('Jumlah Kaderisasi Kurang', 'Yuk ajakin 2 kader baru :)')
             ->persistent(true)
             ->autoClose(4000);
 
@@ -92,7 +92,7 @@ class SetoranController extends Controller
         }
 
         if (($kaderisasiTotal >= 5 && $setoranAttempt == 2) && $kaderisasiTotal < 7) {
-            Alert::error('Jumlah Kaderisasi Kurang', 'Minimal punya 7 kader')
+            Alert::error('Jumlah Kaderisasi Kurang', 'Nah sekarang lengkapi 2 lagi ya :D')
             ->persistent(true)
             ->autoClose(4000);
 
