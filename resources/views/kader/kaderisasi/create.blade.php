@@ -60,7 +60,7 @@
         {{-- slot end --}}
 
         @push('page-scripts')
-            {!! JsValidator::formRequest('App\Http\Requests\PenggunaKaderStore',  '#kader-store') !!}
+            {!! JsValidator::formRequest('App\Http\Requests\KaderisasiStore',  '#kader-store') !!}
         @endpush
     </x-card>
 </x-app-layout>

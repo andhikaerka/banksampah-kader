@@ -10,7 +10,7 @@
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
         
-        <form action="{{ route('kader.kaderisasi.update', ['kaderisasi' => $kaderisasi->id]) }}" method="POST" id="kader-store">
+        <form action="{{ route('kader.kaderisasi.update', ['kaderisasi' => $kaderisasi->id]) }}" method="POST" id="kader-update">
             @csrf
             <input type="hidden" name="_method" value="PUT" />
             <div class="form-group">
@@ -60,7 +60,7 @@
         {{-- slot end --}}
 
         @push('page-scripts')
-            {!! JsValidator::formRequest('App\Http\Requests\PenggunaKaderStore',  '#kader-store') !!}
+            {!! JsValidator::formRequest('App\Http\Requests\KaderisasiUpdate',  '#kader-update') !!}
         @endpush
     </x-card>
 </x-app-layout>
