@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Repositories\KaderRepositoryInterface;
 
 class KaderService
@@ -21,10 +22,13 @@ class KaderService
      */
     public function save(array $request)
     {
+        // SAVE DATA
         $kader = $this->kaderRepository->save($request);
 
+        // SET ROLE
         $this->setKaderRole($kader);
 
+        // SEND RESET PASSWORD EMAIL
         $this->sendKaderEmail($kader);
         
         return $kader;
@@ -73,7 +77,7 @@ class KaderService
      * @param [type] $kader
      * @return void
      */
-    public function sendKaderEmail($kader)
+    public function sendKaderEmail(User $kader)
     {
         $token = $this->getTokenKader($kader);
 
@@ -87,8 +91,8 @@ class KaderService
      * @param [type] $kader
      * @return void
      */
-    public function getTokenKader($kader)
+    public function getTokenKader(User $kader)
     {
-        return app(Illuminate\Auth\Passwords\PasswordBroker::class)->createToken($kader);
+        return  app('auth.password.broker')->createToken($kader);
     }
 }

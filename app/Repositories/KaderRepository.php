@@ -22,7 +22,7 @@ class KaderRepository implements KaderRepositoryInterface
         $kader->telepon = $request['telepon'];
         $kader->alamat = $request['alamat'];
         $kader->password = Hash::make($request['telepon']);
-        $kader->kader_status_id = $request['status_hubungan'];
+        $kader->kader_status_id = $request['status_hubungan'] ?? null;
         $kader->kader_kategori_id = auth()->user()->kader_kategori_id;
         $kader->bank_sampah_id = auth()->user()->bank_sampah_id;
         $kader->created_by = auth()->user()->id;

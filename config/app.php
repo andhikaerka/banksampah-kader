@@ -240,6 +240,7 @@ return [
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'DomPDF' => Barryvdh\DomPDF\Facade::class,
+        'auth.password.broker' => Illuminate\Auth\Passwords\TokenRepositoryInterface::class
 
     ],
 
