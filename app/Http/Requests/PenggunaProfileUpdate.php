@@ -25,7 +25,7 @@ class PenggunaProfileUpdate extends FormRequest
     {
         return [
             'nama' => ['required', 'string'],
-            'email' => ['required', 'string', 'email'],
+            'email' => ['required', 'email'],
             'telepon' => ['required', 'string'],
             'alamat' => ['required'],
             'kode_pos' => ['required', 'string'],

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Kader\Kaderisasi;
 
 use Alert;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\KaderisasiStore;
+use App\Http\Requests\KaderisasiUpdate;
 use App\Models\KaderStatus;
 use App\Models\User;
 use App\Services\KaderService;
@@ -52,7 +54,7 @@ class KaderisasiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(KaderisasiStore $request)
     {
         $this->kaderService->save($request->all());
 
@@ -84,7 +86,7 @@ class KaderisasiController extends Controller
     {
         $statusHubunganList = KaderStatus::all();
 
-        return view('kader.kaderisasi.create', compact(
+        return view('kader.kaderisasi.edit', compact(
             'statusHubunganList',
             'kaderisasi'
         ));
@@ -97,7 +99,7 @@ class KaderisasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(KaderisasiUpdate $request, $id)
     {
         $this->kaderService->update($request->all(), $id);
         

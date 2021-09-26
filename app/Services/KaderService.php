@@ -41,9 +41,9 @@ class KaderService
      * @param [type] $id
      * @return void
      */
-    public function update($request, $id)
+    public function update(array $request, $id)
     {
-        $kader = $this->kaderRepository->update($request->all(), $id);
+        $kader = $this->kaderRepository->update($request, $id);
         
         return $kader;
     }

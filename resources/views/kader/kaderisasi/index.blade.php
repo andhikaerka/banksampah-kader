@@ -18,7 +18,9 @@
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
-                    <th>Status Hubungan</th>
+                    <th class="no-wrap">Status Hubungan</th>
+                    <th>Email</th>
+                    <th>Telepon</th>
                     <th>Tgl Dibuat</th>
                     <th>Tgl Diubah</th>
                     <th>Aksi</th>
@@ -29,10 +31,12 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $kader->name }}</td>
-                        <td>{{ $kader->status_hubungan->nama }}</td>
-                        <td>{{ $kader->created_at }}</td>
-                        <td>{{ $kader->updated_at }}</td>
-                        <td>
+                        <td class="no-wrap">{{ optional($kader->status_hubungan)->nama }}</td>
+                        <td>{{ $kader->email }}</td>
+                        <td>{{ $kader->telepon }}</td>
+                        <td class="no-wrap">{{ $kader->created_at }}</td>
+                        <td class="no-wrap">{{ $kader->updated_at }}</td>
+                        <td class="no-wrap">
                             <form method="POST" action="{{ route('kader.kaderisasi.destroy', ['kaderisasi' => $kader->id]) }}">
                                 @csrf
                                 <input type="hidden" name="_method" value="DELETE" />

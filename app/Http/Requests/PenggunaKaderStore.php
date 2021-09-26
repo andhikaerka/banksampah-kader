@@ -25,7 +25,7 @@ class PenggunaKaderStore extends FormRequest
     {
         return [
             'nama' => ['required', 'string'],
-            'email' => ['required', 'string', 'email'],
+            'email' => ['required', 'email', 'unique:users,email'],
             'telepon' => ['required'],
             'alamat' => ['required'],
         ];

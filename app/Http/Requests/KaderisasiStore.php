@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GuestLoginStore extends FormRequest
+class KaderisasiStore extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,11 @@ class GuestLoginStore extends FormRequest
     public function rules()
     {
         return [
+            'nama' => ['required', 'string'],
             'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'string'],
+            'telepon' => ['required'],
+            'alamat' => ['required'],
+            'status_hubungan' => ['required'],
         ];
     }
 }

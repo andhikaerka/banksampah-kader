@@ -46,6 +46,7 @@ class KaderRepository implements KaderRepositoryInterface
         $kader->email = $request['email'];
         $kader->telepon = $request['telepon'];
         $kader->alamat = $request['alamat'];
+        $kader->kader_status_id = $request['status_hubungan'] ?? null;
 
         $kader->save();
 
