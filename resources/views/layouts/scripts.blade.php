@@ -87,6 +87,7 @@
             // Datatable global configuration
             $.extend(true, DataTable.defaults, {
                 ordering: false,
+                scrollX: true,
                 language: {
                     // url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Indonesian.json",
                     "sEmptyTable":	 "Tidak ada data yang tersedia pada tabel ini",

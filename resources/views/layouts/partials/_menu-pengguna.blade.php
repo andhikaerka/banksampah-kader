@@ -22,7 +22,7 @@
     </a>
 </li>
 
-<li class="menu-item {{ Route::is('pengguna.kader.*') ? 'menu-item-active' : '' }}" aria-haspopup="true">
+<li class="menu-item {{ Route::is('pengguna.kader.*') || Route::is('pengguna.kader-import.*') ? 'menu-item-active' : '' }}" aria-haspopup="true">
     <a href="{{ route('pengguna.kader.index') }}" class="menu-link">
         <span class="svg-icon menu-icon">
 

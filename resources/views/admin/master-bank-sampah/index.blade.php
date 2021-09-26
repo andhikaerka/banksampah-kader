@@ -12,7 +12,7 @@
         </x-slot>
 
         {{-- slot start --}}
-        <table class="table table-bordered" id="table">
+        <table class="table table-bordered" id="table" width="100%">
             <thead class="thead-light">
                 <tr>
                     <th>No</th>

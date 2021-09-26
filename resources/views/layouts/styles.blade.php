@@ -31,4 +31,8 @@
         margin: auto;
         margin-top: 30px;
     }
+
+    .no-wrap {
+        white-space: nowrap;
+    }
 </style>

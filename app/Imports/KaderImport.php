@@ -3,7 +3,7 @@
 namespace App\Imports;
 
 use App\Models\User;
-use DB;
+use App\Services\KaderService;
 use Hash;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
@@ -29,14 +29,13 @@ class KaderImport implements
     SkipsErrors;
 
     public $userList;
+    protected $kaderService;
 
-    public function  __construct($created_user_id, $bank_sampah_id, $kader_kategori_id)
+    public function  __construct(KaderService $kaderService)
     {
-        $this->created_user_id = $created_user_id;
-        $this->bank_sampah_id = $bank_sampah_id;
-        $this->kader_kategori_id = $kader_kategori_id;
+        $this->kaderService = $kaderService;
 
-        $this->userList = collect();
+        // $this->userList = collect();
     }
 
     /**
@@ -46,25 +45,9 @@ class KaderImport implements
     */
     public function model(array $row)
     {
-        $user  = new User();
-        $user->name = $row['nama'];
-        $user->email = $row['email'];
-        $user->telepon = $row['telepon'];
-        $user->alamat = $row['alamat'];
-        $user->created_by = $this->created_user_id;
-        $user->bank_sampah_id = $this->bank_sampah_id;
-        $user->kader_kategori_id = $this->kader_kategori_id;
-        $user->password = Hash::make($row['telepon']);
+        $kader = $this->kaderService->save($row);
 
-        $user->save();
-        
-        // assign role-nya
-        $user->assignRole('kader');
-
-        // collect user
-        $this->userList->push($user);
-
-        return $user;
+        return $kader;
     }
 
     /**

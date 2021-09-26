@@ -6,12 +6,20 @@ use Alert;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PenggunaKaderImportStore;
 use App\Imports\KaderImport;
+use App\Services\KaderService;
 use Excel;
 use Illuminate\Http\Request;
 use Session;
 
 class KaderImportController extends Controller
 {
+    protected $kaderService;
+
+    public function __construct(KaderService $kaderService)
+    {
+        $this->kaderService = $kaderService;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -30,26 +38,21 @@ class KaderImportController extends Controller
      */
     public function store(PenggunaKaderImportStore $request)
     {
-        $import = new KaderImport(
-            auth()->user()->id,
-            auth()->user()->bank_sampah_id,
-            auth()->user()->kader_kategori_id
-        );
+        $import = new KaderImport($this->kaderService);
 
         Excel::import($import, $request->file('file'));
-
         // dd($import->userList);
 
         $failures = $import->failures();
+
+        if (!$failures->isEmpty()) {
+            // notifikasi dengan session
+            Session::flash('result', $failures);
+        }
  
         Alert::success('Import Kader', 'Berhasil')
         ->persistent(true)
         ->autoClose(2000);
-
-        if(!$failures->isEmpty()){
-            // notifikasi dengan session
-            Session::flash('result', $failures);
-        }
  
         // alihkan halaman kembali
         return redirect()->route('pengguna.kader.index');

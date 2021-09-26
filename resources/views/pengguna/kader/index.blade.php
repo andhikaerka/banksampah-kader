@@ -26,14 +26,15 @@
 
         <x-auth-session-import-result class="mb-4" :result="session('result')" />
 
-        <table class="table table-bordered" id="table">
+        <table class="table table-bordered" id="table" width="100%" width="100%">
             <thead class="thead-light">
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
+                    <th>Email</th>
+                    <th>Telepon</th>
+                    <th class="no-wrap">Dibuat Oleh</th>
                     <th>Tgl Dibuat</th>
-                    <th>Tgl Diubah</th>
-                    <th>Dibuat Oleh</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -42,10 +43,11 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $kader->name }}</td>
+                        <td>{{ $kader->email }}</td>
+                        <td>{{ $kader->telepon }}</td>
+                        <td class="no-wrap">{{ optional($kader->created_user)->name }}</td>
                         <td>{{ $kader->created_at }}</td>
-                        <td>{{ $kader->updated_at }}</td>
-                        <td>{{ optional($kader->created_user)->name }}</td>
-                        <td>
+                        <td class="no-wrap">
                             @if ($kader->created_by == auth()->user()->id)
                                 <form method="POST" action="{{ route('pengguna.kader.destroy', ['kader' => $kader->id]) }}">
                                     @csrf
@@ -60,16 +62,5 @@
             </tbody>
         </table>
         {{-- slot end --}}
-
-        @push('page-scripts')
-        {{-- <script>
-            $( document ).ready(function() {
-                var elements = document.getElementsByClassName("alert-text");
-                for (var i = 0; i < elements.length; ++i) {
-                elements[i].innerHTML = elements[i].innerHTML.replace(/[{}]/g,'');
-                }
-            });
-        </script> --}}
-        @endpush
     </x-card>
 </x-app-layout>

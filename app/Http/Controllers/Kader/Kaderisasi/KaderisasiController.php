@@ -6,12 +6,18 @@ use Alert;
 use App\Http\Controllers\Controller;
 use App\Models\KaderStatus;
 use App\Models\User;
-use Hash;
+use App\Services\KaderService;
 use Illuminate\Http\Request;
-use Password;
 
 class KaderisasiController extends Controller
 {
+    protected $kaderService;
+
+    public function __construct(KaderService $kaderService)
+    {
+        $this->kaderService = $kaderService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -46,26 +52,14 @@ class KaderisasiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, User $kaderisasi)
+    public function store(Request $request)
     {
-        $kaderisasi->name = $request->nama;
-        $kaderisasi->email = $request->email;
-        $kaderisasi->telepon = $request->telepon;
-        $kaderisasi->alamat = $request->alamat;
-        $kaderisasi->kader_status_id = $request->status_hubungan;
-        $kaderisasi->kader_kategori_id = auth()->user()->kader_kategori_id;
-        $kaderisasi->bank_sampah_id = auth()->user()->bank_sampah_id;
-        $kaderisasi->created_by = auth()->user()->id;
-        $kaderisasi->password = Hash::make($request['telepon']);
+        $this->kaderService->save($request->all());
 
-        $kaderisasi->save();
+        Alert::success('Tambah Kader', 'Berhasil')
+        ->persistent(true)
+        ->autoClose(2000);
 
-        $kaderisasi->assignRole('kader');
-
-        $token = Password::getRepository()->create($kaderisasi);
-        $kaderisasi->sendPasswordResetNotification($token);
-
-        Alert::success('Tambah Kader', 'Berhasil')->persistent(true)->autoClose(2000);
         return redirect()->route('kader.kaderisasi.index');
     }
 
@@ -103,18 +97,14 @@ class KaderisasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $kaderisasi)
+    public function update(Request $request, $id)
     {
-        $kaderisasi->nama = $request->nama;
-        $kaderisasi->email = $request->nama;
-        $kaderisasi->telepon = $request->nama;
-        $kaderisasi->alamat = $request->nama;
-        $kaderisasi->status = $request->nama;
-        $kaderisasi->created_by = auth()->user()->id;
+        $this->kaderService->update($request->all(), $id);
+        
+        Alert::success('Ubah Kader', 'Berhasil')
+        ->persistent(true)
+        ->autoClose(2000);
 
-        $kaderisasi->save();
-
-        Alert::success('Ubah Kader', 'Berhasil')->persistent(true)->autoClose(2000);
         return redirect()->route('kader.kaderisasi.index');
     }
 
@@ -124,11 +114,14 @@ class KaderisasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $kaderisasi)
+    public function destroy($id)
     {
-        $kaderisasi->delete();
+        $this->kaderService->delete($id);
 
-        Alert::success('Hapus Kader', 'Berhasil')->persistent(true)->autoClose(2000);
+        Alert::success('Hapus Kader', 'Berhasil')
+        ->persistent(true)
+        ->autoClose(2000);
+
         return redirect()->route('kader.kaderisasi.index');
     }
 }
