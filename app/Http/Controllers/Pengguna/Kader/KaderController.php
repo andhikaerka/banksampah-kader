@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pengguna\Kader;
 use Alert;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PenggunaKaderStore;
+use App\Http\Requests\PenggunaKaderUpdate;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\KaderService;
@@ -90,7 +91,7 @@ class KaderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PenggunaKaderUpdate $request, $id)
     {
         $this->kaderService->update($request->all(), $id);
         

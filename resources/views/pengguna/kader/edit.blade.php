@@ -45,7 +45,7 @@
         {{-- slot end --}}
 
         @push('page-scripts')
-            {!! JsValidator::formRequest('App\Http\Requests\PenggunaKaderStore',  '#kader-update') !!}
+            {!! JsValidator::formRequest('App\Http\Requests\PenggunaKaderUpdate',  '#kader-update') !!}
         @endpush
     </x-card>
 </x-app-layout>

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class KaderProfileUpdate extends FormRequest
 {
@@ -25,8 +26,8 @@ class KaderProfileUpdate extends FormRequest
     {
         return [
             'nama' => ['required', 'string'],
-            'email' => ['required', 'email'],
-            'telepon' => ['required', 'string'],
+            'email' => ['required', 'email', Rule::unique('users')->ignore(auth()->user()->id)],
+            'telepon' => ['required', Rule::unique('users')->ignore(auth()->user()->id)],
             'alamat' => ['required'],
             'kode_pos' => ['required', 'string'],
             'tanggal_lahir' => ['required'],

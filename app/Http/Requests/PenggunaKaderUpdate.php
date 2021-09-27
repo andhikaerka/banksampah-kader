@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class KaderisasiStore extends FormRequest
+class PenggunaKaderUpdate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +26,18 @@ class KaderisasiStore extends FormRequest
     {
         return [
             'nama' => ['required', 'string'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'telepon' => ['required', 'unique:users,telepon'],
+            'email' => [
+                'required', 
+                'email',
+                Rule::unique('users', 'email')
+                ->ignore($this->kader)
+            ],
+            'telepon' => [
+                'required',
+                Rule::unique('users', 'telepon')
+                ->ignore($this->kader)
+            ],
             'alamat' => ['required'],
-            'status_hubungan' => ['required'],
         ];
     }
 }

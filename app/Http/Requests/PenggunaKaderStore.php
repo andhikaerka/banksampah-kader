@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PenggunaKaderStore extends FormRequest
 {
@@ -25,8 +26,8 @@ class PenggunaKaderStore extends FormRequest
     {
         return [
             'nama' => ['required', 'string'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'telepon' => ['required'],
+            'email' => ['required', 'email', Rule::unique('users')],
+            'telepon' => ['required', Rule::unique('users')],
             'alamat' => ['required'],
         ];
     }

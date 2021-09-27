@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class KaderisasiUpdate extends FormRequest
 {
@@ -25,8 +26,17 @@ class KaderisasiUpdate extends FormRequest
     {
         return [
             'nama' => ['required', 'string'],
-            'email' => ['required', 'email'],
-            'telepon' => ['required'],
+            'email' => [
+                'required', 
+                'email', 
+                Rule::unique('users')
+                    ->ignore($this->kaderisasi)
+            ],
+            'telepon' => [
+                'required', 
+                Rule::unique('users')
+                    ->ignore($this->kaderisasi)
+            ],
             'alamat' => ['required'],
             'status_hubungan' => ['required'],
         ];

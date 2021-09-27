@@ -60,6 +60,7 @@ class KaderImport implements
         return [
             'nama' => 'required|string',
             'email' => 'required|email|unique:users,email',
+            'telepon' => 'required|unique:users,telepon',
         ];
     }
 }
