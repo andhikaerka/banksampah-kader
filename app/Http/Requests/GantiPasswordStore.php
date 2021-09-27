@@ -26,7 +26,7 @@ class GantiPasswordStore extends FormRequest
     {
         return [
             'password_lama' => ['required', 'required_with:password_baru'],
-            'password_baru' => ['required', Password::min(8)],
+            'password_baru' => ['required', Password::min(8), 'min:8'],
             'konfirmasi_password_baru' => ['required', Password::min(8), 'same:password_baru'],
         ];
     }
