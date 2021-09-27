@@ -96,24 +96,28 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($kaderSetoranList as $kaderSetoran)
+            @forelse ($kaderSetoranList as $kaderSetoran)
+            <tr>
+                <td class="text-center">{{ $loop->iteration }}</td>
+                <td>{{ $kaderSetoran->created_user->name }}</td>
+                <td>{{ $kaderSetoran->barang->nama }}</td>
+                <td class="text-right">
+                    @if ($kaderSetoran->barang->kategori->nama == 'Plastik')
+                        {{ currency_format(float_two($kaderSetoran->jumlah)) }}
+                    @endif
+                </td>
+                <td class="text-right">
+                    @if ($kaderSetoran->barang->kategori->nama == 'Non Plastik')
+                        {{ currency_format(float_two($kaderSetoran->jumlah)) }}
+                    @endif
+                </td>
+                <td class="text-right">{{ currency_format(float_two($kaderSetoran->jumlah)) }}</td>
+            </tr>
+            @empty
                 <tr>
-                    <td class="text-center">{{ $loop->iteration }}</td>
-                    <td>{{ $kaderSetoran->created_user->name }}</td>
-                    <td>{{ $kaderSetoran->barang->nama }}</td>
-                    <td class="text-right">
-                        @if ($kaderSetoran->barang->kategori->nama == 'Plastik')
-                            {{ currency_format(float_two($kaderSetoran->jumlah)) }}
-                        @endif
-                    </td>
-                    <td class="text-right">
-                        @if ($kaderSetoran->barang->kategori->nama == 'Non Plastik')
-                            {{ currency_format(float_two($kaderSetoran->jumlah)) }}
-                        @endif
-                    </td>
-                    <td class="text-right">{{ currency_format(float_two($kaderSetoran->jumlah)) }}</td>
+                    <td colspan="6" style="text-align: center">Tidak ada data tersedia</td>
                 </tr>
-            @endforeach
+            @endforelse
         </tbody>
         <tfoot>
             <tr class="table-secondary">
