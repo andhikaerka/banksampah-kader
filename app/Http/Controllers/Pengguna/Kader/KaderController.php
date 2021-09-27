@@ -24,15 +24,32 @@ class KaderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $kaderList = User::whereHas('roles', function ($q) {
             $q->where('name', 'kader');
         })
         ->where('bank_sampah_id', auth()->user()->bank_sampah_id)
+        ->when(request('tahun'), function($q) use ($request) {
+            $q->whereYear('created_at', $request->tahun);
+        })
+        ->when(request('bulan'), function($q) use ($request) {
+            $q->whereMonth('created_at', $request->bulan);
+        })
         ->get();
 
-        return view('pengguna.kader.index', compact('kaderList'));
+        $tahunList = User::selectRaw('DISTINCT YEAR(created_at) AS tahun')
+        ->whereHas('roles', function ($q) {
+            $q->where('name', 'kader');
+        })
+        ->where('bank_sampah_id', auth()->user()->bank_sampah_id)
+        ->get()
+        ->pluck('tahun');
+
+        return view('pengguna.kader.index', compact(
+            'kaderList',
+            'tahunList'
+        ));
     }
 
     /**

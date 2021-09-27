@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Pengguna\DashboardController;
 use App\Http\Controllers\Pengguna\Kader\KaderController;
+use App\Http\Controllers\Pengguna\Kader\KaderExportExcelController;
+use App\Http\Controllers\Pengguna\Kader\KaderExportPDFController;
 use App\Http\Controllers\Pengguna\Kader\KaderImportController;
 use App\Http\Controllers\Pengguna\ProfileController;
 use App\Http\Controllers\Pengguna\ProfileUpdateController;
@@ -23,8 +25,20 @@ Route::prefix('pengguna')->name('pengguna.')->group(function () {
             'create', 'store'
         ]);
 
+        // kader report pdf
+        Route::get('kader-export-pdf', KaderExportPDFController::class)->name('kader.pdf.export');
+        
+        // kader report excel
+        Route::get('kader-export-excel', KaderExportExcelController::class)->name('kader.xls.export');
+
         // setoran kader
         Route::resource('kader-setoran', SetoranController::class);
+
+        // pengguna setoran export pdf
+        Route::get('kader-setoran-export-pdf', SetoranExportPDFController::class)->name('pdf.export');
+
+        // pengguna setoran export excel xls
+        Route::get('kader-setoran-export-excel', SetoranExportExcelController::class)->name('excel.export');
     });
 
     // pengguna profile
@@ -32,10 +46,4 @@ Route::prefix('pengguna')->name('pengguna.')->group(function () {
 
     // pengguna profile update
     Route::put('profile', ProfileUpdateController::class)->name('profile.update');
-
-    // pengguna setoran export pdf
-    Route::get('pdf', SetoranExportPDFController::class)->name('pdf.export');
-
-    // pengguna setoran export excel xls
-    Route::get('excel', SetoranExportExcelController::class)->name('excel.export');
 });
