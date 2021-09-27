@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\GantiPasswordController;
 use App\Http\Controllers\HomeDashboardController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\VillageController;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomepageController::class);
 
+
 Route::get('/clear', function() {
     Artisan::call('cache:clear');
     Artisan::call('config:cache');
@@ -34,6 +36,9 @@ Route::group(['middleware'=> ['auth']], function () {
 
     // Dashboard Default
     Route::get('/dashboard', HomeDashboardController::class)->name('dashboard');
+    
+    Route::get('/ganti-password', [GantiPasswordController::class, 'create'])->name('ganti.password');
+    Route::post('/ganti-password', [GantiPasswordController::class, 'store'])->name('ganti.password.store');
     
     // Location
     Route::post('city/{province}', CityController::class);
