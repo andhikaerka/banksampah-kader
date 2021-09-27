@@ -3,18 +3,18 @@
 <body>
     <table>
         <tr>
-            <td colspan="10">Laporan Setoran Kader</td>
+            <td colspan="6">Laporan Setoran Kader</td>
         </tr>
         <tr>
-            <td colspan="10">{{ $bank_sampah_nama }}</td>
+            <td colspan="6">{{ $bank_sampah_nama }}</td>
         </tr>
         <tr>
-            <td colspan="10">
+            <td colspan="6">
                 Bulan : {{ bulan($bulan) }}
             </td>
         </tr>
         <tr>
-            <td colspan="10">
+            <td colspan="6">
                 Tahun : {{ $tahun }}
             </td>
         </tr>
@@ -32,24 +32,28 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($kaderSetoranList as $kaderSetoran)
+            @forelse ($kaderSetoranList as $kaderSetoran)
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $kaderSetoran->created_user->name }}</td>
+                <td>{{ $kaderSetoran->barang->nama }}</td>
+                <td>
+                    @if ($kaderSetoran->barang->kategori->nama == 'Plastik')
+                        {{ currency_format(float_two($kaderSetoran->jumlah)) }}
+                    @endif
+                </td>
+                <td >
+                    @if ($kaderSetoran->barang->kategori->nama == 'Non Plastik')
+                        {{ currency_format(float_two($kaderSetoran->jumlah)) }}
+                    @endif
+                </td>
+                <td >{{ currency_format(float_two($kaderSetoran->jumlah)) }}</td>
+            </tr>
+            @empty
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $kaderSetoran->created_user->name }}</td>
-                    <td>{{ $kaderSetoran->barang->nama }}</td>
-                    <td >
-                        @if ($kaderSetoran->barang->kategori->nama == 'Plastik')
-                            {{ currency_format(float_two($kaderSetoran->jumlah)) }}
-                        @endif
-                    </td>
-                    <td >
-                        @if ($kaderSetoran->barang->kategori->nama == 'Non Plastik')
-                            {{ currency_format(float_two($kaderSetoran->jumlah)) }}
-                        @endif
-                    </td>
-                    <td >{{ currency_format(float_two($kaderSetoran->jumlah)) }}</td>
+                    <td colspan="6" style="text-align: center">Tidak Ada Data Tersedia</td>
                 </tr>
-            @endforeach
+            @endforelse
         </tbody>
         <tfoot>
             <tr class="table-secondary">

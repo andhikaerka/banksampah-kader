@@ -9,45 +9,37 @@ use Maatwebsite\Excel\Concerns\WithDrawings;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 
-class KaderSetoranExport implements
+
+class KaderListExport implements
     FromView,
     WithDrawings,
     WithEvents,
-    ShouldAutoSize
+    ShouldAutoSize,
+    WithColumnFormatting
 {
-    protected $kaderSetoranList;
-    protected $sampahTotal;
-    protected $sampahPlastikTotal;
-    protected $sampahNonPlastikTotal;
+    protected $kaderList;
     protected $bulan;
     protected $tahun;
     protected $bank_sampah_nama;
 
     /**
-     * construct function
+     * Undocumented function
      *
-     * @param [type] $kaderSetoranList
-     * @param [type] $sampahTotal
-     * @param [type] $sampahPlastikTotal
-     * @param [type] $sampahNonPlastikTotal
+     * @param [type] $kaderList
      * @param [type] $bulan
      * @param [type] $tahun
      * @param [type] $bank_sampah_nama
      */
     public function __construct(
-        $kaderSetoranList,
-        $sampahTotal,
-        $sampahPlastikTotal,
-        $sampahNonPlastikTotal,
+        $kaderList,
         $bulan,
         $tahun,
         $bank_sampah_nama
     ) {
-        $this->kaderSetoranList = $kaderSetoranList;
-        $this->sampahTotal = $sampahTotal;
-        $this->sampahPlastikTotal = $sampahPlastikTotal;
-        $this->sampahNonPlastikTotal = $sampahNonPlastikTotal;
+        $this->kaderList = $kaderList;
         $this->bulan = $bulan;
         $this->tahun = $tahun;
         $this->bank_sampah_nama = $bank_sampah_nama;
@@ -60,19 +52,13 @@ class KaderSetoranExport implements
      */
     public function view(): View
     {
-        $kaderSetoranList = $this->kaderSetoranList;
-        $sampahTotal = $this->sampahTotal;
-        $sampahPlastikTotal = $this->sampahPlastikTotal;
-        $sampahNonPlastikTotal = $this->sampahNonPlastikTotal; 
+        $kaderList = $this->kaderList;
         $bulan = $this->bulan;
         $tahun = $this->tahun;
         $bank_sampah_nama = $this->bank_sampah_nama;
 
-        return view('pengguna.setoran.export-xls', compact(
-            'kaderSetoranList',
-            'sampahTotal',
-            'sampahPlastikTotal',
-            'sampahNonPlastikTotal',
+        return view('pengguna.kader.export-xls', compact(
+            'kaderList',
             'tahun',
             'bulan',
             'bank_sampah_nama'
@@ -92,7 +78,7 @@ class KaderSetoranExport implements
         $drawing->setPath(public_path('/assets/media/logos/logo-letter-1.png'));
         $drawing->setResizeProportional(true);
         $drawing->setWidthAndHeight(65, 150);
-        $drawing->setCoordinates('F1');
+        $drawing->setCoordinates('G1');
 
         return $drawing;
     }
@@ -106,7 +92,7 @@ class KaderSetoranExport implements
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $cellRange = 'A6:F6'; // All headers
+                $cellRange = 'A6:G6'; // All headers
                 $highestRow = $event->sheet->getHighestRow();
                 $styleArray = [
                     'borders' => [
@@ -118,9 +104,22 @@ class KaderSetoranExport implements
                         ]
                     ],
                 ];
+
+                // $event->sheet->getDelegate()
+                // ->getStyle('D7:D'.$highestRow)
+                // ->getNumberFormat()
+                // ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_GENERAL);
+
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(12);
-                $event->sheet->getDelegate()->getStyle('A6:F'.$highestRow)->applyFromArray($styleArray);
+                $event->sheet->getDelegate()->getStyle('A6:G'.$highestRow)->applyFromArray($styleArray);
             },
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'D' => '+#',
         ];
     }
 }
