@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BankSampah;
 use App\Models\BarangKategori;
 use App\Models\KaderSetoran;
+use App\Models\PenggunaKategori;
 use DB;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,17 @@ class ReportMasyarakatController extends Controller
     {
         $bankSampahList = BankSampah::with('setoran')
         ->with('setoran.barang.kategori')
+        ->with('setoran.created_user.created_user')
+        ->when(request('kategori'), function($q) use ($request) {
+            $q->whereHas('setoran.created_user.created_user', function($q) use ($request) {
+                $q->whereIn('pengguna_kategori_id', $request->kategori);
+            });
+        })
+        ->when(request('tahun'), function($q) use ($request) {
+            $q->whereHas('setoran', function($q) use ($request) {
+                $q->whereYear('kader_setoran.created_at', $request->tahun);
+            });
+        })
         ->get();
 
         $setoranTotal = KaderSetoran::with('barang.kategori')->get();
@@ -32,11 +44,14 @@ class ReportMasyarakatController extends Controller
         ->get()
         ->pluck('year');
 
+        $penggunaKategoriList = PenggunaKategori::all();
+
         return view('admin.laporan.masyarakat.index', compact(
             'bankSampahList',
             'kategoriList',
             'setoranTotal',
-            'setoranTahunList'
+            'setoranTahunList',
+            'penggunaKategoriList'
         ));
     }
 }

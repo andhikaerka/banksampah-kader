@@ -6,29 +6,58 @@
 
         <x-slot name="toolbar">
             <div class="card-toolbar">
-                <form class="" action="" method="GET">
-                    <select class="form-control form-control-sm mr-2 d-inline" name="tahun" id="tahun" style="width: auto;">
-                        <option value="">Semua Tahun</option>
-                        @foreach ($setoranTahunList as $tahun)
-                            <option value="{{ $tahun }}" @if($tahun == request()->tahun) selected @endif>{{ $tahun }}</option>
-                        @endforeach
-                    </select>
-                    
-                    <button type="submit" class="btn btn-sm btn-primary font-weight-bold d-inline">
-                        <i class="flaticon2-search-1"></i>Cari
-                    </button>
-
-                    <button type="button" id="cetak-pdf" data-url="{{ route('pengguna.pdf.export') }}" class="btn btn-sm btn-danger font-weight-bold d-inline">
-                        <i class="far fa-file-pdf"></i>Cetak .PDF
-                    </button>
-
-                    <button type="button" id="cetak-xls" data-url="{{ route('pengguna.excel.export') }}" class="btn btn-sm btn-success font-weight-bold d-inline">
-                        <i class="far fa-file-excel"></i>Cetak .XLS
-                    </button>
-                </form>
             </div>
         </x-slot>
 
+
+        <div class="row">
+            <div class="col-12">
+                <form class="" action="" method="GET">
+                    <div class="form-group row">
+                        <div class="col-5">
+                            <select class="form-control mr-2" name="kategori[]" id="kategori" style="width: 100%;" multiple="multiple">
+                                <option value="">Semua Kategori</option>
+                                @foreach ($penggunaKategoriList as $kategori)
+                                    <option value="{{ $kategori->id }}" 
+                                        @if (is_array(request()->kategori))
+                                            @foreach (request()->kategori as $item)
+                                                @if ($item == $kategori->id)
+                                                    selected="selected"
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                        >{{ $kategori->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+            
+                        <div class="col-2">
+                            <select class="form-control mr-2" name="tahun" id="tahun" style="width: 100%;">
+                                <option value="">Semua Tahun</option>
+                                @foreach ($setoranTahunList as $tahun)
+                                    <option value="{{ $tahun }}" @if($tahun == request()->tahun) selected @endif>{{ $tahun }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <div class="col-5">
+                            <button type="submit" class="btn btn-primary font-weight-bold">
+                                <i class="flaticon2-search-1"></i>Cari
+                            </button>
+
+                            <button type="button" id="cetak-pdf" data-url="{{ route('pengguna.pdf.export') }}" class="btn btn-danger font-weight-bold">
+                                <i class="far fa-file-pdf"></i>Cetak .PDF
+                            </button>
+
+                            <button type="button" id="cetak-xls" data-url="{{ route('pengguna.excel.export') }}" class="btn btn-success font-weight-bold">
+                                <i class="far fa-file-excel"></i>Cetak .XLS
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
         <style>
             .table.table-bordered tfoot th, .table.table-bordered tfoot td {
                 border-bottom: 1px solid #eaecf2;
@@ -1108,7 +1137,11 @@
         @push('page-scripts')
             <script>
                 $( document ).ready(function() {
-                    $('#bulan, #tahun').select2();
+                    $('#kategori').select2({
+                        placeholder: "Pilih Kategori",
+                    });
+
+                    $('#tahun').select2();
 
                     $('#cetak-pdf').on('click', function(e) {
                         e.preventDefault();

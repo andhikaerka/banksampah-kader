@@ -23,4 +23,9 @@ class BankSampah extends Model
         'id' // Local key on the users table...
         );
     }
+
+    public function kader()
+    {
+        return $this->hasMany(User::class, 'bank_sampah_id', 'id');
+    }
 }

@@ -52,7 +52,7 @@ class SetoranController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(KaderSetoranStore $request, KaderSetoran $setoran)
-    {
+    {        
         // hitung jumlah kaderisasi
         $kaderisasiTotal = User::whereHas('roles', function($q){ 
             $q->where('name', 'kader'); 
@@ -73,7 +73,7 @@ class SetoranController extends Controller
         } else {
             if ($setoranAttempt < 1) {
                 // JIKA SUDAH MAKA BISA BUAT SETORAN KE-1
-                $this->save($request, $setoran);
+                return $this->save($request, $setoran);
             }
         }
 
@@ -87,7 +87,7 @@ class SetoranController extends Controller
         } else {
             if ($setoranAttempt < 2) {
                 // JIKA SUDAH MAKA BISA BUAT SETORAN KE-2
-                $this->save($request, $setoran);
+                return $this->save($request, $setoran);
             }
         }
 
@@ -100,14 +100,16 @@ class SetoranController extends Controller
         } else {
             if ($setoranAttempt < 3) {
                 // JIKA SUDAH MAKA BISA BUAT SETORAN KE-3
-                $this->save($request, $setoran);
+                return $this->save($request, $setoran);
             }
         }
 
         // JIKA SUDAH PUNYA KADER MINIMAL 7, MAKA BISA BUAT SETORAN SELAMANYA
         if ($kaderisasiTotal >= 7) {
-            $this->save($request, $setoran);
+            return $this->save($request, $setoran);
         }
+
+        return redirect()->route('kader.setoran.index');
     }
 
     // SIMPAN SETORAN KE DB
@@ -122,6 +124,7 @@ class SetoranController extends Controller
 
         $setoran->save();
 
+        
         Alert::success('Tambah Setoran', 'Berhasil')
         ->persistent(true)
         ->autoClose(2000);
