@@ -21,6 +21,7 @@ class ReportEdukasiController extends Controller
     {
         $bankSampahList = BankSampah::with('setoran')
         ->with('setoran.created_user.kader_kategori')
+        ->with('setoran.created_user.created_user.roles')
         ->get();
 
         $setoranTotal = KaderSetoran::with('created_user.kader_kategori')->get();

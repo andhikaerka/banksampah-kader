@@ -41,8 +41,10 @@
                 <thead class="thead-light">
                     <tr>
                         <th rowspan="3" class="text-center align-middle">Penerima Manfaat</th>
-                        <th rowspan="3" class="text-center align-middle no-wrap">Jenis Sampah</th>
-                        <th colspan="13" class="text-center">Tahun @if (request()->tahun) - {{ request()->tahun }} @else - Semua Tahun @endif</th>
+                        <th rowspan="3" class="text-center align-middle no-wrap">Edukasi</th>
+                        <th colspan="12" class="text-center">Tahun @if (request()->tahun) - {{ request()->tahun }} @else - Semua Tahun @endif</th>
+                        <th class="text-center align-middle no-wrap"><i class="text-dark">Direct</i></th>
+                        <th class="text-center align-middle no-wrap"><i class="text-dark">Indirect</i></th>
                     </tr>
                     <tr>
                         <th class="text-center">Jan</th>
@@ -57,7 +59,8 @@
                         <th class="text-center">Okt</th>
                         <th class="text-center">Nov</th>
                         <th class="text-center">Des</th>
-                        <th class="text-center no-wrap">Total (KG)</th>
+                        <th class="text-center no-wrap">Kader</th>
+                        <th class="text-center no-wrap">Kaderisasi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -338,7 +341,30 @@
                                             return 
                                                 $setoran->created_user->kader_kategori->id == $kategori->id
                                                 &&
-                                                $tahun;
+                                                $tahun
+                                                &&
+                                                $setoran->created_user->created_user->roles->pluck('name')[0] == 'pengguna';
+                                        })->sum('jumlah');  
+                                    @endphp
+
+                                    {{ currency_format(float_two($jumlah)) }}
+                                </td>
+                                <td class="text-right">
+                                    @php
+                                        $jumlah = $bankSampah->setoran
+                                        ->filter(function($setoran) use ($kategori){
+                                            $tahun = request()->tahun;
+                                            if($tahun) {
+                                                $tahun = $setoran->created_at->format('Y') == $tahun;
+                                            } else {
+                                                $tahun = $setoran->created_at->format('Y') != null;
+                                            }
+                                            return 
+                                                $setoran->created_user->kader_kategori->id == $kategori->id
+                                                &&
+                                                $tahun
+                                                &&
+                                                $setoran->created_user->created_user->roles->pluck('name')[0] == 'kader';
                                         })->sum('jumlah');  
                                     @endphp
 
@@ -589,7 +615,28 @@
                                             $tahun = $setoran->created_at->format('Y') != null;
                                         }
                                         return
-                                            $tahun;
+                                            $tahun
+                                            &&
+                                            $setoran->created_user->created_user->roles->pluck('name')[0] == 'pengguna';
+                                    })->sum('jumlah');  
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
+                            </td>
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $bankSampah->setoran
+                                    ->filter(function($setoran) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return
+                                            $tahun
+                                            &&
+                                            $setoran->created_user->created_user->roles->pluck('name')[0] == 'kader';
                                     })->sum('jumlah');  
                                 @endphp
 
@@ -597,7 +644,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="15"></td>
+                            <td colspan="16"></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -857,7 +904,29 @@
                                         return 
                                             $setoran->created_user->kader_kategori->id == $kategori->id
                                             &&
-                                            $tahun;
+                                            $tahun
+                                            &&
+                                            $setoran->created_user->created_user->roles->pluck('name')[0] == 'pengguna';
+                                    })->sum('jumlah');
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
+                            </td>
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return 
+                                            $setoran->created_user->kader_kategori->id == $kategori->id
+                                            &&
+                                            $tahun
+                                            &&
+                                            $setoran->created_user->created_user->roles->pluck('name')[0] == 'kader';
                                     })->sum('jumlah');
                                 @endphp
 
@@ -1093,7 +1162,27 @@
                                         $tahun = $setoran->created_at->format('Y') != null;
                                     }
                                     return
-                                        $tahun;
+                                        $tahun
+                                        &&
+                                        $setoran->created_user->created_user->roles->pluck('name')[0] == 'pengguna';
+                                })->sum('jumlah');
+                            @endphp
+
+                            {{ currency_format(float_two($jumlah)) }}
+                        </td>
+                        <td class="text-right">
+                            @php
+                                $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                    $tahun = request()->tahun;
+                                    if($tahun) {
+                                        $tahun = $setoran->created_at->format('Y') == $tahun;
+                                    } else {
+                                        $tahun = $setoran->created_at->format('Y') != null;
+                                    }
+                                    return
+                                        $tahun
+                                        &&
+                                        $setoran->created_user->created_user->roles->pluck('name')[0] == 'kader';
                                 })->sum('jumlah');
                             @endphp
 
