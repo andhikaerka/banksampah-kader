@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-card>
         <x-slot name="title">
-            Laporan Masyarakat
+            Laporan Edukasi
         </x-slot>
 
         <x-slot name="toolbar">
@@ -40,7 +40,7 @@
             <table class="table table-bordered" id="tablea" width="100%">
                 <thead class="thead-light">
                     <tr>
-                        <th rowspan="3" class="text-center align-middle">Bank Sampah</th>
+                        <th rowspan="3" class="text-center align-middle">Penerima Manfaat</th>
                         <th rowspan="3" class="text-center align-middle no-wrap">Jenis Sampah</th>
                         <th colspan="13" class="text-center">Tahun @if (request()->tahun) - {{ request()->tahun }} @else - Semua Tahun @endif</th>
                     </tr>
@@ -84,7 +84,7 @@
                                                 $tahun = $setoran->created_at->format('Y') != null;
                                             }
                                             return 
-                                                $setoran->barang->kategori->id == $kategori->id
+                                                $setoran->created_user->kader_kategori->id == $kategori->id
                                                 && 
                                                 $setoran->created_at->format('m') == 1
                                                 &&
@@ -105,7 +105,7 @@
                                                 $tahun = $setoran->created_at->format('Y') != null;
                                             }
                                             return 
-                                                $setoran->barang->kategori->id == $kategori->id
+                                                $setoran->created_user->kader_kategori->id == $kategori->id
                                                 && 
                                                 $setoran->created_at->format('m') == 2
                                                 &&
@@ -126,7 +126,7 @@
                                                 $tahun = $setoran->created_at->format('Y') != null;
                                             }
                                             return 
-                                                $setoran->barang->kategori->id == $kategori->id
+                                                $setoran->created_user->kader_kategori->id == $kategori->id
                                                 && 
                                                 $setoran->created_at->format('m') == 3
                                                 &&
@@ -147,7 +147,7 @@
                                                 $tahun = $setoran->created_at->format('Y') != null;
                                             }
                                             return 
-                                                $setoran->barang->kategori->id == $kategori->id
+                                                $setoran->created_user->kader_kategori->id == $kategori->id
                                                 && 
                                                 $setoran->created_at->format('m') == 4
                                                 &&
@@ -168,7 +168,7 @@
                                                 $tahun = $setoran->created_at->format('Y') != null;
                                             }
                                             return 
-                                                $setoran->barang->kategori->id == $kategori->id
+                                                $setoran->created_user->kader_kategori->id == $kategori->id
                                                 && 
                                                 $setoran->created_at->format('m') == 5
                                                 &&
@@ -189,7 +189,7 @@
                                                 $tahun = $setoran->created_at->format('Y') != null;
                                             }
                                             return 
-                                                $setoran->barang->kategori->id == $kategori->id
+                                                $setoran->created_user->kader_kategori->id == $kategori->id
                                                 && 
                                                 $setoran->created_at->format('m') == 6
                                                 &&
@@ -210,7 +210,7 @@
                                                 $tahun = $setoran->created_at->format('Y') != null;
                                             }
                                             return 
-                                                $setoran->barang->kategori->id == $kategori->id
+                                                $setoran->created_user->kader_kategori->id == $kategori->id
                                                 && 
                                                 $setoran->created_at->format('m') == 7
                                                 &&
@@ -231,7 +231,7 @@
                                                 $tahun = $setoran->created_at->format('Y') != null;
                                             }
                                             return 
-                                                $setoran->barang->kategori->id == $kategori->id
+                                                $setoran->created_user->kader_kategori->id == $kategori->id
                                                 && 
                                                 $setoran->created_at->format('m') == 8
                                                 &&
@@ -252,7 +252,7 @@
                                                 $tahun = $setoran->created_at->format('Y') != null;
                                             }
                                             return 
-                                                $setoran->barang->kategori->id == $kategori->id
+                                                $setoran->created_user->kader_kategori->id == $kategori->id
                                                 && 
                                                 $setoran->created_at->format('m') == 9
                                                 &&
@@ -273,7 +273,7 @@
                                                 $tahun = $setoran->created_at->format('Y') != null;
                                             }
                                             return 
-                                                $setoran->barang->kategori->id == $kategori->id
+                                                $setoran->created_user->kader_kategori->id == $kategori->id
                                                 && 
                                                 $setoran->created_at->format('m') == 10
                                                 &&
@@ -294,7 +294,7 @@
                                                 $tahun = $setoran->created_at->format('Y') != null;
                                             }
                                             return 
-                                                $setoran->barang->kategori->id == $kategori->id
+                                                $setoran->created_user->kader_kategori->id == $kategori->id
                                                 && 
                                                 $setoran->created_at->format('m') == 11
                                                 &&
@@ -315,7 +315,7 @@
                                                 $tahun = $setoran->created_at->format('Y') != null;
                                             }
                                             return 
-                                                $setoran->barang->kategori->id == $kategori->id
+                                                $setoran->created_user->kader_kategori->id == $kategori->id
                                                 && 
                                                 $setoran->created_at->format('m') == 12
                                                 &&
@@ -336,7 +336,7 @@
                                                 $tahun = $setoran->created_at->format('Y') != null;
                                             }
                                             return 
-                                                $setoran->barang->kategori->id == $kategori->id
+                                                $setoran->created_user->kader_kategori->id == $kategori->id
                                                 &&
                                                 $tahun;
                                         })->sum('jumlah');  
@@ -596,7 +596,6 @@
                                 {{ currency_format(float_two($jumlah)) }}
                             </td>
                         </tr>
-                        
                         <tr>
                             <td colspan="15"></td>
                         </tr>
@@ -616,7 +615,7 @@
                                             $tahun = $setoran->created_at->format('Y') != null;
                                         }
                                         return 
-                                            $setoran->barang->kategori->id == $kategori->id
+                                            $setoran->created_user->kader_kategori->id == $kategori->id
                                             &&
                                             $setoran->created_at->format('m') == 1
                                             &&
@@ -636,7 +635,7 @@
                                             $tahun = $setoran->created_at->format('Y') != null;
                                         }
                                         return 
-                                            $setoran->barang->kategori->id == $kategori->id
+                                            $setoran->created_user->kader_kategori->id == $kategori->id
                                             &&
                                             $setoran->created_at->format('m') == 2
                                             &&
@@ -656,7 +655,7 @@
                                             $tahun = $setoran->created_at->format('Y') != null;
                                         }
                                         return 
-                                            $setoran->barang->kategori->id == $kategori->id
+                                            $setoran->created_user->kader_kategori->id == $kategori->id
                                             &&
                                             $setoran->created_at->format('m') == 3
                                             &&
@@ -676,7 +675,7 @@
                                             $tahun = $setoran->created_at->format('Y') != null;
                                         }
                                         return 
-                                            $setoran->barang->kategori->id == $kategori->id
+                                            $setoran->created_user->kader_kategori->id == $kategori->id
                                             &&
                                             $setoran->created_at->format('m') == 4
                                             &&
@@ -696,7 +695,7 @@
                                             $tahun = $setoran->created_at->format('Y') != null;
                                         }
                                         return 
-                                            $setoran->barang->kategori->id == $kategori->id
+                                            $setoran->created_user->kader_kategori->id == $kategori->id
                                             &&
                                             $setoran->created_at->format('m') == 5
                                             &&
@@ -716,7 +715,7 @@
                                             $tahun = $setoran->created_at->format('Y') != null;
                                         }
                                         return 
-                                            $setoran->barang->kategori->id == $kategori->id
+                                            $setoran->created_user->kader_kategori->id == $kategori->id
                                             &&
                                             $setoran->created_at->format('m') == 6
                                             &&
@@ -736,7 +735,7 @@
                                             $tahun = $setoran->created_at->format('Y') != null;
                                         }
                                         return 
-                                            $setoran->barang->kategori->id == $kategori->id
+                                            $setoran->created_user->kader_kategori->id == $kategori->id
                                             &&
                                             $setoran->created_at->format('m') == 7
                                             &&
@@ -756,7 +755,7 @@
                                             $tahun = $setoran->created_at->format('Y') != null;
                                         }
                                         return 
-                                            $setoran->barang->kategori->id == $kategori->id
+                                            $setoran->created_user->kader_kategori->id == $kategori->id
                                             &&
                                             $setoran->created_at->format('m') == 8
                                             &&
@@ -776,7 +775,7 @@
                                             $tahun = $setoran->created_at->format('Y') != null;
                                         }
                                         return 
-                                            $setoran->barang->kategori->id == $kategori->id
+                                            $setoran->created_user->kader_kategori->id == $kategori->id
                                             &&
                                             $setoran->created_at->format('m') == 9
                                             &&
@@ -796,7 +795,7 @@
                                             $tahun = $setoran->created_at->format('Y') != null;
                                         }
                                         return 
-                                            $setoran->barang->kategori->id == $kategori->id
+                                            $setoran->created_user->kader_kategori->id == $kategori->id
                                             &&
                                             $setoran->created_at->format('m') == 10
                                             &&
@@ -816,7 +815,7 @@
                                             $tahun = $setoran->created_at->format('Y') != null;
                                         }
                                         return 
-                                            $setoran->barang->kategori->id == $kategori->id
+                                            $setoran->created_user->kader_kategori->id == $kategori->id
                                             &&
                                             $setoran->created_at->format('m') == 11
                                             &&
@@ -836,7 +835,7 @@
                                             $tahun = $setoran->created_at->format('Y') != null;
                                         }
                                         return 
-                                            $setoran->barang->kategori->id == $kategori->id
+                                            $setoran->created_user->kader_kategori->id == $kategori->id
                                             &&
                                             $setoran->created_at->format('m') == 12
                                             &&
@@ -856,7 +855,7 @@
                                             $tahun = $setoran->created_at->format('Y') != null;
                                         }
                                         return 
-                                            $setoran->barang->kategori->id == $kategori->id
+                                            $setoran->created_user->kader_kategori->id == $kategori->id
                                             &&
                                             $tahun;
                                     })->sum('jumlah');

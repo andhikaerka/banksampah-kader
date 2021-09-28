@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-card>
         <x-slot name="title">
-            Laporan Masyarakat
+            Laporan Adiwiyata
         </x-slot>
 
         <x-slot name="toolbar">
@@ -40,7 +40,7 @@
             <table class="table table-bordered" id="tablea" width="100%">
                 <thead class="thead-light">
                     <tr>
-                        <th rowspan="3" class="text-center align-middle">Bank Sampah</th>
+                        <th rowspan="3" class="text-center align-middle">Penerima Manfaat</th>
                         <th rowspan="3" class="text-center align-middle no-wrap">Jenis Sampah</th>
                         <th colspan="13" class="text-center">Tahun @if (request()->tahun) - {{ request()->tahun }} @else - Semua Tahun @endif</th>
                     </tr>
@@ -596,7 +596,6 @@
                                 {{ currency_format(float_two($jumlah)) }}
                             </td>
                         </tr>
-                        
                         <tr>
                             <td colspan="15"></td>
                         </tr>
