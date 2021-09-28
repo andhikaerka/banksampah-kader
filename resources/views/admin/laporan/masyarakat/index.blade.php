@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-card>
         <x-slot name="title">
-            Laporan
+            Laporan Masyarakat
         </x-slot>
 
         <x-slot name="toolbar">
@@ -9,6 +9,9 @@
                 <form class="" action="" method="GET">
                     <select class="form-control form-control-sm mr-2 d-inline" name="tahun" id="tahun" style="width: auto;">
                         <option value="">Semua Tahun</option>
+                        @foreach ($setoranTahunList as $tahun)
+                            <option value="{{ $tahun }}" @if($tahun == request()->tahun) selected @endif>{{ $tahun }}</option>
+                        @endforeach
                     </select>
                     
                     <button type="submit" class="btn btn-sm btn-primary font-weight-bold d-inline">
@@ -39,7 +42,7 @@
                     <tr>
                         <th rowspan="3" class="text-center align-middle">Bank Sampah</th>
                         <th rowspan="3" class="text-center align-middle no-wrap">Jenis Sampah</th>
-                        <th colspan="13" class="text-center">Tahun</th>
+                        <th colspan="13" class="text-center">Tahun @if (request()->tahun) - {{ request()->tahun }} @else - Semua Tahun @endif</th>
                     </tr>
                     <tr>
                         <th class="text-center">Jan</th>
@@ -58,60 +61,288 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (\App\Models\BankSampah::all() as $bankSampah)
+                    @foreach ($bankSampahList as $bankSampah)
                     <tr>
                         <td rowspan="4" class="align-middle">
                             {{ $bankSampah->nama }}
                         </td>
                         <td colspan="14" class="p-0"></td>
                     </tr>
-                        @foreach (\App\Models\BarangKategori::all() as $kategori)
+                        @foreach ($kategoriList as $kategori)
                             <tr>
                                 <td>
                                     {{ $kategori->nama }}
                                 </td>
-                                <td>
-                                    {{ $bankSampah->setoran->sum('jumlah') }}
-                                    {{-- <br>
-                                    filter kategori ini
-                                    filter bulan ini
-                                    filter tahun ini --}}
+                                <td class="text-right">
+                                    @php
+                                        $jumlah = $bankSampah->setoran
+                                        ->filter(function($setoran) use ($kategori){
+                                            $tahun = request()->tahun;
+                                            if($tahun) {
+                                                $tahun = $setoran->created_at->format('Y') == $tahun;
+                                            } else {
+                                                $tahun = $setoran->created_at->format('Y') != null;
+                                            }
+                                            return 
+                                                $setoran->barang->kategori->id == $kategori->id
+                                                && 
+                                                $setoran->created_at->format('m') == 1
+                                                &&
+                                                $tahun;
+                                        })->sum('jumlah');  
+                                    @endphp
+
+                                    {{ currency_format(float_two($jumlah)) }}
                                 </td>
-                                <td>
-                                    {{ $bankSampah->setoran->sum('jumlah') }}
+                                <td class="text-right">
+                                    @php
+                                        $jumlah = $bankSampah->setoran
+                                        ->filter(function($setoran) use ($kategori){
+                                            $tahun = request()->tahun;
+                                            if($tahun) {
+                                                $tahun = $setoran->created_at->format('Y') == $tahun;
+                                            } else {
+                                                $tahun = $setoran->created_at->format('Y') != null;
+                                            }
+                                            return 
+                                                $setoran->barang->kategori->id == $kategori->id
+                                                && 
+                                                $setoran->created_at->format('m') == 2
+                                                &&
+                                                $tahun;
+                                        })->sum('jumlah');  
+                                    @endphp
+
+                                    {{ currency_format(float_two($jumlah)) }}
                                 </td>
-                                <td>
-                                    {{ $bankSampah->setoran->sum('jumlah') }}
+                                <td class="text-right">
+                                    @php
+                                        $jumlah = $bankSampah->setoran
+                                        ->filter(function($setoran) use ($kategori){
+                                            $tahun = request()->tahun;
+                                            if($tahun) {
+                                                $tahun = $setoran->created_at->format('Y') == $tahun;
+                                            } else {
+                                                $tahun = $setoran->created_at->format('Y') != null;
+                                            }
+                                            return 
+                                                $setoran->barang->kategori->id == $kategori->id
+                                                && 
+                                                $setoran->created_at->format('m') == 3
+                                                &&
+                                                $tahun;
+                                        })->sum('jumlah');  
+                                    @endphp
+
+                                    {{ currency_format(float_two($jumlah)) }}
                                 </td>
-                                <td>
-                                    {{ $bankSampah->setoran->sum('jumlah') }}
+                                <td class="text-right">
+                                    @php
+                                        $jumlah = $bankSampah->setoran
+                                        ->filter(function($setoran) use ($kategori){
+                                            $tahun = request()->tahun;
+                                            if($tahun) {
+                                                $tahun = $setoran->created_at->format('Y') == $tahun;
+                                            } else {
+                                                $tahun = $setoran->created_at->format('Y') != null;
+                                            }
+                                            return 
+                                                $setoran->barang->kategori->id == $kategori->id
+                                                && 
+                                                $setoran->created_at->format('m') == 4
+                                                &&
+                                                $tahun;
+                                        })->sum('jumlah');  
+                                    @endphp
+
+                                    {{ currency_format(float_two($jumlah)) }}
                                 </td>
-                                <td>
-                                    {{ $bankSampah->setoran->sum('jumlah') }}
+                                <td class="text-right">
+                                    @php
+                                        $jumlah = $bankSampah->setoran
+                                        ->filter(function($setoran) use ($kategori){
+                                            $tahun = request()->tahun;
+                                            if($tahun) {
+                                                $tahun = $setoran->created_at->format('Y') == $tahun;
+                                            } else {
+                                                $tahun = $setoran->created_at->format('Y') != null;
+                                            }
+                                            return 
+                                                $setoran->barang->kategori->id == $kategori->id
+                                                && 
+                                                $setoran->created_at->format('m') == 5
+                                                &&
+                                                $tahun;
+                                        })->sum('jumlah');  
+                                    @endphp
+
+                                    {{ currency_format(float_two($jumlah)) }}
                                 </td>
-                                <td>
-                                    {{ $bankSampah->setoran->sum('jumlah') }}
+                                <td class="text-right">
+                                    @php
+                                        $jumlah = $bankSampah->setoran
+                                        ->filter(function($setoran) use ($kategori){
+                                            $tahun = request()->tahun;
+                                            if($tahun) {
+                                                $tahun = $setoran->created_at->format('Y') == $tahun;
+                                            } else {
+                                                $tahun = $setoran->created_at->format('Y') != null;
+                                            }
+                                            return 
+                                                $setoran->barang->kategori->id == $kategori->id
+                                                && 
+                                                $setoran->created_at->format('m') == 6
+                                                &&
+                                                $tahun;
+                                        })->sum('jumlah');  
+                                    @endphp
+
+                                    {{ currency_format(float_two($jumlah)) }}
                                 </td>
-                                <td>
-                                    {{ $bankSampah->setoran->sum('jumlah') }}
+                                <td class="text-right">
+                                    @php
+                                        $jumlah = $bankSampah->setoran
+                                        ->filter(function($setoran) use ($kategori){
+                                            $tahun = request()->tahun;
+                                            if($tahun) {
+                                                $tahun = $setoran->created_at->format('Y') == $tahun;
+                                            } else {
+                                                $tahun = $setoran->created_at->format('Y') != null;
+                                            }
+                                            return 
+                                                $setoran->barang->kategori->id == $kategori->id
+                                                && 
+                                                $setoran->created_at->format('m') == 7
+                                                &&
+                                                $tahun;
+                                        })->sum('jumlah');  
+                                    @endphp
+
+                                    {{ currency_format(float_two($jumlah)) }}
                                 </td>
-                                <td>
-                                    {{ $bankSampah->setoran->sum('jumlah') }}
+                                <td class="text-right">
+                                    @php
+                                        $jumlah = $bankSampah->setoran
+                                        ->filter(function($setoran) use ($kategori){
+                                            $tahun = request()->tahun;
+                                            if($tahun) {
+                                                $tahun = $setoran->created_at->format('Y') == $tahun;
+                                            } else {
+                                                $tahun = $setoran->created_at->format('Y') != null;
+                                            }
+                                            return 
+                                                $setoran->barang->kategori->id == $kategori->id
+                                                && 
+                                                $setoran->created_at->format('m') == 8
+                                                &&
+                                                $tahun;
+                                        })->sum('jumlah');  
+                                    @endphp
+
+                                    {{ currency_format(float_two($jumlah)) }}
                                 </td>
-                                <td>
-                                    {{ $bankSampah->setoran->sum('jumlah') }}
+                                <td class="text-right">
+                                    @php
+                                        $jumlah = $bankSampah->setoran
+                                        ->filter(function($setoran) use ($kategori){
+                                            $tahun = request()->tahun;
+                                            if($tahun) {
+                                                $tahun = $setoran->created_at->format('Y') == $tahun;
+                                            } else {
+                                                $tahun = $setoran->created_at->format('Y') != null;
+                                            }
+                                            return 
+                                                $setoran->barang->kategori->id == $kategori->id
+                                                && 
+                                                $setoran->created_at->format('m') == 9
+                                                &&
+                                                $tahun;
+                                        })->sum('jumlah');  
+                                    @endphp
+
+                                    {{ currency_format(float_two($jumlah)) }}
                                 </td>
-                                <td>
-                                    {{ $bankSampah->setoran->sum('jumlah') }}
+                                <td class="text-right">
+                                    @php
+                                        $jumlah = $bankSampah->setoran
+                                        ->filter(function($setoran) use ($kategori){
+                                            $tahun = request()->tahun;
+                                            if($tahun) {
+                                                $tahun = $setoran->created_at->format('Y') == $tahun;
+                                            } else {
+                                                $tahun = $setoran->created_at->format('Y') != null;
+                                            }
+                                            return 
+                                                $setoran->barang->kategori->id == $kategori->id
+                                                && 
+                                                $setoran->created_at->format('m') == 10
+                                                &&
+                                                $tahun;
+                                        })->sum('jumlah');  
+                                    @endphp
+
+                                    {{ currency_format(float_two($jumlah)) }}
                                 </td>
-                                <td>
-                                    {{ $bankSampah->setoran->sum('jumlah') }}
+                                <td class="text-right">
+                                    @php
+                                        $jumlah = $bankSampah->setoran
+                                        ->filter(function($setoran) use ($kategori){
+                                            $tahun = request()->tahun;
+                                            if($tahun) {
+                                                $tahun = $setoran->created_at->format('Y') == $tahun;
+                                            } else {
+                                                $tahun = $setoran->created_at->format('Y') != null;
+                                            }
+                                            return 
+                                                $setoran->barang->kategori->id == $kategori->id
+                                                && 
+                                                $setoran->created_at->format('m') == 11
+                                                &&
+                                                $tahun;
+                                        })->sum('jumlah');  
+                                    @endphp
+
+                                    {{ currency_format(float_two($jumlah)) }}
                                 </td>
-                                <td>
-                                    {{ $bankSampah->setoran->sum('jumlah') }}
+                                <td class="text-right">
+                                    @php
+                                        $jumlah = $bankSampah->setoran
+                                        ->filter(function($setoran) use ($kategori){
+                                            $tahun = request()->tahun;
+                                            if($tahun) {
+                                                $tahun = $setoran->created_at->format('Y') == $tahun;
+                                            } else {
+                                                $tahun = $setoran->created_at->format('Y') != null;
+                                            }
+                                            return 
+                                                $setoran->barang->kategori->id == $kategori->id
+                                                && 
+                                                $setoran->created_at->format('m') == 12
+                                                &&
+                                                $tahun;
+                                        })->sum('jumlah');  
+                                    @endphp
+
+                                    {{ currency_format(float_two($jumlah)) }}
                                 </td>
-                                <td>
-                                    {{ $bankSampah->setoran->sum('jumlah') }}
+                                <td class="text-right">
+                                    @php
+                                        $jumlah = $bankSampah->setoran
+                                        ->filter(function($setoran) use ($kategori){
+                                            $tahun = request()->tahun;
+                                            if($tahun) {
+                                                $tahun = $setoran->created_at->format('Y') == $tahun;
+                                            } else {
+                                                $tahun = $setoran->created_at->format('Y') != null;
+                                            }
+                                            return 
+                                                $setoran->barang->kategori->id == $kategori->id
+                                                &&
+                                                $tahun;
+                                        })->sum('jumlah');  
+                                    @endphp
+
+                                    {{ currency_format(float_two($jumlah)) }}
                                 </td>
                             </tr>
                         @endforeach
@@ -119,96 +350,752 @@
                             <td>
                                 Total
                             </td>
-                            <td>
-                                {{ $bankSampah->setoran->sum('jumlah') }}
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $bankSampah->setoran
+                                    ->filter(function($setoran) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return
+                                            $setoran->created_at->format('m') == 1
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');  
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
                             </td>
-                            <td>
-                                {{ $bankSampah->setoran->sum('jumlah') }}
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $bankSampah->setoran
+                                    ->filter(function($setoran) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return
+                                            $setoran->created_at->format('m') == 2
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');  
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
                             </td>
-                            <td>
-                                {{ $bankSampah->setoran->sum('jumlah') }}
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $bankSampah->setoran
+                                    ->filter(function($setoran) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return
+                                            $setoran->created_at->format('m') == 3
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');  
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
                             </td>
-                            <td>
-                                {{ $bankSampah->setoran->sum('jumlah') }}
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $bankSampah->setoran
+                                    ->filter(function($setoran) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return
+                                            $setoran->created_at->format('m') == 4
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');  
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
                             </td>
-                            <td>
-                                {{ $bankSampah->setoran->sum('jumlah') }}
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $bankSampah->setoran
+                                    ->filter(function($setoran) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return
+                                            $setoran->created_at->format('m') == 5
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');  
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
                             </td>
-                            <td>
-                                {{ $bankSampah->setoran->sum('jumlah') }}
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $bankSampah->setoran
+                                    ->filter(function($setoran) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return
+                                            $setoran->created_at->format('m') == 6
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');  
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
                             </td>
-                            <td>
-                                {{ $bankSampah->setoran->sum('jumlah') }}
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $bankSampah->setoran
+                                    ->filter(function($setoran) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return
+                                            $setoran->created_at->format('m') == 7
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');  
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
                             </td>
-                            <td>
-                                {{ $bankSampah->setoran->sum('jumlah') }}
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $bankSampah->setoran
+                                    ->filter(function($setoran) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return
+                                            $setoran->created_at->format('m') == 8
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');  
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
                             </td>
-                            <td>
-                                {{ $bankSampah->setoran->sum('jumlah') }}
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $bankSampah->setoran
+                                    ->filter(function($setoran) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return
+                                            $setoran->created_at->format('m') == 9
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');  
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
                             </td>
-                            <td>
-                                {{ $bankSampah->setoran->sum('jumlah') }}
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $bankSampah->setoran
+                                    ->filter(function($setoran) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return
+                                            $setoran->created_at->format('m') == 10
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');  
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
                             </td>
-                            <td>
-                                {{ $bankSampah->setoran->sum('jumlah') }}
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $bankSampah->setoran
+                                    ->filter(function($setoran) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return
+                                            $setoran->created_at->format('m') == 11
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');  
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
                             </td>
-                            <td>
-                                {{ $bankSampah->setoran->sum('jumlah') }}
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $bankSampah->setoran
+                                    ->filter(function($setoran) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return
+                                            $setoran->created_at->format('m') == 12
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');  
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
                             </td>
-                            <td>
-                                {{ $bankSampah->setoran->sum('jumlah') }}
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $bankSampah->setoran
+                                    ->filter(function($setoran) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return
+                                            $tahun;
+                                    })->sum('jumlah');  
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
-                    <tr>
-                        <td colspan="2" class="text-right">Total Plastik</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>8</td>
-                        <td>9</td>
-                        <td>10</td>
-                        <td>11</td>
-                        <td>12</td>
-                        <td>13</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="text-right">Total Non Plastik</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>8</td>
-                        <td>9</td>
-                        <td>10</td>
-                        <td>11</td>
-                        <td>12</td>
-                        <td>13</td>
-                    </tr>
+                    @foreach ($kategoriList as $kategori)
+                        <tr>
+                            <td colspan="2" class="text-right">Total {{ $kategori->nama }}</td>
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return 
+                                            $setoran->barang->kategori->id == $kategori->id
+                                            &&
+                                            $setoran->created_at->format('m') == 1
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
+                            </td>
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return 
+                                            $setoran->barang->kategori->id == $kategori->id
+                                            &&
+                                            $setoran->created_at->format('m') == 2
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
+                            </td>
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return 
+                                            $setoran->barang->kategori->id == $kategori->id
+                                            &&
+                                            $setoran->created_at->format('m') == 3
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
+                            </td>
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return 
+                                            $setoran->barang->kategori->id == $kategori->id
+                                            &&
+                                            $setoran->created_at->format('m') == 4
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
+                            </td>
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return 
+                                            $setoran->barang->kategori->id == $kategori->id
+                                            &&
+                                            $setoran->created_at->format('m') == 5
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
+                            </td>
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return 
+                                            $setoran->barang->kategori->id == $kategori->id
+                                            &&
+                                            $setoran->created_at->format('m') == 6
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
+                            </td>
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return 
+                                            $setoran->barang->kategori->id == $kategori->id
+                                            &&
+                                            $setoran->created_at->format('m') == 7
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
+                            </td>
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return 
+                                            $setoran->barang->kategori->id == $kategori->id
+                                            &&
+                                            $setoran->created_at->format('m') == 8
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
+                            </td>
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return 
+                                            $setoran->barang->kategori->id == $kategori->id
+                                            &&
+                                            $setoran->created_at->format('m') == 9
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
+                            </td>
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return 
+                                            $setoran->barang->kategori->id == $kategori->id
+                                            &&
+                                            $setoran->created_at->format('m') == 10
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
+                            </td>
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return 
+                                            $setoran->barang->kategori->id == $kategori->id
+                                            &&
+                                            $setoran->created_at->format('m') == 11
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
+                            </td>
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return 
+                                            $setoran->barang->kategori->id == $kategori->id
+                                            &&
+                                            $setoran->created_at->format('m') == 12
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
+                            </td>
+                            <td class="text-right">
+                                @php
+                                    $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                        $tahun = request()->tahun;
+                                        if($tahun) {
+                                            $tahun = $setoran->created_at->format('Y') == $tahun;
+                                        } else {
+                                            $tahun = $setoran->created_at->format('Y') != null;
+                                        }
+                                        return 
+                                            $setoran->barang->kategori->id == $kategori->id
+                                            &&
+                                            $tahun;
+                                    })->sum('jumlah');
+                                @endphp
+
+                                {{ currency_format(float_two($jumlah)) }}
+                            </td>
+                        </tr>
+                    @endforeach
                     <tr>
                         <td colspan="2" class="text-right">Total</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>8</td>
-                        <td>9</td>
-                        <td>10</td>
-                        <td>11</td>
-                        <td>12</td>
-                        <td>13</td>
+                        <td class="text-right">
+                            @php
+                                $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                    $tahun = request()->tahun;
+                                    if($tahun) {
+                                        $tahun = $setoran->created_at->format('Y') == $tahun;
+                                    } else {
+                                        $tahun = $setoran->created_at->format('Y') != null;
+                                    }
+                                    return
+                                        $setoran->created_at->format('m') == 1
+                                        &&
+                                        $tahun;
+                                })->sum('jumlah');
+                            @endphp
+
+                            {{ currency_format(float_two($jumlah)) }}
+                        </td>
+                        <td class="text-right">
+                            @php
+                                $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                    $tahun = request()->tahun;
+                                    if($tahun) {
+                                        $tahun = $setoran->created_at->format('Y') == $tahun;
+                                    } else {
+                                        $tahun = $setoran->created_at->format('Y') != null;
+                                    }
+                                    return
+                                        $setoran->created_at->format('m') == 2
+                                        &&
+                                        $tahun;
+                                })->sum('jumlah');
+                            @endphp
+
+                            {{ currency_format(float_two($jumlah)) }}
+                        </td>
+                        <td class="text-right">
+                            @php
+                                $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                    $tahun = request()->tahun;
+                                    if($tahun) {
+                                        $tahun = $setoran->created_at->format('Y') == $tahun;
+                                    } else {
+                                        $tahun = $setoran->created_at->format('Y') != null;
+                                    }
+                                    return
+                                        $setoran->created_at->format('m') == 3
+                                        &&
+                                        $tahun;
+                                })->sum('jumlah');
+                            @endphp
+
+                            {{ currency_format(float_two($jumlah)) }}
+                        </td>
+                        <td class="text-right">
+                            @php
+                                $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                    $tahun = request()->tahun;
+                                    if($tahun) {
+                                        $tahun = $setoran->created_at->format('Y') == $tahun;
+                                    } else {
+                                        $tahun = $setoran->created_at->format('Y') != null;
+                                    }
+                                    return
+                                        $setoran->created_at->format('m') == 4
+                                        &&
+                                        $tahun;
+                                })->sum('jumlah');
+                            @endphp
+
+                            {{ currency_format(float_two($jumlah)) }}
+                        </td>
+                        <td class="text-right">
+                            @php
+                                $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                    $tahun = request()->tahun;
+                                    if($tahun) {
+                                        $tahun = $setoran->created_at->format('Y') == $tahun;
+                                    } else {
+                                        $tahun = $setoran->created_at->format('Y') != null;
+                                    }
+                                    return
+                                        $setoran->created_at->format('m') == 5
+                                        &&
+                                        $tahun;
+                                })->sum('jumlah');
+                            @endphp
+
+                            {{ currency_format(float_two($jumlah)) }}
+                        </td>
+                        <td class="text-right">
+                            @php
+                                $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                    $tahun = request()->tahun;
+                                    if($tahun) {
+                                        $tahun = $setoran->created_at->format('Y') == $tahun;
+                                    } else {
+                                        $tahun = $setoran->created_at->format('Y') != null;
+                                    }
+                                    return
+                                        $setoran->created_at->format('m') == 6
+                                        &&
+                                        $tahun;
+                                })->sum('jumlah');
+                            @endphp
+
+                            {{ currency_format(float_two($jumlah)) }}
+                        </td>
+                        <td class="text-right">
+                            @php
+                                $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                    $tahun = request()->tahun;
+                                    if($tahun) {
+                                        $tahun = $setoran->created_at->format('Y') == $tahun;
+                                    } else {
+                                        $tahun = $setoran->created_at->format('Y') != null;
+                                    }
+                                    return
+                                        $setoran->created_at->format('m') == 7
+                                        &&
+                                        $tahun;
+                                })->sum('jumlah');
+                            @endphp
+
+                            {{ currency_format(float_two($jumlah)) }}
+                        </td>
+                        <td class="text-right">
+                            @php
+                                $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                    $tahun = request()->tahun;
+                                    if($tahun) {
+                                        $tahun = $setoran->created_at->format('Y') == $tahun;
+                                    } else {
+                                        $tahun = $setoran->created_at->format('Y') != null;
+                                    }
+                                    return
+                                        $setoran->created_at->format('m') == 8
+                                        &&
+                                        $tahun;
+                                })->sum('jumlah');
+                            @endphp
+
+                            {{ currency_format(float_two($jumlah)) }}
+                        </td>
+                        <td class="text-right">
+                            @php
+                                $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                    $tahun = request()->tahun;
+                                    if($tahun) {
+                                        $tahun = $setoran->created_at->format('Y') == $tahun;
+                                    } else {
+                                        $tahun = $setoran->created_at->format('Y') != null;
+                                    }
+                                    return
+                                        $setoran->created_at->format('m') == 9
+                                        &&
+                                        $tahun;
+                                })->sum('jumlah');
+                            @endphp
+
+                            {{ currency_format(float_two($jumlah)) }}
+                        </td>
+                        <td class="text-right">
+                            @php
+                                $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                    $tahun = request()->tahun;
+                                    if($tahun) {
+                                        $tahun = $setoran->created_at->format('Y') == $tahun;
+                                    } else {
+                                        $tahun = $setoran->created_at->format('Y') != null;
+                                    }
+                                    return
+                                        $setoran->created_at->format('m') == 10
+                                        &&
+                                        $tahun;
+                                })->sum('jumlah');
+                            @endphp
+
+                            {{ currency_format(float_two($jumlah)) }}
+                        </td>
+                        <td class="text-right">
+                            @php
+                                $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                    $tahun = request()->tahun;
+                                    if($tahun) {
+                                        $tahun = $setoran->created_at->format('Y') == $tahun;
+                                    } else {
+                                        $tahun = $setoran->created_at->format('Y') != null;
+                                    }
+                                    return
+                                        $setoran->created_at->format('m') == 11
+                                        &&
+                                        $tahun;
+                                })->sum('jumlah');
+                            @endphp
+
+                            {{ currency_format(float_two($jumlah)) }}
+                        </td>
+                        <td class="text-right">
+                            @php
+                                $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                    $tahun = request()->tahun;
+                                    if($tahun) {
+                                        $tahun = $setoran->created_at->format('Y') == $tahun;
+                                    } else {
+                                        $tahun = $setoran->created_at->format('Y') != null;
+                                    }
+                                    return
+                                        $setoran->created_at->format('m') == 12
+                                        &&
+                                        $tahun;
+                                })->sum('jumlah');
+                            @endphp
+
+                            {{ currency_format(float_two($jumlah)) }}
+                        </td>
+                        <td class="text-right">
+                            @php
+                                $jumlah = $setoranTotal->filter(function($setoran) use ($kategori) {
+                                    $tahun = request()->tahun;
+                                    if($tahun) {
+                                        $tahun = $setoran->created_at->format('Y') == $tahun;
+                                    } else {
+                                        $tahun = $setoran->created_at->format('Y') != null;
+                                    }
+                                    return
+                                        $tahun;
+                                })->sum('jumlah');
+                            @endphp
+
+                            {{ currency_format(float_two($jumlah)) }}
+                        </td>
                     </tr>
                 </tfoot>
             </table>
@@ -249,7 +1136,7 @@
                                 var blob = new Blob([response], { type: 'application/pdf' });
                                 var link = document.createElement('a');
                                 link.href = window.URL.createObjectURL(blob);
-                                link.download = "setoran_kader_" + tahun + "_" + bulan +".pdf";
+                                link.download = "bank_sampah_" + tahun + "_" + bulan +".pdf";
                                 link.click();
 
                                 setTimeout(function() {
@@ -296,7 +1183,7 @@
                                 var blob = new Blob([response], { type: 'application/xls' });
                                 var link = document.createElement('a');
                                 link.href = window.URL.createObjectURL(blob);
-                                link.download = "setoran_kader_" + tahun + "_" + bulan +".xls";
+                                link.download = "bank_sampah_" + tahun + "_" + bulan +".xls";
                                 link.click();
 
                                 setTimeout(function() {

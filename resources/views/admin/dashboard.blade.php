@@ -17,7 +17,7 @@
                             </span>
                         </div>
                         <div class="d-flex flex-column">
-                            <a href="{{ route('pengguna.kader.index') }}" class="text-dark text-hover-primary font-weight-bold font-size-h4">
+                            <a href="{{ route('admin.bank-sampah.index') }}" class="text-dark text-hover-primary font-weight-bold font-size-h4">
                                 Bank Sampah
                             </a>
                             <div class="text-dark-75 font-size-h2">
@@ -47,7 +47,7 @@
                             </span>
                         </div>
                         <div class="d-flex flex-column">
-                            <a href="{{ route('pengguna.kader.index') }}" class="text-dark text-hover-primary font-weight-bold font-size-h4">
+                            <a href="#" class="text-dark text-hover-primary font-weight-bold font-size-h4">
                                 Kader
                             </a>
                             <div class="text-dark-75 font-size-h2">
@@ -77,7 +77,7 @@
                             </span>
                         </div>
                         <div class="d-flex flex-column">
-                            <a href="{{ route('pengguna.kader.index') }}" class="text-dark text-hover-primary font-weight-bold font-size-h4">
+                            <a href="#" class="text-dark text-hover-primary font-weight-bold font-size-h4">
                                 Kaderisasi
                             </a>
                             <div class="text-dark-75 font-size-h2">
@@ -107,7 +107,7 @@
                             </span>
                         </div>
                         <div class="d-flex flex-column">
-                            <a href="{{ route('pengguna.kader-setoran.index') }}" class="text-dark text-hover-primary font-weight-bold font-size-h4">
+                            <a href="#" class="text-dark text-hover-primary font-weight-bold font-size-h4">
                                 Setoran Kader
                             </a>
                             <div class="text-dark-75 font-size-h2">
@@ -138,7 +138,7 @@
                             </span>
                         </div>
                         <div class="d-flex flex-column">
-                            <a href="{{ route('pengguna.kader-setoran.index') }}" class="text-dark text-hover-primary font-weight-bold font-size-h4">
+                            <a href="#" class="text-dark text-hover-primary font-weight-bold font-size-h4">
                                 Setoran Kader
                             </a>
                             <div class="text-dark-75 font-size-h2">

@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin\Pengguna\PenggunaApprovalController;
 use App\Http\Controllers\Admin\Pengguna\PenggunaController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ProfileUpdateController;
+use App\Http\Controllers\Admin\Report\ReportAdiwiyataController;
+use App\Http\Controllers\Admin\Report\ReportEdukasiController;
+use App\Http\Controllers\Admin\Report\ReportMasyarakatController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -52,4 +55,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // admin profile update
     Route::put('profile', ProfileUpdateController::class)->name('profile.update');
+
+    Route::prefix('laporan')->name('laporan.')->group(function () {
+        // Laporan Adiwiyata
+        Route::get('adiwiyata', ReportAdiwiyataController::class)->name('adiwiyata');
+
+        // Laporan Masyarakat
+        Route::get('masyarakat', ReportMasyarakatController::class)->name('masyarakat');
+
+        // Laporan Edukasi
+        Route::get('edukasi', ReportEdukasiController::class)->name('edukasi');
+    });
 });

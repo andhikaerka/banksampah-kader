@@ -172,10 +172,7 @@
 </li>
 
 
-<li class="menu-item menu-item-submenu {{
-    Route::is('admin.kader-status.*') ||
-    Route::is('admin.kader-kategori.*')
-    ? 'menu-open menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+<li class="menu-item menu-item-submenu {{ Route::is('admin.laporan.*') ? 'menu-open menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
     <a href="javascript:;" class="menu-link menu-toggle">
         <span class="svg-icon menu-icon">
             <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo2/dist/../src/media/svg/icons/Files/Selected-file.svg-->
@@ -195,24 +192,24 @@
     <div class="menu-submenu">
         <i class="menu-arrow"></i>
         <ul class="menu-subnav">
-            <li class="menu-item menu-item-submenu {{ Route::is('admin.kader-status.*') ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
-                <a href="{{ route('admin.kader-status.index') }}" class="menu-link menu-toggle">
+            <li class="menu-item menu-item-submenu {{ Route::is('admin.laporan.adiwiyata') ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                <a href="{{ route('admin.laporan.adiwiyata') }}" class="menu-link menu-toggle">
                     <i class="menu-bullet menu-bullet-line">
                         <span></span>
                     </i>
                     <span class="menu-text">Adiwiyata</span>
                 </a>
             </li>
-            <li class="menu-item menu-item-submenu {{ Route::is('admin.kader-kategori.*') ? 'menu-item-active' : '' }} " aria-haspopup="true" data-menu-toggle="hover">
-                <a href="{{ route('admin.kader-kategori.index') }}" class="menu-link menu-toggle">
+            <li class="menu-item menu-item-submenu {{ Route::is('admin.laporan.masyarakat') ? 'menu-item-active' : '' }} " aria-haspopup="true" data-menu-toggle="hover">
+                <a href="{{ route('admin.laporan.masyarakat') }}" class="menu-link menu-toggle">
                     <i class="menu-bullet menu-bullet-line">
                         <span></span>
                     </i>
                     <span class="menu-text">Masyarakat</span>
                 </a>
             </li>
-            <li class="menu-item menu-item-submenu {{ Route::is('admin.kader-kategori.*') ? 'menu-item-active' : '' }} " aria-haspopup="true" data-menu-toggle="hover">
-                <a href="{{ route('admin.kader-kategori.index') }}" class="menu-link menu-toggle">
+            <li class="menu-item menu-item-submenu {{ Route::is('admin.laporan.edukasi') ? 'menu-item-active' : '' }} " aria-haspopup="true" data-menu-toggle="hover">
+                <a href="{{ route('admin.laporan.edukasi') }}" class="menu-link menu-toggle">
                     <i class="menu-bullet menu-bullet-line">
                         <span></span>
                     </i>
