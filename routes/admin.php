@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\Master\BarangKategoriController;
 use App\Http\Controllers\Admin\Pengguna\KategoriController;
 use App\Http\Controllers\Admin\Pengguna\PenggunaApprovalController;
 use App\Http\Controllers\Admin\Pengguna\PenggunaController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ProfileUpdateController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -44,4 +46,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // kader status
     Route::resource('kader-status', StatusController::class);
+
+    // admin profile
+    Route::get('profile', ProfileController::class)->name('profile');
+
+    // admin profile update
+    Route::put('profile', ProfileUpdateController::class)->name('profile.update');
 });
