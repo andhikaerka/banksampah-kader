@@ -90,10 +90,10 @@
 
             <div class="form-group">
                 <label for="">Kategori Kader Pengguna<span class="text-danger">*</span></label>
-                <select class="form-control" name="kategori_kader" id="kategori_kader">
+                <select class="form-control select2" name="kategori_kader" id="kategori_kader">
                     <option value="">- Pilih Kategori-</option>
                     @foreach ($kaderKategoriList as $kategori)
-                        <option value="{{ $kategori->id }}">{{ $kategori->nama }}</option>
+                        <option value="{{ $kategori->id }}" @if($kategori->id == $pengguna->kader_kategori_id) selected @endif>{{ $kategori->nama }}</option>
                     @endforeach
                 </select>
             </div>

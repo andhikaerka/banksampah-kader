@@ -22,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomepageController::class);
 
+Route::get('/masyarakat', function () {
+    return view('admin.laporan.masyarakat.index');
+});
 
 Route::get('/clear', function() {
     Artisan::call('cache:clear');

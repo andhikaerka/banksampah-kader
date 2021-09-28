@@ -23,7 +23,6 @@ class PenggunaController extends Controller
         ->with('pengguna_kategori')
         ->with('created_user')
         ->with('approved_user')
-        ->whereNotNull('pengguna_profile_status')
         ->get();
 
         return view('admin.pengguna.index', compact('penggunaList'));
