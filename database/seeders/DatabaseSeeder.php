@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             VillagesSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            BarangBeratSeeder::class,
+            BarangKategoriSeeder::class,
         ]);
     }
 }
