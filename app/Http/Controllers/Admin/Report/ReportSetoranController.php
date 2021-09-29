@@ -10,7 +10,7 @@ use App\Models\PenggunaKategori;
 use DB;
 use Illuminate\Http\Request;
 
-class ReportAdiwiyataController extends Controller
+class ReportSetoranController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -46,7 +46,7 @@ class ReportAdiwiyataController extends Controller
 
         $penggunaKategoriList = PenggunaKategori::all();
 
-        return view('admin.laporan.adiwiyata.index', compact(
+        return view('admin.laporan.setoran.index', compact(
             'bankSampahList',
             'kategoriList',
             'setoranTotal',

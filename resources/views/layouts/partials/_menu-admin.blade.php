@@ -192,20 +192,12 @@
     <div class="menu-submenu">
         <i class="menu-arrow"></i>
         <ul class="menu-subnav">
-            <li class="menu-item menu-item-submenu {{ Route::is('admin.laporan.adiwiyata') ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
-                <a href="{{ route('admin.laporan.adiwiyata') }}" class="menu-link menu-toggle">
+            <li class="menu-item menu-item-submenu {{ Route::is('admin.laporan.setoran') ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                <a href="{{ route('admin.laporan.setoran') }}" class="menu-link menu-toggle">
                     <i class="menu-bullet menu-bullet-line">
                         <span></span>
                     </i>
-                    <span class="menu-text">Adiwiyata</span>
-                </a>
-            </li>
-            <li class="menu-item menu-item-submenu {{ Route::is('admin.laporan.masyarakat') ? 'menu-item-active' : '' }} " aria-haspopup="true" data-menu-toggle="hover">
-                <a href="{{ route('admin.laporan.masyarakat') }}" class="menu-link menu-toggle">
-                    <i class="menu-bullet menu-bullet-line">
-                        <span></span>
-                    </i>
-                    <span class="menu-text">Masyarakat</span>
+                    <span class="menu-text">Setoran</span>
                 </a>
             </li>
             <li class="menu-item menu-item-submenu {{ Route::is('admin.laporan.edukasi') ? 'menu-item-active' : '' }} " aria-haspopup="true" data-menu-toggle="hover">
