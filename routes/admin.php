@@ -34,7 +34,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // pengguna
     Route::resource('pengguna', PenggunaController::class)->only([
-        'index', 'show'
+        'index', 'show', 'destroy'
     ]);
 
     // pengguna kategori

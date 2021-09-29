@@ -43,7 +43,19 @@
                         <td>{{ $pengguna->created_at }}</td>
                         <td>{{ $pengguna->updated_at }}</td>
                         <td>
-                            <a href="{{ route('admin.pengguna.show', ['pengguna' => $pengguna->id]) }}" class="btn btn-info btn-sm">Detail</a>
+                            @if ($pengguna->pengguna_profile_status)
+                                <a href="{{ route('admin.pengguna.show', ['pengguna' => $pengguna->id]) }}" class="btn btn-info btn-sm">Detail</a>
+                            @else 
+
+                            <form method="POST" action="{{ route('admin.pengguna.destroy', ['pengguna' => $pengguna->id]) }}">
+                                @csrf
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <button onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-danger btn-sm">Hapus</button>
+                            </form>
+
+                            @endif
+
+                            
                         </td>
                     </tr>
                 @endforeach

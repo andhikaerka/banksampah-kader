@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Pengguna;
 
+use Alert;
 use App\Http\Controllers\Controller;
 use App\Models\KaderKategori;
 use App\Models\PenggunaKategori;
@@ -45,5 +46,22 @@ class PenggunaController extends Controller
             'kaderKategoriList',
             'penggunaKategoriList'
         ));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $pengguna)
+    {
+        $pengguna->delete();
+
+        Alert::success('Hapus Pengguna', 'Berhasil')
+        ->persistent(true)
+        ->autoClose(2000);
+        
+        return redirect()->route('admin.pengguna.index');
     }
 }
