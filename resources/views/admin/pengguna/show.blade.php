@@ -79,13 +79,18 @@
             </div>
 
             <div class="form-group">
-                <label for="">Kategori Pengguna <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" value="{{ $pengguna->pengguna_kategori->nama }}"/>
+                <label for="">Bank Sampah <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" value="{{ $pengguna->bank_sampah->nama }}"/>
             </div>
 
             <div class="form-group">
-                <label for="">Bank Sampah <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" value="{{ $pengguna->bank_sampah->nama }}"/>
+                <label for="">Kategori Pengguna <span class="text-danger">*</span></label>
+                <select class="form-control select2" name="kategori_pengguna" id="kategori_pengguna">
+                    <option value="">Pilih Kategori Pengguna</option>
+                    @foreach ($penggunaKategoriList as $kategori)
+                        <option value="{{ $kategori->id }}" @if($kategori->id == $pengguna->pengguna_kategori_id) selected @endif>{{ $kategori->nama }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">

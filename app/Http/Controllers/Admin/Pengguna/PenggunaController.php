@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Pengguna;
 
 use App\Http\Controllers\Controller;
 use App\Models\KaderKategori;
+use App\Models\PenggunaKategori;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -37,10 +38,12 @@ class PenggunaController extends Controller
     public function show(User $pengguna)
     {
         $kaderKategoriList = KaderKategori::all();
+        $penggunaKategoriList = PenggunaKategori::all();
 
         return view('admin.pengguna.show', compact(
             'pengguna',
-            'kaderKategoriList'
+            'kaderKategoriList',
+            'penggunaKategoriList'
         ));
     }
 }

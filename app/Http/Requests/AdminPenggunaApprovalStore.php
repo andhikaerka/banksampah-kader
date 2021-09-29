@@ -24,7 +24,8 @@ class AdminPenggunaApprovalStore extends FormRequest
     public function rules()
     {
         return [
-            'kategori_kader' => 'required'
+            'kategori_kader' => 'required',
+            'kategori_pengguna' => 'required',
         ];
     }
 }
