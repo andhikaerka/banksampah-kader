@@ -44,10 +44,6 @@
                                 <i class="flaticon2-search-1"></i>Cari
                             </button>
 
-                            <button type="button" id="cetak-pdf" data-url="{{ route('pengguna.pdf.export') }}" class="btn btn-danger font-weight-bold">
-                                <i class="far fa-file-pdf"></i>Cetak .PDF
-                            </button>
-
                             <button type="button" id="cetak-xls" data-url="{{ route('pengguna.excel.export') }}" class="btn btn-success font-weight-bold">
                                 <i class="far fa-file-excel"></i>Cetak .XLS
                             </button>
@@ -1142,53 +1138,6 @@
                     });
 
                     $('#tahun').select2();
-
-                    $('#cetak-pdf').on('click', function(e) {
-                        e.preventDefault();
-
-                        //get bulan
-                        var bulan = $('#bulan').val();
-                        // get tahun
-                        var tahun = $('#tahun').val();
-                        // akses url to generate pdf
-                        var url = $("#cetak-pdf").data('url');
-                        // button effect
-                        var btn = KTUtil.getById("cetak-pdf");
-
-                        KTUtil.btnWait(btn, "spinner spinner-white spinner-right pr-15", "Loading");
-
-                        $.ajax({
-                            url: url,
-                            type: 'GET',
-                            xhrFields: {
-                                responseType: 'blob'
-                            },
-                            data: {
-                                "tahun": tahun,
-                                "bulan": bulan,
-                                "_token": "{{ csrf_token() }}",
-                            },
-                            success: function (response) {
-                                var blob = new Blob([response], { type: 'application/pdf' });
-                                var link = document.createElement('a');
-                                link.href = window.URL.createObjectURL(blob);
-                                link.download = "bank_sampah_" + tahun + "_" + bulan +".pdf";
-                                link.click();
-
-                                setTimeout(function() {
-                                    KTUtil.btnRelease(btn);
-                                }, 1000);
-                            },
-                            error: function () {
-                                alert("Terjadi kesalahan, coba lagi nanti");
-
-                                setTimeout(function() {
-                                    KTUtil.btnRelease(btn);
-                                }, 1000);
-                            }
-                        });
-
-                    });
 
                     $('#cetak-xls').on('click', function(e) {
                         e.preventDefault();
