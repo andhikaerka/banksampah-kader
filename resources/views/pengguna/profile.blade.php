@@ -99,16 +99,6 @@
             </div>
 
             <div class="form-group">
-                <label for="">Kategori Pengguna <span class="text-danger">*</span></label>
-                <select class="form-control select2" name="pengguna_kategori" id="pengguna_kategori">
-                    <option value="">Pilih Kategori Pengguna</option>
-                    @foreach ($penggunaKategoriList as $kategori)
-                        <option value="{{ $kategori->id }}" @if($kategori->id == $pengguna->pengguna_kategori_id) selected @endif>{{ $kategori->nama }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="form-group">
                 <label for="">Bank Sampah <span class="text-danger">*</span></label>
                 <select class="form-control select2" name="bank_sampah" id="bank_sampah">
                     <option value="">Pilih Bank Sampah</option>
@@ -117,6 +107,20 @@
                     @endforeach
                 </select>
             </div>
+
+            @if ($pengguna->pengguna_kategori_id)
+            <div class="form-group">
+                <label for="">Kategori Pengguna <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="Kode Pos" value="{{ optional($pengguna->pengguna_kategori)->nama }}"/>
+            </div>   
+            @endif
+
+            @if ($pengguna->kader_kategori_id)
+            <div class="form-group">
+                <label for="">Kategori Kader <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="Kode Pos" value="{{ optional($pengguna->kader_kategori)->nama }}"/>
+            </div>
+            @endif
 
             <a href="{{ route('pengguna.profile') }}" class="btn btn-secondary">Batal</a>
             <button type="submit" class="btn btn-primary mr-2">Simpan</button>

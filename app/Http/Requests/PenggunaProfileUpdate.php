@@ -36,7 +36,6 @@ class PenggunaProfileUpdate extends FormRequest
             'kabupaten_kota' => ['required'],
             'kecamatan' => ['required'],
             'desa_kelurahan' => ['required'],
-            'pengguna_kategori' => ['required'],
             'bank_sampah' => ['required'],
         ];
     }
