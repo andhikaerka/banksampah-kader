@@ -30,7 +30,9 @@ Route::get('/clear', function() {
 });
 
 Route::get('/maintenance-down', function (){
-    return Artisan::call('down');
+    return Artisan::call('down', [
+		'--secret' => "1630542a-246b-4b66-afa1-dd72a4c43515"
+	]);
 });
 
 Route::get('/maintenance-up', function (){
