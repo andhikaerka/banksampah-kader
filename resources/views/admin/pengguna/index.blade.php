@@ -42,8 +42,8 @@
                         </td>
                         <td>{{ $pengguna->created_at }}</td>
                         <td>{{ $pengguna->updated_at }}</td>
-                        <td>
-                            @if ($pengguna->pengguna_profile_status && $pengguna->approved_at)
+                        <td class="no-wrap">
+                            @if ($pengguna->pengguna_profile_status && $pengguna->approval_status == 'setuju')
                                 <a href="{{ route('admin.pengguna.show', ['pengguna' => $pengguna->id]) }}" class="btn btn-info btn-sm">Detail</a> 
                             @elseif ($pengguna->pengguna_profile_status)
                                 <form method="POST" action="{{ route('admin.pengguna.destroy', ['pengguna' => $pengguna->id]) }}">
