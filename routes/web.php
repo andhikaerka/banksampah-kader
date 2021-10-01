@@ -29,6 +29,14 @@ Route::get('/clear', function() {
     return "Cleared!";
 });
 
+Route::get('/maintenance-down', function (){
+    return Artisan::call('down');
+});
+
+Route::get('/maintenance-up', function (){
+    return Artisan::call('up');
+});
+
 require __DIR__.'/auth.php';
 
 Route::group(['middleware'=> ['auth']], function () {
