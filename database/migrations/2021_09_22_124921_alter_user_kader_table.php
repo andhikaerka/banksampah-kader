@@ -23,7 +23,7 @@ class AlterUserKaderTable extends Migration
 
             $table->foreign('kader_kategori_id')
                 ->references('id')
-                ->on('kader_status');
+                ->on('kader_kategori');
         });
     }
 

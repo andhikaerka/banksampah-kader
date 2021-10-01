@@ -25,6 +25,7 @@ class ProfileUpdateController extends Controller
 
         // update all user on that bank sampah
         $kaderUpdateAll = DB::table('users')
+        ->whereNotNull('bank_sampah_id')
         ->where('bank_sampah_id', $user->bank_sampah_id)
         ->update(array(
             'bank_sampah_id' => $request->bank_sampah

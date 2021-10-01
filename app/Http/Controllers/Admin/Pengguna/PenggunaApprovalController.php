@@ -31,6 +31,8 @@ class PenggunaApprovalController extends Controller
 
         // update all user on that bank sampah
         $kaderUpdateAll = DB::table('users')
+        ->whereNotNull('bank_sampah_id')
+        ->whereNotNull('kader_kategori_id')
         ->where('bank_sampah_id', $pengguna->bank_sampah_id)
         ->update(array(
             'kader_kategori_id' => $request->kategori_kader
