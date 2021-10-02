@@ -2,9 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\User;
 use App\Services\KaderService;
-use Hash;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
@@ -12,6 +10,7 @@ use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
@@ -21,7 +20,8 @@ class KaderImport implements
     SkipsEmptyRows,
     SkipsOnError,
     SkipsOnFailure,
-    WithValidation
+    WithValidation,
+    WithBatchInserts
 {
     use 
     Importable, 
@@ -48,6 +48,16 @@ class KaderImport implements
         $kader = $this->kaderService->save($row);
 
         return $kader;
+    }
+
+    /**
+     * store 10 data each batch inserts
+     *
+     * @return integer
+     */
+    public function batchSize(): int
+    {
+        return 10;
     }
 
     /**

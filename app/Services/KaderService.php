@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Notifications\PasswordCreated;
 use App\Repositories\KaderRepositoryInterface;
 
 class KaderService
@@ -81,7 +82,12 @@ class KaderService
     {
         $token = $this->getTokenKader($kader);
 
-        return $kader->sendPasswordResetNotification($token);
+        // return $kader->sendPasswordResetNotification($token);
+
+        return 
+            $kader->notify((new PasswordCreated($kader, $token))
+                ->delay(now()->addMinutes(3)
+            ));
     }
 
     /**
