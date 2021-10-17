@@ -32,10 +32,15 @@
                 <label for="">Alamat <span class="text-danger">*</span></label>
                 <textarea class="form-control" name="alamat" id="alamat" placeholder="Alamat">{{ $kader->alamat }}</textarea>
             </div>
+            
+            <div class="form-group">
+                <label for="">Created At <span class="text-danger">*</span></label>
+                <input type="text" class="form-control datepicker" name="created_at" id="created_at" placeholder="created_at" value="{{ $kader->created_at }}" style="width: 100%" />
+            </div>
 
             <div class="form-group">
                 <label for="">Kategori Kader (dari Admin) <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" value="{{ auth()->user()->kader_kategori->nama }}" />
+                <input type="text" class="form-control" value="{{ auth()->user()->kader_kategori->nama }}" disabled />
             </div>
 
             <a href="{{ route('pengguna.kader.index') }}" class="btn btn-secondary">Batal</a>

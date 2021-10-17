@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\KaderRepositoryInterface;
 use App\Models\User;
+use Carbon\Carbon;
 use Hash;
 
 class KaderRepository implements KaderRepositoryInterface
@@ -46,6 +47,7 @@ class KaderRepository implements KaderRepositoryInterface
         $kader->email = $request['email'];
         $kader->telepon = $request['telepon'];
         $kader->alamat = $request['alamat'];
+        $kader->created_at = date('Y-m-d H:i:s', strtotime(date('H:i:s'), strtotime($request['created_at']))) ?? Carbon::now();
         $kader->kader_status_id = $request['status_hubungan'] ?? null;
 
         $kader->save();
