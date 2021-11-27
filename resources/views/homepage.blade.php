@@ -55,12 +55,48 @@
                     <div class="col-lg-7 order-lg-1 mb-5 mb-lg-0">
                         <div class="container-fluid px-5">
                             <div class="row gx-5">
-								<div class="col-md-4 mb-5">
+                                <div class="col-md-4 mb-5">
                                     <!-- Feature item-->
                                     <div class="text-center">
                                         <i class="bi bi-shop icon-feature text-gradient d-block mb-1"></i>
                                         <h3 class="font-alt" id="bank-sampah">{{ $bankSampahTotal }}</h3>
                                         <p class="text-muted mb-0">Bank Sampah</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-5 mb-md-0">
+                                    <!-- Feature item-->
+                                    <div class="text-center">
+                                        <i class="bi bi-archive-fill icon-feature text-gradient d-block mb-1"></i>
+                                        <h3 class="font-alt d-inline" id="plastik">{{ $plastikTotal }}</h3> <span class="d-inline">KG<span>
+                                        <p class="text-muted mb-0">Plastik</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-5 mb-md-0">
+                                    <!-- Feature item-->
+                                    <div class="text-center">
+                                        <i class="bi bi-archive icon-feature text-gradient d-block mb-1"></i>
+                                        <h3 class="font-alt d-inline" id="non-plastik">{{ $nonPlastikTotal }}</h3> <span class="d-inline">KG<span>
+                                        <p class="text-muted mb-0">Non Plastik</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-5">
+                                    <!-- Feature item-->
+                                    <div class="text-center">
+                                        <i class="bi bi-person-check icon-feature text-gradient d-block mb-1"></i>
+                                        <h3 class="font-alt" id="kader">{{ $kaderTotal }}</h3>
+                                        <p class="text-muted mb-0">Kader</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-5 mb-md-0">
+                                    <!-- Feature item-->
+                                    <div class="text-center">
+                                        <i class="bi bi-people icon-feature text-gradient d-block mb-1"></i>
+                                        <h3 class="font-alt" id="kaderisasi">{{ $kaderisasiTotal }}</h3>
+                                        <p class="text-muted mb-0">Kaderisasi</p>
                                     </div>
                                 </div>
 								
@@ -70,33 +106,6 @@
                                         <i class="bi bi-person-plus icon-feature text-gradient d-block mb-1"></i>
                                         <h3 class="font-alt" id="nasabah">{{ $nasabahTotal }}</h3>
                                         <p class="text-muted mb-0">Nasabah</p>
-                                    </div>
-                                </div>
-								
-								<div class="col-md-4 mb-5 mb-md-0">
-                                    <!-- Feature item-->
-                                    <div class="text-center">
-                                        <i class="bi bi-people icon-feature text-gradient d-block mb-1"></i>
-                                        <h3 class="font-alt" id="kaderisasi">{{ $kaderisasiTotal }}</h3>
-                                        <p class="text-muted mb-0">Kaderisasi</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-5 mb-md-0">
-                                    <!-- Feature item-->
-                                    <div class="text-center">
-                                        <i class="bi bi-archive-fill icon-feature text-gradient d-block mb-1"></i>
-                                        <h3 class="font-alt d-inline" id="plastik">{{ $plastikTotal }}</h3> <span class="d-inline">KG<span>
-                                        <p class="text-muted mb-0">Plastik</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <!-- Feature item-->
-                                    <div class="text-center">
-                                        <i class="bi bi-archive icon-feature text-gradient d-block mb-1"></i>
-                                        <h3 class="font-alt d-inline" id="non-plastik">{{ $nonPlastikTotal }}</h3> <span class="d-inline">KG<span>
-                                        <p class="text-muted mb-0">Non Plastik</p>
                                     </div>
                                 </div>
                             </div>
@@ -189,6 +198,7 @@
 
 				const load = () => {
 					animate(document.getElementById('bank-sampah'), 0, {{ $bankSampahTotal }}, 5000);
+					animate(document.getElementById('kader'), 0, {{ $kaderTotal }}, 5000);
 					animate(document.getElementById('nasabah'), 0, {{ $nasabahTotal }}, 5000);
 					animate(document.getElementById('kaderisasi'), 0, {{ $kaderisasiTotal }}, 5000);
 					animate(document.getElementById('plastik'), 0, {{ $plastikTotal }}, 5000);
