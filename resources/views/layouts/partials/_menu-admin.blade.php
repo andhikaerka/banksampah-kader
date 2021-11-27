@@ -212,6 +212,40 @@
     </div>
 </li>
 
+<li class="menu-item menu-item-submenu {{
+    Route::is('admin.sponsor.*')
+    ? 'menu-open menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+    <a href="javascript:;" class="menu-link menu-toggle">
+        <span class="svg-icon menu-icon">
+            <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo2/dist/../src/media/svg/icons/Layout/Layout-top-panel-2.svg-->
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <rect x="0" y="0" width="24" height="24"/>
+                    <path d="M3,4 L20,4 C20.5522847,4 21,4.44771525 21,5 L21,7 C21,7.55228475 20.5522847,8 20,8 L3,8 C2.44771525,8 2,7.55228475 2,7 L2,5 C2,4.44771525 2.44771525,4 3,4 Z M10,10 L20,10 C20.5522847,10 21,10.4477153 21,11 L21,19 C21,19.5522847 20.5522847,20 20,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,11 C9,10.4477153 9.44771525,10 10,10 Z" fill="#000000"/>
+                    <rect fill="#000000" opacity="0.3" x="2" y="10" width="5" height="10" rx="1"/>
+                </g>
+            </svg>
+            <!--end::Svg Icon-->
+        </span>
+
+        <span class="menu-text">Setting</span>
+        <i class="menu-arrow"></i>
+    </a>
+    <div class="menu-submenu">
+        <i class="menu-arrow"></i>
+        <ul class="menu-subnav">
+            <li class="menu-item menu-item-submenu {{ Route::is('admin.sponsor.*') ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                <a href="{{ route('admin.sponsor.index') }}" class="menu-link menu-toggle">
+                    <i class="menu-bullet menu-bullet-line">
+                        <span></span>
+                    </i>
+                    <span class="menu-text">Sponsor</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</li>
+
 <li class="menu-item {{ Route::is('admin.profile') ? 'menu-item-active' : '' }}" aria-haspopup="true">
     <a href="{{ route('admin.profile') }}" class="menu-link">
         <span class="svg-icon menu-icon">

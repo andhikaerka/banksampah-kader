@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BankSampah;
 use App\Models\KaderSetoran;
+use App\Models\Sponsor;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -45,12 +46,18 @@ class HomepageController extends Controller
         })
         ->sum('jumlah');
 
+        $sponsorHeaderMenuList = Sponsor::where('lokasi', 'header-menu')->get();
+        
+        $sponsorSponsorSectionList = Sponsor::where('lokasi', 'sponsor-section')->get();
+
         return view('homepage', compact(
             'bankSampahTotal',
             'nasabahTotal',
             'kaderisasiTotal',
             'plastikTotal',
-            'nonPlastikTotal'
+            'nonPlastikTotal',
+            'sponsorHeaderMenuList',
+            'sponsorSponsorSectionList'
         ));
     }
 }

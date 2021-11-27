@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ProfileUpdateController;
 use App\Http\Controllers\Admin\Report\ReportEdukasiController;
 use App\Http\Controllers\Admin\Report\ReportSetoranController;
+use App\Http\Controllers\Admin\Sponsor\SponsorController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -62,4 +63,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Laporan Edukasi
         Route::get('edukasi', ReportEdukasiController::class)->name('edukasi');
     });
+
+    // settings sponsor
+    Route::resource('sponsor', SponsorController::class)->except('show');
 });

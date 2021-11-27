@@ -20,8 +20,16 @@
         <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
             <div class="container px-5">
 				<a class="navbar-brand fw-bold" href="{{ url('/') }}">Kader Bank Sampah Online</a>
-                <img class="max-h-70px navbar-brand fw-bold" height="50px" src="assets/media/logos/logo-letter-1.png" alt="Bank Sampah Online">
-				<img class="max-h-70px navbar-brand fw-bold" height="50px" src="assets/media/logos/logo-gogreenschool.png" alt="Bank Sampah Online">
+
+                @if ($sponsorHeaderMenuList->isNotEmpty())
+                    @forelse ($sponsorHeaderMenuList as $sponsor)
+                        <a @if($sponsor->url) href="{{ $sponsor->url }}" target="_blank" @else href="#" @endif rel="noopener noreferrer">
+                            <img class="max-h-70px navbar-brand fw-bold" height="50px" src="{{ asset('sponsor/'.$sponsor->gambar) }}" alt="{{ $sponsor->alt_text }}">
+                        </a>
+                    @empty
+                        
+                    @endforelse
+                @endif
 				
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
@@ -108,6 +116,28 @@
                 </div>
             </div>
         </header>
+
+        @if ($sponsorSponsorSectionList->isNotEmpty())
+        <section class="bg-light">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between">
+                    <div class="col-12">
+                        <h3 class="display-4 lh-1 mb-4 text-center">Sponsor / Partner</h3>
+                    </div>
+                    <div class="col-12">
+                        <div class="text-center">
+                            @forelse ($sponsorSponsorSectionList as $sponsor)
+                                <a @if($sponsor->url) href="{{ $sponsor->url }}" target="_blank" @else href="#" @endif rel="noopener noreferrer"><img class="max-h-110px navbar-brand" height="90px" src="{{ asset('sponsor/'.$sponsor->gambar) }}" alt="{{ $sponsor->alt_text }}"></a>
+                            @empty
+                                Tidak Ada Sponsor
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        @endif
+
         <footer class="bg-black text-center py-5">
             <div class="container px-5">
                 <div class="text-white-50 small">

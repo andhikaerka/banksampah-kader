@@ -13,7 +13,11 @@
 
 									<!--begin::Header Nav-->
 									<ul class="menu-nav">
-										
+										<li class="menu-item menu-item-active">
+											<a href="{{ url('/') }}" target="_blank" class="menu-link">
+												<span class="menu-text">Lihat Website</span>
+											</a>
+										</li>
 									</ul>
 
 									<!--end::Header Nav-->
