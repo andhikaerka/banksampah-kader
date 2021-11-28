@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin\Report;
 use App\Http\Controllers\Controller;
 use App\Models\BankSampah;
 use App\Models\BarangKategori;
+use App\Models\KabupatenKota;
 use App\Models\KaderSetoran;
 use App\Models\PenggunaKategori;
+use App\Models\Provinsi;
 use DB;
 use Illuminate\Http\Request;
 
@@ -33,6 +35,12 @@ class ReportSetoranController extends Controller
                 $q->whereYear('kader_setoran.created_at', $request->tahun);
             });
         })
+        ->when(request('provinsi'), function($q) use ($request) {
+            $q->where('province_id', $request->provinsi);
+        })
+        ->when(request('kabupaten_kota'), function($q) use ($request) {
+            $q->where('city_id', $request->kabupaten_kota);
+        })
         ->get();
 
         $setoranTotal = KaderSetoran::with('barang.kategori')->get();
@@ -46,12 +54,26 @@ class ReportSetoranController extends Controller
 
         $penggunaKategoriList = PenggunaKategori::all();
 
+        $bankSampahListProvinsidanKota = BankSampah::select('province_id', 'city_id')
+        ->distinct('province_id', 'city_id')
+        ->get();
+
+        $provinces = Provinsi::select('id', 'name')
+        ->whereIn('id', $bankSampahListProvinsidanKota->pluck('province_id')->toArray())
+        ->get();
+
+        $cities = KabupatenKota::select('id', 'name')
+        ->whereIn('id', $bankSampahListProvinsidanKota->pluck('city_id')->toArray())
+        ->get();
+
         return view('admin.laporan.setoran.index', compact(
             'bankSampahList',
             'kategoriList',
             'setoranTotal',
             'setoranTahunList',
-            'penggunaKategoriList'
+            'penggunaKategoriList',
+            'provinces',
+            'cities'
         ));
     }
 }

@@ -40,19 +40,19 @@
                         </div>
 
                         <div class="col-2">
-                            <select class="form-control mr-2" name="tahun" id="tahun" style="width: 100%;">
+                            <select class="form-control mr-2" name="provinsi" id="provinsi" style="width: 100%;">
                                 <option value="">Provinsi</option>
-                                @foreach ($setoranTahunList as $tahun)
-                                    <option value="{{ $tahun }}" @if($tahun == request()->tahun) selected @endif>{{ $tahun }}</option>
+                                @foreach ($provinces as $provinsi)
+                                    <option value="{{ $provinsi->id }}" @if($provinsi->id == request()->provinsi) selected @endif>{{ $provinsi->name }}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="col-2">
-                            <select class="form-control mr-2" name="tahun" id="tahun" style="width: 100%;">
+                            <select class="form-control mr-2" name="kabupaten_kota" id="kabupaten_kota" style="width: 100%;">
                                 <option value="">Kabupaten/Kota</option>
-                                @foreach ($setoranTahunList as $tahun)
-                                    <option value="{{ $tahun }}" @if($tahun == request()->tahun) selected @endif>{{ $tahun }}</option>
+                                @foreach ($cities as $kabupaten_kota)
+                                    <option value="{{ $kabupaten_kota->id }}" @if($kabupaten_kota->id == request()->kabupaten_kota) selected @endif>{{ $kabupaten_kota->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -1156,6 +1156,8 @@
                     });
 
                     $('#tahun').select2();
+                    $('#provinsi').select2();
+                    $('#kabupaten_kota').select2();
 
                     $('#cetak-xls').on('click', function(e) {
                         e.preventDefault();
