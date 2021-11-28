@@ -25,6 +25,8 @@ class BankSampahUpdate extends FormRequest
     {
         return [
             'nama' => ['required', 'string'],
+            'provinsi' => ['required'],
+            'kabupaten_kota' => ['required'],
         ];
     }
 }

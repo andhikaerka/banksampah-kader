@@ -13,7 +13,7 @@
             <div class="col-12">
                 <form class="" action="" method="GET">
                     <div class="form-group row">
-                        <div class="col-5">
+                        <div class="col-3">
                             <select class="form-control mr-2" name="kategori[]" id="kategori" style="width: 100%;" multiple="multiple">
                                 <option value="">Semua Kategori</option>
                                 @foreach ($penggunaKategoriList as $kategori)
@@ -38,8 +38,26 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        <div class="col-2">
+                            <select class="form-control mr-2" name="tahun" id="tahun" style="width: 100%;">
+                                <option value="">Provinsi</option>
+                                @foreach ($setoranTahunList as $tahun)
+                                    <option value="{{ $tahun }}" @if($tahun == request()->tahun) selected @endif>{{ $tahun }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-2">
+                            <select class="form-control mr-2" name="tahun" id="tahun" style="width: 100%;">
+                                <option value="">Kabupaten/Kota</option>
+                                @foreach ($setoranTahunList as $tahun)
+                                    <option value="{{ $tahun }}" @if($tahun == request()->tahun) selected @endif>{{ $tahun }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         
-                        <div class="col-5">
+                        <div class="col-3">
                             <button type="submit" class="btn btn-primary font-weight-bold">
                                 <i class="flaticon2-search-1"></i>Cari
                             </button>

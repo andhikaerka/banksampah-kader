@@ -18,7 +18,9 @@ class BankSampahController extends Controller
      */
     public function index()
     {
-        $bankSampahList = BankSampah::all();
+        $bankSampahList = BankSampah::with('provinsi')
+        ->with('kabupaten_kota')
+        ->get();
 
         return view('admin.master-bank-sampah.index', compact('bankSampahList'));
     }
@@ -30,7 +32,13 @@ class BankSampahController extends Controller
      */
     public function create()
     {
-        return view('admin.master-bank-sampah.create');
+        $provinces = \Indonesia::allProvinces();
+        $cities = [];
+
+        return view('admin.master-bank-sampah.create', compact(
+            'provinces',
+            'cities'
+        ));
     }
 
     /**
@@ -42,6 +50,8 @@ class BankSampahController extends Controller
     public function store(BankSampahStore $request, BankSampah $bankSampah)
     {
         $bankSampah->nama = $request->nama;
+        $bankSampah->province_id = $request->provinsi;
+        $bankSampah->city_id = $request->kabupaten_kota;
         $bankSampah->created_by = auth()->user()->id;
 
         $bankSampah->save();
@@ -69,7 +79,22 @@ class BankSampahController extends Controller
      */
     public function edit(BankSampah $bankSampah)
     {
-        return view('admin.master-bank-sampah.edit', compact('bankSampah'));
+        if (
+            $bankSampah->province_id and
+            $bankSampah->city_id
+        ) {
+            $provinces = \Indonesia::allProvinces();
+            $cities = \Indonesia::findProvince($bankSampah->province_id, ['cities'])->cities;
+        } else {
+            $provinces = \Indonesia::allProvinces();
+            $cities = [];
+        }
+
+        return view('admin.master-bank-sampah.edit', compact(
+            'bankSampah',
+            'provinces',
+            'cities'
+        ));
     }
 
     /**
@@ -82,6 +107,8 @@ class BankSampahController extends Controller
     public function update(BankSampahUpdate $request, BankSampah $bankSampah)
     {
         $bankSampah->nama = $request->nama;
+        $bankSampah->province_id = $request->provinsi;
+        $bankSampah->city_id = $request->kabupaten_kota;
         $bankSampah->created_by = auth()->user()->id;
 
         $bankSampah->save();

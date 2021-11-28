@@ -127,11 +127,11 @@
         </header>
 
         @if ($sponsorSponsorSectionList->isNotEmpty())
-        <section class="bg-light">
+        <section class="bg-gray-100">
             <div class="container px-5">
                 <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between">
                     <div class="col-12">
-                        <h3 class="display-4 lh-1 mb-4 text-center">Sponsor / Partner</h3>
+                        <h3 class="lh-1 mb-4 text-center">Supported by</h3>
                     </div>
                     <div class="col-12">
                         <div class="text-center">

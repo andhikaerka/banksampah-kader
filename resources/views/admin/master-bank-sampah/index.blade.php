@@ -17,6 +17,8 @@
                 <tr>
                     <th>No</th>
                     <th>Bank Sampah</th>
+                    <th>Provinsi</th>
+                    <th>Kabupaten/Kota</th>
                     <th>Tgl Dibuat</th>
                     <th>Tgl Diubah</th>
                     <th>Dibuat Oleh</th>
@@ -28,6 +30,8 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $bankSampah->nama }}</td>
+                        <td>{{ optional($bankSampah->provinsi)->name }}</td>
+                        <td>{{ optional($bankSampah->kabupaten_kota)->name }}</td>
                         <td>{{ $bankSampah->created_at }}</td>
                         <td>{{ $bankSampah->updated_at }}</td>
                         <td>{{ $bankSampah->created_user->name }}</td>
