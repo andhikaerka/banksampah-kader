@@ -68,16 +68,16 @@
                                     <!-- Feature item-->
                                     <div class="text-center">
                                         <i class="bi bi-archive-fill icon-feature text-gradient d-block mb-1"></i>
-                                        <h3 class="font-alt d-inline" id="plastik">{{ $plastikTotal }}</h3> <span class="d-inline">KG<span>
-                                        <p class="text-muted mb-0">Plastik</p>
+                                        <h3 class="font-alt d-inline" id="plastik">{{ $plastikTotal }}</h3> <span class="d-inline">KG</span>
+                                        <p class="text-muted mb-0 mt-2">Plastik</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-5 mb-md-0">
                                     <!-- Feature item-->
                                     <div class="text-center">
                                         <i class="bi bi-archive icon-feature text-gradient d-block mb-1"></i>
-                                        <h3 class="font-alt d-inline" id="non-plastik">{{ $nonPlastikTotal }}</h3> <span class="d-inline">KG<span>
-                                        <p class="text-muted mb-0">Non Plastik</p>
+                                        <h3 class="font-alt d-inline" id="non-plastik">{{ $nonPlastikTotal }}</h3> <span class="d-inline">KG</span>
+                                        <p class="text-muted mb-0 mt-2">Non Plastik</p>
                                     </div>
                                 </div>
                             </div>
