@@ -20,17 +20,19 @@ class ProfileUpdateController extends Controller
      */
     public function __invoke(PenggunaProfileUpdate $request)
     {
-        
+        // update all user on that bank sampah
+        DB::table('users')
+        ->whereNotNull('bank_sampah_id')
+        ->where('bank_sampah_id', auth()->user()->bank_sampah_id)
+        ->update(
+            array(
+                'bank_sampah_id' => $request->bank_sampah
+            )
+        );
+
         $user = User::find(auth()->user()->id);
 
-        // update all user on that bank sampah
-        $kaderUpdateAll = DB::table('users')
-        ->whereNotNull('bank_sampah_id')
-        ->where('bank_sampah_id', $user->bank_sampah_id)
-        ->update(array(
-            'bank_sampah_id' => $request->bank_sampah
-        ));
-
+        // update pengguna itself
         $user->name = $request->nama;
         $user->email = $request->email;
         $user->telepon = $request->telepon;
