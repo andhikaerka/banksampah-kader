@@ -62,7 +62,7 @@
                                 <i class="flaticon2-search-1"></i>Cari
                             </button>
 
-                            <button type="button" id="cetak-xls" data-url="{{ route('pengguna.excel.export') }}" class="btn btn-success font-weight-bold">
+                            <button type="button" id="cetak-xls" data-url="{{ route('admin.excel.export') }}" class="btn btn-success font-weight-bold">
                                 <i class="far fa-file-excel"></i>Cetak .XLS
                             </button>
                         </div>
@@ -1161,11 +1161,11 @@
 
                     $('#cetak-xls').on('click', function(e) {
                         e.preventDefault();
-
-                        //get bulan
-                        var bulan = $('#bulan').val();
-                        // get tahun
+                        
                         var tahun = $('#tahun').val();
+                        var provinsi = $('#provinsi').val();
+                        var kabupaten_kota = $('#kabupaten_kota').val();
+
                         // akses url to generate pdf
                         var url = $("#cetak-xls").data('url');
                         // button effect
@@ -1181,14 +1181,15 @@
                             },
                             data: {
                                 "tahun": tahun,
-                                "bulan": bulan,
+                                "provinsi": provinsi,
+                                "kabupaten_kota": kabupaten_kota,
                                 "_token": "{{ csrf_token() }}",
                             },
                             success: function (response) {
                                 var blob = new Blob([response], { type: 'application/xls' });
                                 var link = document.createElement('a');
                                 link.href = window.URL.createObjectURL(blob);
-                                link.download = "bank_sampah_" + tahun + "_" + bulan +".xls";
+                                link.download = "bank_sampah_report_setoran_" + tahun +".xls";
                                 link.click();
 
                                 setTimeout(function() {
