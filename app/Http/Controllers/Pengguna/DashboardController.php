@@ -17,16 +17,32 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $penggunaIdBankSampahIni = User::whereHas('roles', function($q){
+            $q->where('name', 'pengguna'); 
+        })
+        ->where('bank_sampah_id', auth()->user()->bank_sampah_id)
+        ->get()
+        ->pluck('id')
+        ->toArray();
+
         $kaderTotal = User::whereHas('roles', function($q){
             $q->where('name', 'kader'); 
         })
+        ->whereIn('created_by', $penggunaIdBankSampahIni)
         ->where('bank_sampah_id', auth()->user()->bank_sampah_id)
         ->count();
 
         $kaderisasiTotal = User::whereHas('roles', function($q){
             $q->where('name', 'kader'); 
         })
-        ->whereNotIn('created_by', [auth()->user()->id])
+        ->whereNotIn('created_by', $penggunaIdBankSampahIni)
+        ->where('bank_sampah_id', auth()->user()->bank_sampah_id)
+        ->count();
+
+        $nasabahTotal = User::whereHas('roles', function($q){
+            $q->where('name', 'kader'); 
+        })
+        ->whereHas('setoran')
         ->where('bank_sampah_id', auth()->user()->bank_sampah_id)
         ->count();
 
@@ -49,6 +65,7 @@ class DashboardController extends Controller
         return view('pengguna.dashboard', compact(
             'kaderTotal',
             'kaderisasiTotal',
+            'nasabahTotal',
             'plastikTotal',
             'nonPlastikTotal'
         ));
