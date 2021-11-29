@@ -20,21 +20,28 @@ class DashboardController extends Controller
     {
         $bankSampahTotal = BankSampah::count();
 
-        $kaderTotal = User::whereHas('roles', function($q){
-            $q->where('name', 'kader'); 
-        })
-        ->count();
-
-        $penggunaList = User::whereHas('roles', function($q){
+        $penggunaList =  User::whereHas('roles', function($q){
             $q->where('name', 'pengguna'); 
         })
         ->pluck('id')
         ->toArray();
 
+        $kaderTotal = User::whereHas('roles', function($q){
+            $q->where('name', 'kader'); 
+        })
+        ->whereIn('created_by', $penggunaList)
+        ->count();
+
         $kaderisasiTotal = User::whereHas('roles', function($q){
             $q->where('name', 'kader'); 
         })
         ->whereNotIn('created_by', $penggunaList)
+        ->count();
+        
+        $nasabahTotal = User::whereHas('roles', function($q){
+            $q->where('name', 'kader');
+        })
+        ->whereHas('setoran')
         ->count();
 
         $plastikTotal = KaderSetoran::whereHas('barang.kategori', function($q){
@@ -51,6 +58,7 @@ class DashboardController extends Controller
             'bankSampahTotal',
             'kaderTotal',
             'kaderisasiTotal',
+            'nasabahTotal',
             'plastikTotal',
             'nonPlastikTotal'
         ));
