@@ -63,9 +63,9 @@ class SetoranController extends Controller
         $setoranAttempt = KaderSetoran::where('created_by', auth()->user()->id)
         ->count();
 
-        // JIKA KADER BELUM 3, MAKA TIDAK BISA BUAT SETORAN KE-1
-        if ($kaderisasiTotal < 3) {
-            Alert::error('Jumlah Kaderisasi Kurang', 'Minimal punya 3 kader')
+        // JIKA KADER BELUM 1, MAKA TIDAK BISA BUAT SETORAN KE-1
+        if ($kaderisasiTotal <= 1) {
+            Alert::error('Jumlah Kaderisasi Kurang', 'Minimal punya 1 kader')
             ->persistent(true)
             ->autoClose(4000);
 
@@ -77,9 +77,9 @@ class SetoranController extends Controller
             }
         }
 
-        // JIKA KADER BELUM 5, MAKA TIDAK BISA BUAT SETORAN KE-2
-        if (($kaderisasiTotal >= 3 && $setoranAttempt == 1) && $kaderisasiTotal < 5) {
-            Alert::error('Jumlah Kaderisasi Kurang', 'Yuk ajakin 2 kader baru :)')
+        // JIKA KADER BELUM 2, MAKA TIDAK BISA BUAT SETORAN KE-2
+        if (($kaderisasiTotal >= 2 && $setoranAttempt == 1) && $kaderisasiTotal < 3) {
+            Alert::error('Jumlah Kaderisasi Kurang', 'Yuk ajakin 1 kader baru :)')
             ->persistent(true)
             ->autoClose(4000);
 
@@ -91,8 +91,8 @@ class SetoranController extends Controller
             }
         }
 
-        if (($kaderisasiTotal >= 5 && $setoranAttempt == 2) && $kaderisasiTotal < 7) {
-            Alert::error('Jumlah Kaderisasi Kurang', 'Nah sekarang lengkapi 2 lagi ya :D')
+        if (($kaderisasiTotal >= 3 && $setoranAttempt == 2) && $kaderisasiTotal < 4) {
+            Alert::error('Jumlah Kaderisasi Kurang', 'Nah sekarang lengkapi 1 lagi ya :D')
             ->persistent(true)
             ->autoClose(4000);
 
@@ -104,8 +104,8 @@ class SetoranController extends Controller
             }
         }
 
-        // JIKA SUDAH PUNYA KADER MINIMAL 7, MAKA BISA BUAT SETORAN SELAMANYA
-        if ($kaderisasiTotal >= 7) {
+        // JIKA SUDAH PUNYA KADER MINIMAL 4, MAKA BISA BUAT SETORAN SELAMANYA
+        if ($kaderisasiTotal >= 4) {
             return $this->save($request, $setoran);
         }
 

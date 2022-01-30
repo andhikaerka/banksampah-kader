@@ -42,7 +42,7 @@
                         <li class="nav-item"><a class="nav-link me-lg-3 fw-bold" href="{{ route('dashboard') }}">Dahsboard</a></li>
                         @else
                         <li class="nav-item"><a class="nav-link me-lg-3 fw-bold" href="{{ route('login') }}">Login</a></li>
-                        <li class="nav-item"><a class="nav-link me-lg-3" href="{{ route('register') }}">Register</a></li>
+                        {{-- <li class="nav-item"><a class="nav-link me-lg-3" href="{{ route('register') }}">Register</a></li> --}}
                         @endif
                     </ul>
                 </div>
