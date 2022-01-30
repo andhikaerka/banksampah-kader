@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\BankSampah;
+use App\Models\KabupatenKota;
 use App\Models\KaderSetoran;
+use App\Models\Provinsi;
 use App\Models\Sponsor;
 use App\Models\User;
+use DB;
 use Illuminate\Http\Request;
 
 class HomepageController extends Controller
@@ -16,7 +19,7 @@ class HomepageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function index(Request $request)
     {
         $bankSampahTotal = BankSampah::count();
 
@@ -58,6 +61,84 @@ class HomepageController extends Controller
         
         $sponsorSponsorSectionList = Sponsor::where('lokasi', 'sponsor-section')->get();
 
+        // FOR TABLE
+        $bankSampahTable = BankSampah::with([
+            'kader',
+            'setoran'
+        ])
+        ->withCount([
+            'kader' => function($query) {
+                $query->whereHas('roles', function($q){
+                    $q->where('name', 'kader');
+                });
+                
+                $penggunaBankSampah = User::whereHas('roles', function($q2) {
+                    $q2->where('name', 'pengguna');
+                })->get()->pluck('id')->toArray();
+
+                $query->whereIn('created_by', $penggunaBankSampah);
+            },
+            'kaderisasi' => function($query) {
+                $query->whereHas('roles', function($q){
+                    $q->where('name', 'kader');
+                });
+                
+                $penggunaBankSampah = User::whereHas('roles', function($q2) {
+                    $q2->where('name', 'pengguna');
+                })->get()->pluck('id')->toArray();
+
+                $query->whereNotIn('created_by', $penggunaBankSampah);
+            },
+            'nasabah' => function($query) {
+                $query->whereHas('roles', function($q){
+                    $q->where('name', 'kader');
+                })
+                ->whereHas('setoran');
+            }
+        ])
+        ->withSum('setoran', 'jumlah')
+        ->withSum(['setoran_plastik' => function($query) {
+            $query->whereHas('barang.kategori', function($q){
+                $q->where('nama', 'plastik'); 
+            });
+        }], 'jumlah')
+        ->withSum(['setoran_non_plastik' => function($query) {
+            $query->whereHas('barang.kategori', function($q){
+                $q->where('nama', 'non plastik'); 
+            });
+        }], 'jumlah')
+        ->when(request('tahun'), function($q) use ($request) {
+            $q->whereHas('kader.setoran', function($q) use ($request) {
+                $q->whereYear('created_at', $request->tahun);
+            });
+        })
+        ->when(request('provinsi'), function($q) use ($request) {
+            $q->where('province_id', $request->provinsi);
+        })
+        ->when(request('kabupaten_kota'), function($q) use ($request) {
+            $q->where('city_id', $request->kabupaten_kota);
+        })
+        ->paginate(10);
+
+        // dd($bankSampahTable);
+        
+        $bankSampahListProvinsidanKota = BankSampah::select('province_id', 'city_id')
+        ->distinct('province_id', 'city_id')
+        ->get();
+
+        $provinces = Provinsi::select('id', 'name')
+        ->whereIn('id', $bankSampahListProvinsidanKota->pluck('province_id')->toArray())
+        ->get();
+
+        $cities = KabupatenKota::select('id', 'name')
+        ->whereIn('id', $bankSampahListProvinsidanKota->pluck('city_id')->toArray())
+        ->get();
+
+        $tahunSetoranList = KaderSetoran::select(DB::raw('YEAR(created_at) AS tahun'))
+        ->distinct()
+        ->orderBy('tahun', 'desc')
+        ->get();
+
         return view('homepage', compact(
             'bankSampahTotal',
             'nasabahTotal',
@@ -66,7 +147,11 @@ class HomepageController extends Controller
             'plastikTotal',
             'nonPlastikTotal',
             'sponsorHeaderMenuList',
-            'sponsorSponsorSectionList'
+            'sponsorSponsorSectionList',
+            'bankSampahTable',
+            'provinces',
+            'cities',
+            'tahunSetoranList'
         ));
     }
 }

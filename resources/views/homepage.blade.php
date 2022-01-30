@@ -38,6 +38,7 @@
 				
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
+                        <li class="nav-item"><a class="nav-link me-lg-3 fw-bold" href="#capaian_program">Capaian Program</a></li>
                         @if (auth()->check())
                         <li class="nav-item"><a class="nav-link me-lg-3 fw-bold" href="{{ route('dashboard') }}">Dahsboard</a></li>
                         @else
@@ -125,6 +126,84 @@
                 </div>
             </div>
         </header>
+
+        <section id="capaian_program" style="background-color: #f4f4f4;">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-12 order-lg-1 mb-5 mb-lg-0">
+                        <div class="container-fluid px-5">
+                            <h2 class="text-center text-dark font-alt mb-5">Capaian Program</h2>
+                            <div class="row">
+                                <form class="mb-2 px-0" action="" method="GET">
+                                    <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center">
+                                        <select class="form-control" name="provinsi" id="provinsi" style="margin-right:5px">
+                                            <option value="">- Semua Provinsi -</option>
+                                            @foreach ($provinces as $province)
+                                            <option value="{{ $province->id }}" @if($province->id == request('provinsi')) selected @endif>{{ $province->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <select class="form-control" name="kabupaten_kota" id="kabupaten_kota" style="margin-right:5px">
+                                            <option value="">- Semua Kabupaten/Kota -</option>
+                                            @foreach ($cities as $city)
+                                            <option value="{{ $city->id }}" @if($city->id == request('kabupaten_kota')) selected @endif>{{ $city->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <select class="form-control" name="tahun" id="tahun" style="margin-right:5px">
+                                            <option value="">- Semua Tahun Setoran-</option>
+                                            @foreach ($tahunSetoranList as $tahunSetoran)
+                                            <option value="{{ $tahunSetoran->tahun }}" @if($tahunSetoran->tahun == request('tahun')) selected @endif>{{ $tahunSetoran->tahun }}</option>
+                                            @endforeach
+                                        </select>
+                                        <button class="btn btn-primary" type="submit">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </form>
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th rowspan="2" class="align-middle">No</th>
+                                            <th rowspan="2" class="align-middle">Bank Sampah</th>
+                                            <th colspan="3" class="text-center">Penerima Manfaat</th>
+                                            <th colspan="3" class="text-center">Jumlah Tabungan</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="align-middle">Kader <br> (Langsung)</th>
+                                            <th class="align-middle">Kaderisasi <br> (Tidak Langsung)</th>
+                                            <th class="align-middle">Nasabah</th>
+    
+                                            <th class="align-middle">Plastik (KG)</th>
+                                            <th class="align-middle">Non Plastik (KG)</th>
+                                            <th class="align-middle">Total (KG)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($bankSampahTable as $bankSampah)
+                                        <tr>
+                                            <td>{{ $bankSampahTable->firstItem() + $loop->index }}</td>
+                                            <td>{{ $bankSampah->nama }}</td>
+                                            <td align="right">{{ $bankSampah->kader_count }}</td>
+                                            <td align="right">{{ $bankSampah->kaderisasi_count }}</td>
+                                            <td align="right">{{ $bankSampah->nasabah_count }}</td>
+                                            <td align="right">{{ float_two($bankSampah->setoran_plastik_sum_jumlah) }}</td>
+                                            <td align="right">{{ float_two($bankSampah->setoran_non_plastik_sum_jumlah) }}</td>
+                                            <td align="right">{{ float_two($bankSampah->setoran_sum_jumlah) }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+    
+                                {{ $bankSampahTable->appends([
+                                    'provinsi' => request('provinsi'),
+                                    'kabupaten_kota' => request('kabupaten_kota'),
+                                    'tahun' => request('tahun')
+                                    ])->links() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         @if ($sponsorSponsorSectionList->isNotEmpty())
         <section class="bg-gray-100">

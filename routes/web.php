@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', HomepageController::class);
+Route::get('/', [HomepageController::class, 'index'])->name('homepage.index');
 
 require __DIR__.'/auth.php';
 
