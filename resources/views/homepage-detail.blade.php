@@ -15,7 +15,7 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
     </head>
-    <body onload="load()">
+    <body>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
             <div class="container px-5">
@@ -57,13 +57,13 @@
                         <div class="row">
                             <form class="mb-2 px-0" action="" method="GET">
                                 <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center">
-                                    <select class="form-control" name="provinsi" id="provinsi" style="margin-right:5px">
+                                    <select class="form-control" name="provinsi" id="province" style="margin-right:5px" onchange="ajaxChained('#province','#city','city')">
                                         <option value="">- Semua Provinsi -</option>
                                         @foreach ($provinces as $province)
                                         <option value="{{ $province->id }}" @if($province->id == request('provinsi')) selected @endif>{{ $province->name }}</option>
                                         @endforeach
                                     </select>
-                                    <select class="form-control" name="kabupaten_kota" id="kabupaten_kota" style="margin-right:5px">
+                                    <select class="form-control" name="kabupaten_kota" id="city" style="margin-right:5px">
                                         <option value="">- Semua Kabupaten/Kota -</option>
                                         @foreach ($cities as $city)
                                         <option value="{{ $city->id }}" @if($city->id == request('kabupaten_kota')) selected @endif>{{ $city->name }}</option>
@@ -123,7 +123,8 @@
                             {{ $bankSampahTable->appends([
                                 'provinsi' => request('provinsi'),
                                 'kabupaten_kota' => request('kabupaten_kota'),
-                                'tahun' => request('tahun')
+                                'tahun' => request('tahun'),
+                                'kategori' => request('kategori')
                                 ])->links() }}
                         </div>
                     </div>
@@ -144,6 +145,42 @@
             </div>
         </footer>
         <!-- Bootstrap core JS-->
+        <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>                
+            function ajaxChained(source, target, slug){
+                var pid = $(source + ' option:selected').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ url('/') }}/'+ slug +'/'+ pid,
+                    dataType: 'json',
+                    data: { 
+                        id : pid,
+                        _token: "{{ csrf_token() }}",
+                    }
+                }).done(function(response){
+                    //get JSON
+            
+                    $(target).prop("disabled", true);
+            
+                    //generate <options from JSON
+                    var list_html = '';
+                    list_html += '<option value="">- Pilih Kabupaten/Kota -</option>';
+                    $.each(response.data, function(i, item) {
+                        list_html += '<option value='+response.data[i].id+'>'+response.data[i].name+'</option>';
+                    });
+                    
+                    //replace <select2 with new options
+                    $(target).html(list_html);
+                    $(target).prop("disabled", false);
+                    //change placeholder text
+                    // $(target).select2({placeholder: response.data.length +' results'});
+                    // $(target).attr("placeholder", slug);
+                });
+            }
+        </script>
     </body>
 </html>

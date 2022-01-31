@@ -102,6 +102,10 @@ class HomepageController extends Controller
                 $query->when(request('tahun'), function($q) use ($request) {
                     $q->whereYear('created_at', $request->tahun);
                 });
+
+                $query->when(request('kategori'), function($q) use ($request) {
+                    $q->where('kader_kategori_id', $request->kategori);
+                });
             },
             'kaderisasi' => function($query) use ($request) {
                 $query->whereHas('roles', function($q){
@@ -117,6 +121,10 @@ class HomepageController extends Controller
                 $query->when(request('tahun'), function($q) use ($request) {
                     $q->whereYear('created_at', $request->tahun);
                 });
+
+                $query->when(request('kategori'), function($q) use ($request) {
+                    $q->where('kader_kategori_id', $request->kategori);
+                });
             },
             'nasabah' => function($query) use ($request) {
                 $query->whereHas('roles', function($q){
@@ -127,17 +135,53 @@ class HomepageController extends Controller
                 $query->when(request('tahun'), function($q) use ($request) {
                     $q->whereYear('created_at', $request->tahun);
                 });
+
+                $query->when(request('kategori'), function($q) use ($request) {
+                    $q->where('kader_kategori_id', $request->kategori);
+                });
             }
         ])
-        ->withSum('setoran', 'jumlah')
-        ->withSum(['setoran_plastik' => function($query) {
-            $query->whereHas('barang.kategori', function($q){
+        ->withSum(['setoran' => function($query) use ($request) {
+            $query->when(request('kategori'), function($q2) use ($request) {
+                $q2->whereHas('created_user', function($q3) use ($request) {
+                    $q3->where('kader_kategori_id', $request->kategori);
+                });
+            });
+
+            $query->when(request('tahun'), function($q3) use ($request) {
+                $q3->whereYear('kader_setoran.created_at', $request->tahun);
+            });
+
+        }], 'jumlah')
+        ->withSum(['setoran_plastik' => function($query) use ($request) {
+            $query->whereHas('barang.kategori', function($q) {
                 $q->where('nama', 'plastik'); 
             });
+
+            $query->when(request('kategori'), function($q2) use ($request) {
+                $q2->whereHas('created_user', function($q3) use ($request) {
+                    $q3->where('kader_kategori_id', $request->kategori);
+                });
+            });
+
+            $query->when(request('tahun'), function($q3) use ($request) {
+                $q3->whereYear('kader_setoran.created_at', $request->tahun);
+            });
+            
         }], 'jumlah')
-        ->withSum(['setoran_non_plastik' => function($query) {
+        ->withSum(['setoran_non_plastik' => function($query) use ($request) {
             $query->whereHas('barang.kategori', function($q){
                 $q->where('nama', 'non plastik'); 
+            });
+
+            $query->when(request('kategori'), function($q2) use ($request) {
+                $q2->whereHas('created_user', function($q3) use ($request) {
+                    $q3->where('kader_kategori_id', $request->kategori);
+                });
+            });
+
+            $query->when(request('tahun'), function($q3) use ($request) {
+                $q3->whereYear('kader_setoran.created_at', $request->tahun);
             });
         }], 'jumlah')
         ->when(request('provinsi'), function($q) use ($request) {
@@ -146,6 +190,7 @@ class HomepageController extends Controller
         ->when(request('kabupaten_kota'), function($q) use ($request) {
             $q->where('city_id', $request->kabupaten_kota);
         })
+        ->orderBy(DB::raw('nasabah_count/kader_count*100'), 'desc')
         ->paginate(10);
         
         $bankSampahListProvinsidanKota = BankSampah::select('province_id', 'city_id')
