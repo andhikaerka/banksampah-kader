@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage.index');
+Route::get('/show', [HomepageController::class, 'show'])->name('homepage.show');
 
 require __DIR__.'/auth.php';
 

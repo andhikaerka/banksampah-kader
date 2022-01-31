@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BankSampah;
 use App\Models\KabupatenKota;
 use App\Models\KaderSetoran;
+use App\Models\PenggunaKategori;
 use App\Models\Provinsi;
 use App\Models\Sponsor;
 use App\Models\User;
@@ -61,14 +62,34 @@ class HomepageController extends Controller
         
         $sponsorSponsorSectionList = Sponsor::where('lokasi', 'sponsor-section')->get();
 
+        return view('homepage', compact(
+            'bankSampahTotal',
+            'nasabahTotal',
+            'kaderisasiTotal',
+            'kaderTotal',
+            'plastikTotal',
+            'nonPlastikTotal',
+            'sponsorHeaderMenuList',
+            'sponsorSponsorSectionList'
+        ));
+    }
+
+    public function show(Request $request)
+    {
+        $sponsorHeaderMenuList = Sponsor::where('lokasi', 'header-menu')->get();
+        
+        $sponsorSponsorSectionList = Sponsor::where('lokasi', 'sponsor-section')->get();
+
+        $penggunaKategoriList = PenggunaKategori::all();
+
         // FOR TABLE
         $bankSampahTable = BankSampah::with([
             'kader',
             'setoran'
         ])
         ->withCount([
-            'kader' => function($query) {
-                $query->whereHas('roles', function($q){
+            'kader' => function($query) use ($request) {
+                $query->whereHas('roles', function($q) {
                     $q->where('name', 'kader');
                 });
                 
@@ -77,8 +98,12 @@ class HomepageController extends Controller
                 })->get()->pluck('id')->toArray();
 
                 $query->whereIn('created_by', $penggunaBankSampah);
+
+                $query->when(request('tahun'), function($q) use ($request) {
+                    $q->whereYear('created_at', $request->tahun);
+                });
             },
-            'kaderisasi' => function($query) {
+            'kaderisasi' => function($query) use ($request) {
                 $query->whereHas('roles', function($q){
                     $q->where('name', 'kader');
                 });
@@ -88,12 +113,20 @@ class HomepageController extends Controller
                 })->get()->pluck('id')->toArray();
 
                 $query->whereNotIn('created_by', $penggunaBankSampah);
+
+                $query->when(request('tahun'), function($q) use ($request) {
+                    $q->whereYear('created_at', $request->tahun);
+                });
             },
-            'nasabah' => function($query) {
+            'nasabah' => function($query) use ($request) {
                 $query->whereHas('roles', function($q){
                     $q->where('name', 'kader');
                 })
                 ->whereHas('setoran');
+
+                $query->when(request('tahun'), function($q) use ($request) {
+                    $q->whereYear('created_at', $request->tahun);
+                });
             }
         ])
         ->withSum('setoran', 'jumlah')
@@ -107,11 +140,6 @@ class HomepageController extends Controller
                 $q->where('nama', 'non plastik'); 
             });
         }], 'jumlah')
-        ->when(request('tahun'), function($q) use ($request) {
-            $q->whereHas('kader.setoran', function($q) use ($request) {
-                $q->whereYear('created_at', $request->tahun);
-            });
-        })
         ->when(request('provinsi'), function($q) use ($request) {
             $q->where('province_id', $request->provinsi);
         })
@@ -119,8 +147,6 @@ class HomepageController extends Controller
             $q->where('city_id', $request->kabupaten_kota);
         })
         ->paginate(10);
-
-        // dd($bankSampahTable);
         
         $bankSampahListProvinsidanKota = BankSampah::select('province_id', 'city_id')
         ->distinct('province_id', 'city_id')
@@ -139,19 +165,14 @@ class HomepageController extends Controller
         ->orderBy('tahun', 'desc')
         ->get();
 
-        return view('homepage', compact(
-            'bankSampahTotal',
-            'nasabahTotal',
-            'kaderisasiTotal',
-            'kaderTotal',
-            'plastikTotal',
-            'nonPlastikTotal',
+        return view('homepage-detail', compact(
             'sponsorHeaderMenuList',
             'sponsorSponsorSectionList',
             'bankSampahTable',
             'provinces',
             'cities',
-            'tahunSetoranList'
+            'tahunSetoranList',
+            'penggunaKategoriList'
         ));
     }
 }
