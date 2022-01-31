@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\BankSampah;
 use App\Models\KabupatenKota;
+use App\Models\KaderKategori;
 use App\Models\KaderSetoran;
-use App\Models\PenggunaKategori;
 use App\Models\Provinsi;
 use App\Models\Sponsor;
 use App\Models\User;
@@ -80,7 +80,7 @@ class HomepageController extends Controller
         
         $sponsorSponsorSectionList = Sponsor::where('lokasi', 'sponsor-section')->get();
 
-        $penggunaKategoriList = PenggunaKategori::all();
+        $kaderKategoriList = KaderKategori::all();
 
         // FOR TABLE
         $bankSampahTable = BankSampah::with([
@@ -172,7 +172,7 @@ class HomepageController extends Controller
             'provinces',
             'cities',
             'tahunSetoranList',
-            'penggunaKategoriList'
+            'kaderKategoriList'
         ));
     }
 }

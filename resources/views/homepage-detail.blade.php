@@ -71,8 +71,8 @@
                                     </select>
                                     <select class="form-control" name="kategori" id="kategori" style="margin-right:5px">
                                         <option value="">- Semua Kategori -</option>
-                                        @foreach ($penggunaKategoriList as $penggunaKategori)
-                                        <option value="{{ $penggunaKategori->id }}" @if($penggunaKategori->id == request('kategori')) selected @endif>{{ $penggunaKategori->nama }}</option>
+                                        @foreach ($kaderKategoriList as $kaderKategori)
+                                        <option value="{{ $kaderKategori->id }}" @if($kaderKategori->id == request('kategori')) selected @endif>{{ $kaderKategori->nama }}</option>
                                         @endforeach
                                     </select>
                                     <select class="form-control" name="tahun" id="tahun" style="margin-right:5px">
