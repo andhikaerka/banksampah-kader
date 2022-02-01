@@ -148,9 +148,9 @@ class HomepageController extends Controller
                 });
             });
 
-            $query->when(request('tahun'), function($q3) use ($request) {
-                $q3->whereYear('kader_setoran.created_at', $request->tahun);
-            });
+            // $query->when(request('tahun'), function($q3) use ($request) {
+            //     $q3->whereYear('kader_setoran.created_at', $request->tahun);
+            // });
 
         }], 'jumlah')
         ->withSum(['setoran_plastik' => function($query) use ($request) {
@@ -158,15 +158,15 @@ class HomepageController extends Controller
                 $q->where('nama', 'plastik'); 
             });
 
-            $query->when(request('kategori'), function($q2) use ($request) {
-                $q2->whereHas('created_user', function($q3) use ($request) {
-                    $q3->where('kader_kategori_id', $request->kategori);
-                });
-            });
+            // $query->when(request('kategori'), function($q2) use ($request) {
+            //     $q2->whereHas('created_user', function($q3) use ($request) {
+            //         $q3->where('kader_kategori_id', $request->kategori);
+            //     });
+            // });
 
-            $query->when(request('tahun'), function($q3) use ($request) {
-                $q3->whereYear('kader_setoran.created_at', $request->tahun);
-            });
+            // $query->when(request('tahun'), function($q3) use ($request) {
+            //     $q3->whereYear('kader_setoran.created_at', $request->tahun);
+            // });
             
         }], 'jumlah')
         ->withSum(['setoran_non_plastik' => function($query) use ($request) {
@@ -174,15 +174,15 @@ class HomepageController extends Controller
                 $q->where('nama', 'non plastik'); 
             });
 
-            $query->when(request('kategori'), function($q2) use ($request) {
-                $q2->whereHas('created_user', function($q3) use ($request) {
-                    $q3->where('kader_kategori_id', $request->kategori);
-                });
-            });
+            // $query->when(request('kategori'), function($q2) use ($request) {
+            //     $q2->whereHas('created_user', function($q3) use ($request) {
+            //         $q3->where('kader_kategori_id', $request->kategori);
+            //     });
+            // });
 
-            $query->when(request('tahun'), function($q3) use ($request) {
-                $q3->whereYear('kader_setoran.created_at', $request->tahun);
-            });
+            // $query->when(request('tahun'), function($q3) use ($request) {
+            //     $q3->whereYear('kader_setoran.created_at', $request->tahun);
+            // });
         }], 'jumlah')
         ->when(request('provinsi'), function($q) use ($request) {
             $q->where('province_id', $request->provinsi);
@@ -190,6 +190,9 @@ class HomepageController extends Controller
         ->when(request('kabupaten_kota'), function($q) use ($request) {
             $q->where('city_id', $request->kabupaten_kota);
         })
+        ->having('kader_count', '>', 0)
+        ->having('kaderisasi_count', '>', 0)
+        ->having('nasabah_count', '>', 0)
         ->orderBy(DB::raw('nasabah_count/kader_count*100'), 'desc')
         ->paginate(10);
         

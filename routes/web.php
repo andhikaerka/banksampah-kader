@@ -4,9 +4,9 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\GantiPasswordController;
 use App\Http\Controllers\HomeDashboardController;
+use App\Http\Controllers\HomepageCityController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\VillageController;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +24,7 @@ Route::get('/', [HomepageController::class, 'index'])->name('homepage.index');
 Route::get('/show', [HomepageController::class, 'show'])->name('homepage.show');
 
 // Location
+Route::post('city-homepage/{province?}', HomepageCityController::class);
 Route::post('city/{province}', CityController::class);
 Route::post('district/{city}', DistrictController::class);
 Route::post('village/{district}', VillageController::class);

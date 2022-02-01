@@ -155,7 +155,7 @@
                 var pid = $(source + ' option:selected').val();
                 $.ajax({
                     type: 'POST',
-                    url: '{{ url('/') }}/'+ slug +'/'+ pid,
+                    url: "{{ url('/city-homepage') }}" + "/" + pid,
                     dataType: 'json',
                     data: { 
                         id : pid,
